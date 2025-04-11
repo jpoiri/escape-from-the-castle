@@ -15,7 +15,7 @@ export default class PlayScene extends Phaser.Scene {
 	chests = null;
 	tilemap = null;
 	safes = null;
-	items = [];
+	items = null;
 	selectedItem = null;
 	selectedRectangle = null;
 	dialogGroup = null;
@@ -25,8 +25,8 @@ export default class PlayScene extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.tilemapTiledJSON(LoaderKey.TILEMAP, 'assets/json/escape-room-map.json');
-		this.load.image(LoaderKey.TILESET, 'assets/img/tiles.png');
+		this.load.tilemapTiledJSON(LoaderKey.TILEMAP, 'assets/json/escape-room-map-room-a.json');
+		this.load.image(LoaderKey.TILESET, 'assets/img/castle-tiles/Tileset.png');
 		this.load.image(LoaderKey.FRAME, 'assets/img/frame.png');
 		this.load.spritesheet(LoaderKey.ITEMS, 'assets/img/items.png', { frameWidth: 16, frameHeight: 16 });
 		this.load.spritesheet(LoaderKey.UI, 'assets/img/ui.png', { frameWidth: 32, frameHeight: 13 });
@@ -37,13 +37,13 @@ export default class PlayScene extends Phaser.Scene {
 
 	create() {
 		this.tilemap = this.createTilemap(LoaderKey.TILEMAP);
-		const tileset = this.createTileset(this.tilemap, 'cavern_ruins', LoaderKey.TILESET);
+		const tileset = this.createTileset(this.tilemap, 'castle-tiles', LoaderKey.TILESET);
 		const { objectsLayer, foregroundLayer } = this.createLayers(this.tilemap, tileset);
-		this.chests = this.createChests(objectsLayer);
-		this.door = this.createDoor(objectsLayer);
-		this.safes = this.createSafes(objectsLayer);
-		this.scrambledSigns = this.createScrambledSigns(objectsLayer);
-		this.signs = this.createSigns(objectsLayer);
+		//this.chests = this.createChests(objectsLayer);
+		//this.door = this.createDoor(objectsLayer);
+		//this.safes = this.createSafes(objectsLayer);
+		//this.scrambledSigns = this.createScrambledSigns(objectsLayer);
+		//this.signs = this.createSigns(objectsLayer);
 		this.createHud();
 		this.startTimer(1);
 	}
@@ -248,7 +248,9 @@ export default class PlayScene extends Phaser.Scene {
 	}
 
 	scrambleDialogs(scrambled) {
-		this.scrambledSigns.forEach((dialog) => dialog.setScrambled(scrambled));
+		if (this.scrambleSigns) {
+			this.scrambledSigns.forEach((dialog) => dialog.setScrambled(scrambled));
+		}
 	}
 
 	showDialog(text, itemTexture, itemFrame, closeCallback) {
@@ -507,17 +509,25 @@ export default class PlayScene extends Phaser.Scene {
 		}
 
 		if (this.isItemSelected(Item.KEY)) {
-			const chest = this.chests.find((chest) => chest.name === 'chest');
-			chest.unlock();
+			if (this.chests) {
+				const chest = this.chests.find((chest) => chest.name === 'chest');
+				chest.unlock();
+			}
 		} else {
-			const chest = this.chests.find((chest) => chest.name === 'chest');
-			chest.lock();
+			if (this.chests) {
+				const chest = this.chests.find((chest) => chest.name === 'chest');
+				chest.lock();
+			}
 		}
 
 		if (this.isItemSelected(Item.MASTER_KEY)) {
-			this.door.unlock();
+			if (this.door) {
+				this.door.unlock();
+			}
 		} else {
-			this.door.lock();
+			if (this.door) {
+				this.door.lock();
+			}
 		}
 
 		const worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);

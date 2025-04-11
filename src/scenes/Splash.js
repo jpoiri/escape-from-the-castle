@@ -7,10 +7,10 @@ export default class SplashScene extends Phaser.Scene {
     }
 
     create() {
-        const text = this.add.text(512, 250, 'Escape from the dungeon', {
+        const text = this.add.text(512, 250, 'Escape from the Dracula Castle', {
             fontSize: '50px',
             fontFamily: 'Verdana',
-            fill: '#000'
+            fill: '#fff'
         });
         text.setStroke('#543873', 6);
         text.setOrigin(0.5, 0.5);

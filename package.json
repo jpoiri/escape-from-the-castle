@@ -1,7 +1,7 @@
 {
-	"name": "escape-room",
+	"name": "escape-from-dracula-castle",
 	"version": "1.0.0",
-	"description": "My first escape room with Phaser.js",
+	"description": "Escape room made with Phaser.js",
 	"private": true,
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
