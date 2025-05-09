@@ -1,15 +1,13 @@
 import Phaser from 'phaser';
-import Chest from '../entities/Chest';
-import Safe from '../entities/Safe';
-import Door from '../entities/Door';
-import Sign from '../entities/Sign';
-import ScrambledSign from '../entities/ScrambledSign';
-import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Tile, Item, Animation, Frame } from '../constants';
+import Chest from '../../entities/Chest';
+import Safe from '../../entities/Safe';
+import Door from '../../entities/Door';
+import Sign from '../../entities/Sign';
+import ScrambledSign from '../../entities/ScrambledSign';
+import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Tile, Item, Animation, Frame } from '../../constants';
 
-const SECRET_TILE_X = 6;
-const SECRET_TILE_Y = 3;
 
-export default class PlayScene extends Phaser.Scene {
+export default class BaseRoomScene extends Phaser.Scene {
 	signs = null;
 	door = null;
 	chests = null;
@@ -20,30 +18,8 @@ export default class PlayScene extends Phaser.Scene {
 	selectedRectangle = null;
 	dialogGroup = null;
 
-	constructor() {
-		super('play');
-	}
-
-	preload() {
-		this.load.tilemapTiledJSON(LoaderKey.TILEMAP, 'assets/json/escape-room-map-room-a.json');
-		this.load.image(LoaderKey.TILESET, 'assets/img/castle-tiles/Tileset.png');
-		this.load.image(LoaderKey.FRAME, 'assets/img/frame.png');
-		this.load.spritesheet(LoaderKey.ITEMS, 'assets/img/items.png', { frameWidth: 16, frameHeight: 16 });
-		this.load.spritesheet(LoaderKey.UI, 'assets/img/ui.png', { frameWidth: 32, frameHeight: 13 });
-		this.load.spritesheet(LoaderKey.CHEST, 'assets/img/chest.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.spritesheet(LoaderKey.DOOR, 'assets/img/door.png', { frameWidth: 24, frameHeight: 32 });
-		this.load.spritesheet(LoaderKey.SAFE, 'assets/img/safe.png', { frameWidth: 32, frameHeight: 40 });
-	}
-
-	create() {
-		this.tilemap = this.createTilemap(LoaderKey.TILEMAP);
-		const tileset = this.createTileset(this.tilemap, 'castle-tiles', LoaderKey.TILESET);
-		const { objectsLayer, foregroundLayer } = this.createLayers(this.tilemap, tileset);
-		//this.chests = this.createChests(objectsLayer);
-		//this.door = this.createDoor(objectsLayer);
-		//this.safes = this.createSafes(objectsLayer);
-		//this.scrambledSigns = this.createScrambledSigns(objectsLayer);
-		//this.signs = this.createSigns(objectsLayer);
+	create(roomKey) {
+		this.loadRoom(roomKey);
 		this.createHud();
 		this.startTimer(1);
 	}
@@ -66,6 +42,17 @@ export default class PlayScene extends Phaser.Scene {
 				this.selectedRectangle.setStrokeStyle(3, 0xffffff);
 			});
 		}
+	}
+
+	loadRoom(roomKey) {
+		this.tilemap = this.createTilemap(roomKey);
+		const tileset = this.createTileset(this.tilemap, 'castle-tiles', LoaderKey.TILESET);
+		const { objectsLayer, foregroundLayer } = this.createLayers(this.tilemap, tileset);
+		//this.chests = this.createChests(objectsLayer);
+		//this.door = this.createDoor(objectsLayer);
+		//this.safes = this.createSafes(objectsLayer);
+		//this.scrambledSigns = this.createScrambledSigns(objectsLayer);
+		//this.signs = this.createSigns(objectsLayer);
 	}
 
 	createTilemap(tilemapKey) {
@@ -308,30 +295,6 @@ export default class PlayScene extends Phaser.Scene {
 		return dialogs.find((dialog) => dialog.name == name);
 	}
 
-	isBreakableWindowTile(tile) {
-		return tile?.index === Tile.CLOSE_WINDOW;
-	}
-
-	breakWindow(x, y) {
-		this.tilemap.putTileAt(Tile.OPEN_WINDOW, x, y);
-	}
-
-	getBreakableWindowsTiles(tilemap) {
-		return tilemap.filterTiles((tile) => tile.index === Tile.CLOSE_WINDOW);
-	}
-
-	hasBreakableWindowsTiles() {
-		return this.getBreakableWindowsTiles(this.tilemap).length === 0 ? false : true;
-	}
-
-	getCoffinTiles(tilemap) {
-		return this.tilemap.filterTiles((tile) => Tile.COFFIN.includes(tile.index));
-	}
-
-	destroyCoffin() {
-		this.tilemap.removeTile(this.getCoffinTiles(this.tilemap));
-	}
-
 	spawnItem(x, y, itemName, itemTexture, itemFrame, itemDescription) {
 		const item = this.add.image(x, y, itemTexture, itemFrame);
 		item.setScale(2);
@@ -347,114 +310,6 @@ export default class PlayScene extends Phaser.Scene {
 				this.updateHud();
 			});
 		});
-	}
-
-	isChairTile(tile) {
-		return (tile?.x === 23 && tile?.y === 4) || (tile?.x === 23 && tile?.y === 5) || (tile?.x === 23 && tile?.y === 6);
-	}
-
-	moveChair() {
-		this.tilemap.putTileAt(Tile.TOP_CHAIR, 22, 4);
-		this.tilemap.putTileAt(Tile.MIDDLE_CHAIR, 22, 5);
-		this.tilemap.putTileAt(Tile.BOTTOM_CHAIR, 22, 6);
-		this.tilemap.putTileAt(Tile.SIGN, 23, 6);
-		this.tilemap.removeTileAt(23, 4);
-		this.tilemap.removeTileAt(23, 5);
-		const sign = this.signs.find((sign) => sign.name === 'chair-sign');
-		sign.setVisible(true);
-	}
-
-	isKnightTile(tile) {
-		return (tile?.x === 22 && tile?.y === 15) || (tile?.x === 22 && tile?.y === 16);
-	}
-
-	destroyKnight() {
-		const sign = this.signs.find((sign) => sign.name === 'knight-sign');
-		sign.setVisible(true);
-		this.tilemap.putTileAt(Tile.SIGN, 22, 15);
-		this.tilemap.putTileAt(Tile.DESTROYED_KNIGHT, 22, 16);
-	}
-
-	isBreakableWallTile(tile) {
-		return tile?.x === SECRET_TILE_X && tile?.y === SECRET_TILE_Y;
-	}
-
-	breakWall(x, y) {
-		this.tilemap.putTileAt(Tile.HOLE_IN_WALL, x, y);
-	}
-
-	isLeftGargoyleTile(tile) {
-		return (
-			(tile?.x === 3 && tile?.y === 15) ||
-			(tile?.x === 3 && tile?.y === 16) ||
-			(tile?.x === 4 && tile?.y === 15) ||
-			(tile?.x === 4 && tile?.y === 16)
-		);
-	}
-
-	isRightGargoyleTile(tile) {
-		return (
-			(tile?.x === 8 && tile?.y === 15) ||
-			(tile?.x === 8 && tile?.y === 16) ||
-			(tile?.x === 9 && tile?.y === 15) ||
-			(tile?.x === 9 && tile?.y === 16)
-		);
-	}
-
-	moveLeftGargoyle(tile) {
-		this.tilemap.putTileAt(Tile.TOP_LEFT_GARGOYLE, 2, 15);
-		this.tilemap.putTileAt(Tile.TOP_RIGHT_GARGOYLE, 3, 15);
-		this.tilemap.putTileAt(Tile.BOTTOM_LEFT_GARGOYLE, 2, 16);
-		this.tilemap.putTileAt(Tile.BOTTOM_RIGHT_GARGOYLE, 3, 16);
-		this.tilemap.removeTileAt(4, 15);
-		this.tilemap.removeTileAt(4, 16);
-	}
-
-	moveRightGargoyle(tile) {
-		this.tilemap.putTileAt(Tile.TOP_LEFT_GARGOYLE, 9, 15);
-		this.tilemap.putTileAt(Tile.TOP_RIGHT_GARGOYLE, 10, 15);
-		this.tilemap.putTileAt(Tile.BOTTOM_LEFT_GARGOYLE, 9, 16);
-		this.tilemap.putTileAt(Tile.BOTTOM_RIGHT_GARGOYLE, 10, 16);
-		this.tilemap.removeTileAt(8, 15);
-		this.tilemap.putTileAt(Tile.STAIR, 8, 16);
-	}
-
-	isFireTile(tile) {
-		return (
-			(tile?.x === 12 && tile?.y === 18) ||
-			(tile?.x === 13 && tile?.y === 18) ||
-			(tile?.x === 14 && tile?.y === 18) ||
-			(tile?.x === 12 && tile?.y === 19) ||
-			(tile?.x === 13 && tile?.y === 19) ||
-			(tile?.x === 14 && tile?.y === 19) ||
-			(tile?.x === 12 && tile?.y === 20) ||
-			(tile?.x === 13 && tile?.y === 20) ||
-			(tile?.x === 14 && tile?.y === 20)
-		);
-	}
-
-	extinguishFire() {
-		this.tilemap.putTileAt(Tile.TOP_LEFT_WATER, 12, 18);
-		this.tilemap.putTileAt(Tile.TOP_CENTER_WATER, 13, 18);
-		this.tilemap.putTileAt(Tile.TOP_RIGHT_WATER, 14, 18);
-		this.tilemap.putTileAt(Tile.MIDDLE_LEFT_WATER, 12, 19);
-		this.tilemap.putTileAt(Tile.MIDDLE_CENTER_WATER, 13, 19);
-		this.tilemap.putTileAt(Tile.MIDDLE_RIGHT_WATER, 14, 19);
-		this.tilemap.putTileAt(Tile.BOTTOM_LEFT_WATER, 12, 20);
-		this.tilemap.putTileAt(Tile.BOTTOM_CENTER_WATER, 13, 20);
-		this.tilemap.putTileAt(Tile.BOTTOM_RIGHT_WATER, 14, 20);
-	}
-
-	isSkeletonTile(tile) {
-		return tile?.x === 7 && tile?.y === 9;
-	}
-
-	isStairTile(tile) {
-		return tile?.index === Tile.STAIR;
-	}
-
-	digSkeleton() {
-		this.tilemap.putTileAt(Tile.DIGGED_HOLE, 7, 9);
 	}
 
 	isItemSelected(name) {
@@ -495,102 +350,20 @@ export default class PlayScene extends Phaser.Scene {
 		}
 	}
 
-	update() {
-		this.updateTime();
-
-		if (this.isTimeElapsed) {
-			this.scene.start('gameover');
-		}
-
-		if (this.isItemSelected(Item.BOOK)) {
-			this.scrambleDialogs(false);
-		} else {
-			this.scrambleDialogs(true);
-		}
-
-		if (this.isItemSelected(Item.KEY)) {
-			if (this.chests) {
-				const chest = this.chests.find((chest) => chest.name === 'chest');
-				chest.unlock();
-			}
-		} else {
-			if (this.chests) {
-				const chest = this.chests.find((chest) => chest.name === 'chest');
-				chest.lock();
-			}
-		}
-
-		if (this.isItemSelected(Item.MASTER_KEY)) {
-			if (this.door) {
-				this.door.unlock();
-			}
-		} else {
-			if (this.door) {
-				this.door.lock();
-			}
-		}
-
+	getPointerTile() {
 		const worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
 
 		// Rounds down to nearest tile
 		const pointerTileX = this.tilemap.worldToTileX(worldPoint.x);
 		const pointerTileY = this.tilemap.worldToTileY(worldPoint.y);
 
-		if (this.input.manager.activePointer.isDown) {
-			const tile = this.tilemap.getTileAt(pointerTileX, pointerTileY, false, TilemapLayer.FOREGROUND);
+		return this.tilemap.getTileAt(pointerTileX, pointerTileY, false, TilemapLayer.FOREGROUND);	
+	}
 
-			if (this.isBreakableWindowTile(tile) && this.isItemSelected(Item.HAMMER)) {
-				this.breakWindow(pointerTileX, pointerTileY);
-				if (!this.hasBreakableWindowsTiles()) {
-					this.destroyCoffin();
-					this.spawnItem(530, 205, Item.RING, LoaderKey.ITEMS, Frame.RING, 'You got the power ring');
-				}
-			}
-
-			// move chair when clicked on it
-			if (this.isChairTile(tile)) {
-				this.moveChair();
-			}
-
-			// if tile if knight
-			if (this.isKnightTile(tile) && !this.knightDestroyed && this.isItemSelected(Item.POTION)) {
-				this.knightDestroyed = true;
-				this.destroyKnight();
-			}
-
-			if (this.isBreakableWallTile(tile) && !this.wallDestroyed && this.isItemSelected(Item.PICKAXE)) {
-				this.wallDestroyed = true;
-				this.breakWall(pointerTileX, pointerTileY);
-				this.spawnItem(205, 140, Item.KEY, LoaderKey.ITEMS, Frame.KEY, 'You got the key');
-			}
-
-			// if tile is gargoyle
-			if (this.isLeftGargoyleTile(tile) && !this.isLeftGargoyleMoved && this.isItemSelected(Item.RING)) {
-				this.isLeftGargoyleMoved = true;
-				this.moveLeftGargoyle();
-				this.spawnItem(145, 525, Item.POTION, LoaderKey.ITEMS, Frame.POTION, 'You got the magic solvent');
-			}
-
-			if (this.isRightGargoyleTile(tile) && !this.isRightGargoyleMoved && this.isItemSelected(Item.RING) && this.door.isOpened()) {
-				this.isRightGargoyleMoved = true;
-				this.moveRightGargoyle();
-			}
-
-			if (this.isFireTile(tile) && !this.fireExtinguished && this.isItemSelected(Item.ICE_ROD)) {
-				this.fireExtinguished = true;
-				this.extinguishFire();
-				this.spawnItem(435, 620, Item.PICKAXE, LoaderKey.ITEMS, Frame.PICKAXE, 'You got the pickaxe');
-			}
-
-			if (this.isSkeletonTile(tile) && !this.isDigged && this.isItemSelected(Item.SHOVEL)) {
-				this.isDigged = true;
-				this.digSkeleton();
-				this.spawnItem(250, 300, Item.MASTER_KEY, LoaderKey.ITEMS, Frame.MASTER_KEY, 'You got the master key');
-			}
-
-			if (this.isStairTile(tile)) {
-				this.scene.start('win');
-			}
+	update() {
+		this.updateTime();
+		if (this.isTimeElapsed) {
+			this.scene.start('gameover');
 		}
 	}
 }
