@@ -1,9 +1,9 @@
 import Phaser from 'phaser';
 
-export default class SplashScene extends Phaser.Scene {
+export default class MenuScene extends Phaser.Scene {
 
     constructor() {
-        super('splash');
+        super('menu');
     }
 
     create() {
@@ -24,7 +24,7 @@ export default class SplashScene extends Phaser.Scene {
 
     update() {
         if (this.input.manager.activePointer.isDown) {
-            this.scene.start('play');
+            this.scene.start('room-one');
         }
     }
 
