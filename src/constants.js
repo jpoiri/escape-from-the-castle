@@ -10,7 +10,24 @@ const CustomProperty = {
 	TEXT: 'text',
 	VISIBLE: 'visible',
 	SCRAMBLED: 'scrambled',
-	SCRAMBLED_TEXT: 'scrambledText'
+	SCRAMBLED_TEXT: 'scrambledText',
+	ACTION: 'action',
+	NEW_TILES: 'newTiles',
+	VELOCITY: 'velocity',
+	DIRECTION: 'direction'
+};
+
+const TileAction = {
+	MOVE: 'move',
+	DESTROY: 'destroy',
+	REPLACE: 'replace'
+};
+
+const Direction = {
+	LEFT: 'left',
+	RIGHT: 'right',
+	UP: 'UP',
+	DOWN: 'down'
 };
 
 const TilemapLayer = {
@@ -24,7 +41,8 @@ const EntityType = {
 	SAFE: 'safe',
 	CHEST: 'chest',
 	SIGN: 'sign',
-	SCRAMBLED_SIGN: 'scrambled-sign'
+	SCRAMBLED_SIGN: 'scrambled-sign',
+	TILE_ACTION: 'TileAction'
 };
 
 const LoaderKey = {
@@ -62,7 +80,7 @@ const Tile = {
 	BOTTOM_CENTER_WATER: 59,
 	BOTTOM_RIGHT_WATER: 60,
 	DIGGED_HOLE: 316,
-	STAIR: 124,
+	STAIR: 124
 };
 
 const Item = {
@@ -99,5 +117,7 @@ Object.freeze(Tile);
 Object.freeze(Item);
 Object.freeze(Animation);
 Object.freeze(Frame);
+Object.freeze(Direction);
+Object.freeze(TileAction);
 
-export { TilemapLayer, CustomProperty, LoaderKey, EntityType, Tile, Item, Animation, Frame }
+export { TilemapLayer, CustomProperty, LoaderKey, EntityType, Tile, Item, Animation, Frame, TileAction, Direction };

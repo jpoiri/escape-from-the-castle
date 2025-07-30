@@ -4,16 +4,16 @@ import Safe from '../../entities/Safe';
 import Door from '../../entities/Door';
 import Sign from '../../entities/Sign';
 import ScrambledSign from '../../entities/ScrambledSign';
-import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Tile, Item, Animation, Frame } from '../../constants';
-
+import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Tile, Item, Animation, Frame, TileAction, Direction } from '../../constants';
 
 export default class BaseRoomScene extends Phaser.Scene {
-	signs = null;
+	signs = [];
+	scrambledSigns = [];
 	door = null;
-	chests = null;
+	chests = [];
 	tilemap = null;
-	safes = null;
-	items = null;
+	safes = [];
+	items = [];
 	selectedItem = null;
 	selectedRectangle = null;
 	dialogGroup = null;
@@ -48,11 +48,7 @@ export default class BaseRoomScene extends Phaser.Scene {
 		this.tilemap = this.createTilemap(roomKey);
 		const tileset = this.createTileset(this.tilemap, 'castle-tiles', LoaderKey.TILESET);
 		const { objectsLayer, foregroundLayer } = this.createLayers(this.tilemap, tileset);
-		//this.chests = this.createChests(objectsLayer);
-		//this.door = this.createDoor(objectsLayer);
-		//this.safes = this.createSafes(objectsLayer);
-		//this.scrambledSigns = this.createScrambledSigns(objectsLayer);
-		//this.signs = this.createSigns(objectsLayer);
+		this.loadObjects(objectsLayer);
 	}
 
 	createTilemap(tilemapKey) {
@@ -70,52 +66,149 @@ export default class BaseRoomScene extends Phaser.Scene {
 		return { backgroundLayer, foregroundLayer, objectsLayer };
 	}
 
-	createSafes(objectsLayer) {
-		const safes = [];
-		objectsLayer.objects.forEach((spawnObject) => {
-			if (spawnObject.type === EntityType.SAFE) {
-				const safe = new Safe(
-					this,
-					spawnObject.x,
-					spawnObject.y,
-					LoaderKey.SAFE,
-					12,
-					spawnObject.name,
-					this.getCustomProperty(spawnObject, CustomProperty.COMBINATION),
-					this.getCustomProperty(spawnObject, CustomProperty.PROMPT_MESSAGE),
-					this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_NAME),
-					this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_TEXTURE),
-					this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_FRAME),
-					this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_DESCRIPTION)
-				);
-				safe.on('pointerdown', () => {
-					if (!safe.isOpened()) {
-						const answer = window.prompt(safe.getPromptMessage());
-						if (answer && answer.toLocaleUpperCase() === safe.getCombination().toLocaleUpperCase()) {
-							safe.play(Animation.SAFE_OPEN);
-							safe.setOpened(true);
-							this.spawnItem(
-								safe.x,
-								safe.y + safe.height,
-								safe.getSpawnItemName(),
-								safe.getSpawnItemTexture(),
-								safe.getSpawnItemFrame(),
-								safe.getSpawnItemDescription()
-							);
+	loadObjects(objectsLayer) {
+		const objects = objectsLayer.objects;
+		for (let i = 0, len = objects.length; i < len; i++) {
+			switch (objects[i].type) {
+				case EntityType.TILE_ACTION:
+					this.createTileAction(objects[i]);
+					break;
+				case EntityType.CHEST:
+					this.chests.push(this.createChest(objects[i]));
+					break;
+				case EntityType.SAFE:
+					this.safes.push(this.createSafe(objects[i]));
+					break;
+				case EntityType.DOOR:
+					this.door = this.createDoor(objects[i]);
+					break;
+				case EntityType.SCRAMBLED_SIGN:
+					this.scrambledSigns.push(this.createScrambledSign(objects[i]));
+					break;
+				case EntityType.SIGN:
+					this.signs.push(this.createSign(objects[i]));
+					break;
+			}
+		}
+	}
+	createTileAction(object) {
+		const rect = this.add.rectangle(object.x, object.y, object.width, object.height);
+		rect.setOrigin(0, 0);
+		rect.setInteractive();
+		rect.on('pointerdown', () => {
+			const action = this.getCustomProperty(object, CustomProperty.ACTION);
+			const velocity = this.getCustomProperty(object, CustomProperty.VELOCITY);
+			const direction = this.getCustomProperty(object, CustomProperty.DIRECTION);
+			const newTiles = this.getCustomProperty(object, CustomProperty.NEW_TILES)
+				?.split(',')
+				.map((s) => parseInt(s));
+			const itemName = this.getCustomProperty(object, CustomProperty.SPAWN_ITEM_NAME);
+			const itemTexture = this.getCustomProperty(object, CustomProperty.SPAWN_ITEM_TEXTURE);
+			const itemFrame = this.getCustomProperty(object, CustomProperty.SPAWN_ITEM_FRAME);
+			const itemDescription = this.getCustomProperty(object, CustomProperty.SPAWN_ITEM_DESCRIPTION);
+			const tiles = this.tilemap.getTilesWithinWorldXY(
+				object.x,
+				object.y,
+				object.width,
+				object.height,
+				{
+					isNotEmpty: true
+				},
+				null,
+				TilemapLayer.FOREGROUND
+			);
+			switch (action) {
+				case TileAction.REPLACE:
+					for (let i = 0, len = tiles.length; i < len; i++) {
+						if (newTiles[i]) {
+							this.tilemap.putTileAt(newTiles[i], tiles[i].x, tiles[i].y);
 						}
 					}
-				});
-				safes.push(safe);
+					break;
+				case TileAction.DESTROY:
+					for (let i = 0, len = tiles.length; i < len; i++) {
+						this.tilemap.removeTileAt(tiles[i].x, tiles[i].y);
+					}
+					break;
+				case TileAction.MOVE:
+					for (let i = 0, len = tiles.length; i < len; i++) {
+						this.tilemap.removeTileAt(tiles[i].x, tiles[i].y);
+					}
+					switch (direction) {
+						case Direction.LEFT:
+							for (let i = 0, len = tiles.length; i < len; i++) {
+								this.tilemap.putTileAt(tiles[i].index, tiles[i].x + velocity, tiles[i].y);
+							}
+							break;
+						case Direction.RIGHT:
+							for (let i = 0, len = tiles.length; i < len; i++) {
+								this.tilemap.putTileAt(tiles[i].index, tiles[i].x - velocity, tiles[i].y);
+							}
+							break;
+						case Direction.UP:
+							for (let i = 0, len = tiles.length; i < len; i++) {
+								this.tilemap.putTileAt(tiles[i].index, tiles[i].x, tiles[i].y - velocity);
+							}
+							break;
+						case Direction.DOWN:
+							for (let i = 0, len = tiles.length; i < len; i++) {
+								this.tilemap.putTileAt(tiles[i].index, tiles[i].x, tiles[i].y + velocity);
+							}
+							break;
+					}
+					break;
+			}
+			if (itemName) {
+				this.spawnItem(
+					object.x + object.width / 2,
+					object.y + object.height / 2,
+					itemName,
+					itemTexture,
+					itemFrame,
+					itemDescription
+				);
+			}
+			rect.destroy();
+		});
+	}
+
+	createSafe(spawnObject) {
+		const safe = new Safe(
+			this,
+			spawnObject.x,
+			spawnObject.y,
+			LoaderKey.SAFE,
+			12,
+			spawnObject.name,
+			this.getCustomProperty(spawnObject, CustomProperty.COMBINATION),
+			this.getCustomProperty(spawnObject, CustomProperty.PROMPT_MESSAGE),
+			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_NAME),
+			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_TEXTURE),
+			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_FRAME),
+			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_DESCRIPTION)
+		);
+		safe.on('pointerdown', () => {
+			if (!safe.isOpened()) {
+				const answer = window.prompt(safe.getPromptMessage());
+				if (answer && answer.toLocaleUpperCase() === safe.getCombination().toLocaleUpperCase()) {
+					safe.play(Animation.SAFE_OPEN);
+					safe.setOpened(true);
+					this.spawnItem(
+						safe.x,
+						safe.y + safe.height,
+						safe.getSpawnItemName(),
+						safe.getSpawnItemTexture(),
+						safe.getSpawnItemFrame(),
+						safe.getSpawnItemDescription()
+					);
+				}
 			}
 		});
 		this.createAnimation(Animation.SAFE_OPEN, LoaderKey.SAFE, [13], 4);
-		return safes;
+		return safe;
 	}
 
-	createDoor(objectsLayer) {
-		const spawnObject = objectsLayer.objects.find((spawnObject) => {
-			return spawnObject.type === EntityType.DOOR;
-		});
+	createDoor(spawnObject) {
 		const door = new Door(
 			this,
 			spawnObject.x,
@@ -139,99 +232,81 @@ export default class BaseRoomScene extends Phaser.Scene {
 		return door;
 	}
 
-	createChests(objectsLayer) {
-		const chests = [];
-		objectsLayer.objects.forEach((spawnObject) => {
-			if (spawnObject.type === EntityType.CHEST) {
-				const chest = new Chest(
-					this,
-					spawnObject.x,
-					spawnObject.y,
-					LoaderKey.CHEST,
-					null,
-					spawnObject.name,
-					this.getCustomProperty(spawnObject, CustomProperty.LOCKED),
-					this.getCustomProperty(spawnObject, CustomProperty.LOCKED_MESSAGE),
-					this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_NAME),
-					this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_TEXTURE),
-					this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_FRAME),
-					this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_DESCRIPTION)
-				);
-				chest.on('pointerdown', () => {
-					if (chest.isLocked()) {
-						this.showDialog(chest.lockedMessage);
-					} else {
-						if (!chest.isOpened()) {
-							chest.play(Animation.CHEST_OPEN);
-							chest.setOpened(true);
-							this.spawnItem(
-								chest.x,
-								chest.y + chest.height + 5,
-								chest.getSpawnItemName(),
-								chest.getSpawnItemTexture(),
-								chest.getSpawnItemFrame(),
-								chest.getSpawnItemDescription()
-							);
-						}
-					}
-				});
-				chests.push(chest);
+	createChest(spawnObject) {
+		const chest = new Chest(
+			this,
+			spawnObject.x,
+			spawnObject.y,
+			LoaderKey.CHEST,
+			null,
+			spawnObject.name,
+			this.getCustomProperty(spawnObject, CustomProperty.LOCKED),
+			this.getCustomProperty(spawnObject, CustomProperty.LOCKED_MESSAGE),
+			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_NAME),
+			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_TEXTURE),
+			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_FRAME),
+			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_DESCRIPTION)
+		);
+		chest.on('pointerdown', () => {
+			if (chest.isLocked()) {
+				this.showDialog(chest.lockedMessage);
+			} else {
+				if (!chest.isOpened()) {
+					chest.play(Animation.CHEST_OPEN);
+					chest.setOpened(true);
+					this.spawnItem(
+						chest.x,
+						chest.y + chest.height + 5,
+						chest.getSpawnItemName(),
+						chest.getSpawnItemTexture(),
+						chest.getSpawnItemFrame(),
+						chest.getSpawnItemDescription()
+					);
+				}
 			}
 		});
 		this.createAnimation(Animation.CHEST_OPEN, LoaderKey.CHEST, [1], 8, -1);
-		return chests;
+		return chest;
 	}
 
-	createScrambledSigns(objectsLayer) {
-		const signs = [];
-		objectsLayer.objects.forEach((spawnObject) => {
-			if (spawnObject.type === EntityType.SCRAMBLED_SIGN) {
-				const sign = new ScrambledSign(
-					this,
-					spawnObject.x,
-					spawnObject.y,
-					spawnObject.name,
-					this.getCustomProperty(spawnObject, CustomProperty.TEXT),
-					this.getCustomProperty(spawnObject, CustomProperty.VISIBLE),
-					this.getCustomProperty(spawnObject, CustomProperty.SCRAMBLED),
-					this.getCustomProperty(spawnObject, CustomProperty.SCRAMBLED_TEXT)
-				);
-				sign.on('pointerdown', () => {
-					if (sign.isVisible()) {
-						if (sign.isScrambled()) {
-							this.showDialog(sign.getScrambledText());
-						} else {
-							this.showDialog(sign.getText());
-						}
-					}
-				});
-				signs.push(sign);
+	createScrambledSign(spawnObject) {
+		const sign = new ScrambledSign(
+			this,
+			spawnObject.x,
+			spawnObject.y,
+			spawnObject.name,
+			this.getCustomProperty(spawnObject, CustomProperty.TEXT),
+			this.getCustomProperty(spawnObject, CustomProperty.VISIBLE),
+			this.getCustomProperty(spawnObject, CustomProperty.SCRAMBLED),
+			this.getCustomProperty(spawnObject, CustomProperty.SCRAMBLED_TEXT)
+		);
+		sign.on('pointerdown', () => {
+			if (sign.isVisible()) {
+				if (sign.isScrambled()) {
+					this.showDialog(sign.getScrambledText());
+				} else {
+					this.showDialog(sign.getText());
+				}
 			}
 		});
-		return signs;
+		return sign;
 	}
 
-	createSigns(objectsLayer) {
-		const signs = [];
-		objectsLayer.objects.forEach((spawnObject) => {
-			if (spawnObject.type === EntityType.SIGN) {
-				const sign = new Sign(
-					this,
-					spawnObject.x,
-					spawnObject.y,
-					spawnObject.name,
-					this.getCustomProperty(spawnObject, CustomProperty.TEXT),
-					this.getCustomProperty(spawnObject, CustomProperty.VISIBLE)
-				);
-				sign.on('pointerdown', () => {
-					if (sign.isVisible()) {
-						this.showDialog(sign.getText());
-					}
-				});
-				signs.push(sign);
+	createSign(spawnObject) {
+		const sign = new Sign(
+			this,
+			spawnObject.x,
+			spawnObject.y,
+			spawnObject.name,
+			this.getCustomProperty(spawnObject, CustomProperty.TEXT),
+			this.getCustomProperty(spawnObject, CustomProperty.VISIBLE)
+		);
+		sign.on('pointerdown', () => {
+			if (sign.isVisible()) {
+				this.showDialog(sign.getText());
 			}
 		});
-		return signs;
+		return sign;
 	}
 
 	scrambleDialogs(scrambled) {
@@ -357,7 +432,7 @@ export default class BaseRoomScene extends Phaser.Scene {
 		const pointerTileX = this.tilemap.worldToTileX(worldPoint.x);
 		const pointerTileY = this.tilemap.worldToTileY(worldPoint.y);
 
-		return this.tilemap.getTileAt(pointerTileX, pointerTileY, false, TilemapLayer.FOREGROUND);	
+		return this.tilemap.getTileAt(pointerTileX, pointerTileY, false, TilemapLayer.FOREGROUND);
 	}
 
 	update() {

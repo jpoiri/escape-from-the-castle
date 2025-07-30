@@ -15,8 +15,10 @@ export default class RoomOne extends BaseRoomScene {
 	update() {
 		super.update();
 
+		/**
 		if (this.input.manager.activePointer.isDown) {
 			this.scene.start('room-two');
 		}
+		**/
 	}
 }
