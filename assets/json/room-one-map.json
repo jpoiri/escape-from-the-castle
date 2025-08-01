@@ -462,7 +462,7 @@
                          "value":"741, 742, 791, 792"
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":44.0786420808402,
                  "x":105.354744169007,
@@ -484,7 +484,7 @@
                          "value":"743, 744, 793, 794"
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":44.0786,
                  "x":296.940795249725,
@@ -506,7 +506,7 @@
                          "value":"745, 746, 795, 796"
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":44.0786,
                  "x":296.889629051166,
@@ -528,7 +528,7 @@
                          "value":"743, 744, 793, 794"
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":44.0786,
                  "x":201.540380058615,
@@ -550,7 +550,7 @@
                          "value":"741, 742, 791, 792"
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":44.0786,
                  "x":200.421562132129,
@@ -572,7 +572,7 @@
                          "value":"743, 744, 793, 794"
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":44.0786,
                  "x":200.9188145439,
@@ -594,7 +594,7 @@
                          "value":"743, 744, 793, 794"
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":44.0786,
                  "x":104.032137293931,
@@ -616,7 +616,7 @@
                          "value":"743, 744, 793, 794"
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":44.0786,
                  "x":296.703159396752,
@@ -638,7 +638,7 @@
                          "value":"743, 744, 793, 794"
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":44.0786,
                  "x":104.066817963121,
@@ -660,7 +660,7 @@
                          "value":"25,26,75,76"
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":32.8244786176577,
                  "x":463.887919440713,
@@ -697,7 +697,7 @@
                          "value":"items"
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":60.9598034558555,
                  "x":514.407141867139,
@@ -744,7 +744,7 @@
                          "value":2
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":60.9598,
                  "x":257.438038698254,
@@ -791,7 +791,7 @@
                          "value":2
                         }],
                  "rotation":0,
-                 "type":"TileAction",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":53.8531204917569,
                  "x":615.212695320378,

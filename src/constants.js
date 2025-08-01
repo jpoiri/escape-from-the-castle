@@ -42,7 +42,7 @@ const EntityType = {
 	CHEST: 'chest',
 	SIGN: 'sign',
 	SCRAMBLED_SIGN: 'scrambled-sign',
-	TILE_ACTION: 'TileAction'
+	INTERACTIVE_ZONE: 'InteractiveZone'
 };
 
 const LoaderKey = {
