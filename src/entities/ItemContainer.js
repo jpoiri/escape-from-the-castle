@@ -1,4 +1,4 @@
-import Phaser, { Tilemaps } from 'phaser';
+import Phaser from 'phaser';
 
 export default class ItemContainer extends Phaser.Physics.Arcade.Sprite {
     name = null;

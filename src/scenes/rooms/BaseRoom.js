@@ -3,15 +3,17 @@ import Chest from '../../entities/Chest';
 import Safe from '../../entities/Safe';
 import Door from '../../entities/Door';
 import Sign from '../../entities/Sign';
+import Item from '../../entities/Item';
 import ScrambledSign from '../../entities/ScrambledSign';
-import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Tile, Item, Animation, Frame, TileAction, Direction } from '../../constants';
+import InteractiveZone from '../../entities/InteractiveZone';
+import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Tile, Animation, Frame, TileAction, Direction } from '../../constants';
 
 export default class BaseRoomScene extends Phaser.Scene {
 	signs = [];
 	scrambledSigns = [];
 	door = null;
 	chests = [];
-	tilemap = null;
+	tileMap = null;
 	safes = [];
 	items = [];
 	selectedItem = null;
@@ -45,131 +47,75 @@ export default class BaseRoomScene extends Phaser.Scene {
 	}
 
 	loadRoom(roomKey) {
-		this.tilemap = this.createTilemap(roomKey);
-		const tileset = this.createTileset(this.tilemap, 'castle-tiles', LoaderKey.TILESET);
-		const { objectsLayer, foregroundLayer } = this.createLayers(this.tilemap, tileset);
-		this.loadObjects(objectsLayer);
+		this.tileMap = this.createTileMap(roomKey);
+		const tileSet = this.createTileSet(this.tileMap, 'castle-tiles', LoaderKey.TILESET);
+		const { objectsLayer, foregroundLayer } = this.getTileMapLayers(this.tileMap, tileSet);
+		this.loadTileMapObjects(objectsLayer);
+		this.createAnimations();
 	}
 
-	createTilemap(tilemapKey) {
-		return this.make.tilemap({ key: tilemapKey });
+	createTileMap(tileMapKey) {
+		return this.make.tilemap({ key: tileMapKey });
 	}
 
-	createTileset(tilemap, tilesetKey, tilesetTextureKey) {
-		return tilemap.addTilesetImage(tilesetKey, tilesetTextureKey);
+	createTileSet(tileMap, tileSetKey, tileSetTextureKey) {
+		return tileMap.addTilesetImage(tileSetKey, tileSetTextureKey);
 	}
 
-	createLayers(tilemap, tileset) {
+	getTileMapLayers(tilemap, tileset) {
 		const backgroundLayer = tilemap.createLayer(TilemapLayer.BACKGROUND, tileset);
 		const foregroundLayer = tilemap.createLayer(TilemapLayer.FOREGROUND, tileset);
 		const objectsLayer = tilemap.getObjectLayer(TilemapLayer.OBJECTS);
 		return { backgroundLayer, foregroundLayer, objectsLayer };
 	}
 
-	loadObjects(objectsLayer) {
-		const objects = objectsLayer.objects;
-		for (let i = 0, len = objects.length; i < len; i++) {
-			switch (objects[i].type) {
-				case EntityType.TILE_ACTION:
-					this.createTileAction(objects[i]);
+	loadTileMapObjects(objectsLayer) {
+		const tileMapObjects = objectsLayer.objects;
+		for (let i = 0, len = tileMapObjects.length; i < len; i++) {
+			switch (tileMapObjects[i].type) {
+				case EntityType.INTERACTIVE_ZONE:
+					this.createInteractiveZone(tileMapObjects[i]);
 					break;
 				case EntityType.CHEST:
-					this.chests.push(this.createChest(objects[i]));
+					this.chests.push(this.createChest(tileMapObjects[i]));
 					break;
 				case EntityType.SAFE:
-					this.safes.push(this.createSafe(objects[i]));
+					this.safes.push(this.createSafe(tileMapObjects[i]));
 					break;
 				case EntityType.DOOR:
-					this.door = this.createDoor(objects[i]);
+					this.door = this.createDoor(tileMapObjects[i]);
 					break;
 				case EntityType.SCRAMBLED_SIGN:
-					this.scrambledSigns.push(this.createScrambledSign(objects[i]));
+					this.scrambledSigns.push(this.createScrambledSign(tileMapObjects[i]));
 					break;
 				case EntityType.SIGN:
-					this.signs.push(this.createSign(objects[i]));
+					this.signs.push(this.createSign(tileMapObjects[i]));
 					break;
 			}
 		}
 	}
-	createTileAction(object) {
-		const rect = this.add.rectangle(object.x, object.y, object.width, object.height);
-		rect.setOrigin(0, 0);
-		rect.setInteractive();
-		rect.on('pointerdown', () => {
-			const action = this.getCustomProperty(object, CustomProperty.ACTION);
-			const velocity = this.getCustomProperty(object, CustomProperty.VELOCITY);
-			const direction = this.getCustomProperty(object, CustomProperty.DIRECTION);
-			const newTiles = this.getCustomProperty(object, CustomProperty.NEW_TILES)
+
+	createInteractiveZone(tileMapObject) {
+		const zone = new InteractiveZone(this, tileMapObject.x, tileMapObject.y, tileMapObject.width, tileMapObject.height);
+		zone.setVelocity(this.getCustomProperty(tileMapObject, CustomProperty.VELOCITY));
+		zone.setDirection(this.getCustomProperty(tileMapObject, CustomProperty.DIRECTION));
+		zone.setAction(this.getCustomProperty(tileMapObject, CustomProperty.ACTION));
+		zone.setNewTiles(
+			this.getCustomProperty(tileMapObject, CustomProperty.NEW_TILES)
 				?.split(',')
-				.map((s) => parseInt(s));
-			const itemName = this.getCustomProperty(object, CustomProperty.SPAWN_ITEM_NAME);
-			const itemTexture = this.getCustomProperty(object, CustomProperty.SPAWN_ITEM_TEXTURE);
-			const itemFrame = this.getCustomProperty(object, CustomProperty.SPAWN_ITEM_FRAME);
-			const itemDescription = this.getCustomProperty(object, CustomProperty.SPAWN_ITEM_DESCRIPTION);
-			const tiles = this.tilemap.getTilesWithinWorldXY(
-				object.x,
-				object.y,
-				object.width,
-				object.height,
-				{
-					isNotEmpty: true
-				},
-				null,
-				TilemapLayer.FOREGROUND
+				.map((s) => parseInt(s))
+		);
+		const itemName = this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_NAME);
+		if (itemName) {
+			zone.setSpawnItem(
+				new Item(
+					this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_NAME),
+					this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_DESCRIPTION),
+					this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_TEXTURE),
+					this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_FRAME)
+				)
 			);
-			switch (action) {
-				case TileAction.REPLACE:
-					for (let i = 0, len = tiles.length; i < len; i++) {
-						if (newTiles[i]) {
-							this.tilemap.putTileAt(newTiles[i], tiles[i].x, tiles[i].y);
-						}
-					}
-					break;
-				case TileAction.DESTROY:
-					for (let i = 0, len = tiles.length; i < len; i++) {
-						this.tilemap.removeTileAt(tiles[i].x, tiles[i].y);
-					}
-					break;
-				case TileAction.MOVE:
-					for (let i = 0, len = tiles.length; i < len; i++) {
-						this.tilemap.removeTileAt(tiles[i].x, tiles[i].y);
-					}
-					switch (direction) {
-						case Direction.LEFT:
-							for (let i = 0, len = tiles.length; i < len; i++) {
-								this.tilemap.putTileAt(tiles[i].index, tiles[i].x + velocity, tiles[i].y);
-							}
-							break;
-						case Direction.RIGHT:
-							for (let i = 0, len = tiles.length; i < len; i++) {
-								this.tilemap.putTileAt(tiles[i].index, tiles[i].x - velocity, tiles[i].y);
-							}
-							break;
-						case Direction.UP:
-							for (let i = 0, len = tiles.length; i < len; i++) {
-								this.tilemap.putTileAt(tiles[i].index, tiles[i].x, tiles[i].y - velocity);
-							}
-							break;
-						case Direction.DOWN:
-							for (let i = 0, len = tiles.length; i < len; i++) {
-								this.tilemap.putTileAt(tiles[i].index, tiles[i].x, tiles[i].y + velocity);
-							}
-							break;
-					}
-					break;
-			}
-			if (itemName) {
-				this.spawnItem(
-					object.x + object.width / 2,
-					object.y + object.height / 2,
-					itemName,
-					itemTexture,
-					itemFrame,
-					itemDescription
-				);
-			}
-			rect.destroy();
-		});
+		}
 	}
 
 	createSafe(spawnObject) {
@@ -204,7 +150,6 @@ export default class BaseRoomScene extends Phaser.Scene {
 				}
 			}
 		});
-		this.createAnimation(Animation.SAFE_OPEN, LoaderKey.SAFE, [13], 4);
 		return safe;
 	}
 
@@ -228,7 +173,6 @@ export default class BaseRoomScene extends Phaser.Scene {
 				this.showDialog('Mouahahah you thought the game was over? Try to find the real escape route now!');
 			}
 		});
-		this.createAnimation(Animation.DOOR_OPEN, LoaderKey.DOOR, [5, 0], 4);
 		return door;
 	}
 
@@ -265,7 +209,6 @@ export default class BaseRoomScene extends Phaser.Scene {
 				}
 			}
 		});
-		this.createAnimation(Animation.CHEST_OPEN, LoaderKey.CHEST, [1], 8, -1);
 		return chest;
 	}
 
@@ -349,6 +292,12 @@ export default class BaseRoomScene extends Phaser.Scene {
 		});
 	}
 
+	createAnimations() {
+		this.createAnimation(Animation.SAFE_OPEN, LoaderKey.SAFE, [13], 4);
+		this.createAnimation(Animation.DOOR_OPEN, LoaderKey.DOOR, [5, 0], 4);
+		this.createAnimation(Animation.CHEST_OPEN, LoaderKey.CHEST, [1], 8, -1);
+	}
+
 	createAnimation(key, texture, frames, frameRate, repeat) {
 		this.anims.create({
 			key,
@@ -381,6 +330,23 @@ export default class BaseRoomScene extends Phaser.Scene {
 					name: itemName,
 					texture: itemTexture,
 					frame: itemFrame
+				});
+				this.updateHud();
+			});
+		});
+	}
+
+	spawnItem(x, y, item) {
+		const image = this.add.image(x, y, item.getTexture(), item.getFrame());
+		image.setScale(2);
+		image.setInteractive();
+		image.on('pointerdown', () => {
+			image.destroy();
+			this.showDialog(item.getDescription(), item.getTexture(), item.getFrame(), () => {
+				this.items.push({
+					name: item.getName(),
+					texture: item.getTexture(),
+					frame: item.getFrame()
 				});
 				this.updateHud();
 			});
@@ -429,10 +395,10 @@ export default class BaseRoomScene extends Phaser.Scene {
 		const worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
 
 		// Rounds down to nearest tile
-		const pointerTileX = this.tilemap.worldToTileX(worldPoint.x);
-		const pointerTileY = this.tilemap.worldToTileY(worldPoint.y);
+		const pointerTileX = this.tileMap.worldToTileX(worldPoint.x);
+		const pointerTileY = this.tileMap.worldToTileY(worldPoint.y);
 
-		return this.tilemap.getTileAt(pointerTileX, pointerTileY, false, TilemapLayer.FOREGROUND);
+		return this.tileMap.getTileAt(pointerTileX, pointerTileY, false, TilemapLayer.FOREGROUND);
 	}
 
 	update() {
