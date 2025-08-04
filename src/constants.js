@@ -38,11 +38,11 @@ const TilemapLayer = {
 };
 
 const EntityType = {
-	DOOR: 'door',
-	SAFE: 'safe',
-	CHEST: 'chest',
-	SIGN: 'sign',
-	SCRAMBLED_SIGN: 'scrambled-sign',
+	DOOR: 'Door',
+	SAFE: 'Safe',
+	CHEST: 'Chest',
+	SIGN: 'Sign',
+	SCRAMBLED_SIGN: 'ScrambledSign',
 	INTERACTIVE_ZONE: 'InteractiveZone'
 };
 

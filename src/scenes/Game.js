@@ -120,8 +120,8 @@ export default class GameScene extends Phaser.Scene {
 				?.split(',')
 				.map((s) => parseInt(s))
 		);
-		const itemName = this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_NAME);
 		zone.setNavigateTo(this.getCustomProperty(tileMapObject, CustomProperty.NAVIGATE_TO));
+		const itemName = this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_NAME);
 		if (itemName) {
 			zone.setSpawnItem(
 				new Item(
@@ -134,21 +134,28 @@ export default class GameScene extends Phaser.Scene {
 		}
 	}
 
-	createSafe(spawnObject) {
+	createSafe(tileMapObject) {
 		const safe = new Safe(
 			this,
-			spawnObject.x,
-			spawnObject.y,
+			tileMapObject.x,
+			tileMapObject.y,
 			LoaderKey.SAFE,
 			12,
-			spawnObject.name,
-			this.getCustomProperty(spawnObject, CustomProperty.COMBINATION),
-			this.getCustomProperty(spawnObject, CustomProperty.PROMPT_MESSAGE),
-			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_NAME),
-			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_TEXTURE),
-			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_FRAME),
-			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_DESCRIPTION)
+			tileMapObject.name,
+			this.getCustomProperty(tileMapObject, CustomProperty.COMBINATION),
+			this.getCustomProperty(tileMapObject, CustomProperty.PROMPT_MESSAGE),
 		);
+		const itemName = this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_NAME);
+		if (itemName) {
+			safe.setSpawnItem(
+				new Item(
+					this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_NAME),
+					this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_DESCRIPTION),
+					this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_TEXTURE),
+					this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_FRAME)
+				)
+			);
+		}
 		safe.on('pointerdown', () => {
 			if (!safe.isOpened()) {
 				const answer = window.prompt(safe.getPromptMessage());
@@ -158,10 +165,7 @@ export default class GameScene extends Phaser.Scene {
 					this.spawnItem(
 						safe.x,
 						safe.y + safe.height,
-						safe.getSpawnItemName(),
-						safe.getSpawnItemTexture(),
-						safe.getSpawnItemFrame(),
-						safe.getSpawnItemDescription()
+						safe.getSpawnItem()
 					);
 				}
 			}
@@ -169,16 +173,16 @@ export default class GameScene extends Phaser.Scene {
 		return safe;
 	}
 
-	createDoor(spawnObject) {
+	createDoor(tileMapObject) {
 		const door = new Door(
 			this,
-			spawnObject.x,
-			spawnObject.y,
+			tileMapObject.x,
+			tileMapObject.y,
 			LoaderKey.DOOR,
 			10,
-			spawnObject.name,
-			this.getCustomProperty(spawnObject, CustomProperty.LOCKED),
-			this.getCustomProperty(spawnObject, CustomProperty.LOCKED_MESSAGE)
+			tileMapObject.name,
+			this.getCustomProperty(tileMapObject, CustomProperty.LOCKED),
+			this.getCustomProperty(tileMapObject, CustomProperty.LOCKED_MESSAGE)
 		);
 		door.on('pointerdown', () => {
 			if (door.isLocked()) {
@@ -186,27 +190,33 @@ export default class GameScene extends Phaser.Scene {
 			} else {
 				door.play(Animation.DOOR_OPEN);
 				door.setOpened(true);
-				this.showDialog('Mouahahah you thought the game was over? Try to find the real escape route now!');
 			}
 		});
 		return door;
 	}
 
-	createChest(spawnObject) {
+	createChest(tileMapObject) {
 		const chest = new Chest(
 			this,
-			spawnObject.x,
-			spawnObject.y,
+			tileMapObject.x,
+			tileMapObject.y,
 			LoaderKey.CHEST,
 			null,
-			spawnObject.name,
-			this.getCustomProperty(spawnObject, CustomProperty.LOCKED),
-			this.getCustomProperty(spawnObject, CustomProperty.LOCKED_MESSAGE),
-			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_NAME),
-			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_TEXTURE),
-			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_FRAME),
-			this.getCustomProperty(spawnObject, CustomProperty.SPAWN_ITEM_DESCRIPTION)
+			tileMapObject.name,
+			this.getCustomProperty(tileMapObject, CustomProperty.LOCKED),
+			this.getCustomProperty(tileMapObject, CustomProperty.LOCKED_MESSAGE)
 		);
+		const itemName = this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_NAME);
+		if (itemName) {
+			chest.setSpawnItem(
+				new Item(
+					this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_NAME),
+					this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_DESCRIPTION),
+					this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_TEXTURE),
+					this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_FRAME)
+				)
+			);
+		}
 		chest.on('pointerdown', () => {
 			if (chest.isLocked()) {
 				this.showDialog(chest.lockedMessage);
@@ -217,10 +227,7 @@ export default class GameScene extends Phaser.Scene {
 					this.spawnItem(
 						chest.x,
 						chest.y + chest.height + 5,
-						chest.getSpawnItemName(),
-						chest.getSpawnItemTexture(),
-						chest.getSpawnItemFrame(),
-						chest.getSpawnItemDescription()
+						chest.getSpawnItem()
 					);
 				}
 			}
@@ -334,24 +341,7 @@ export default class GameScene extends Phaser.Scene {
 	getDialog(dialogs, name) {
 		return dialogs.find((dialog) => dialog.name == name);
 	}
-
-	spawnItem(x, y, itemName, itemTexture, itemFrame, itemDescription) {
-		const item = this.add.image(x, y, itemTexture, itemFrame);
-		item.setScale(2);
-		item.setInteractive();
-		item.on('pointerdown', () => {
-			item.destroy();
-			this.showDialog(itemDescription, itemTexture, itemFrame, () => {
-				this.items.push({
-					name: itemName,
-					texture: itemTexture,
-					frame: itemFrame
-				});
-				this.updateHud();
-			});
-		});
-	}
-
+	
 	spawnItem(x, y, item) {
 		const image = this.add.image(x, y, item.getTexture(), item.getFrame());
 		image.setScale(2);
