@@ -24,7 +24,7 @@ export default class MenuScene extends Phaser.Scene {
 
     update() {
         if (this.input.manager.activePointer.isDown) {
-            this.scene.start('room-one');
+            this.scene.start('game');
         }
     }
 

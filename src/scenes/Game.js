@@ -1,14 +1,16 @@
 import Phaser from 'phaser';
-import Chest from '../../entities/Chest';
-import Safe from '../../entities/Safe';
-import Door from '../../entities/Door';
-import Sign from '../../entities/Sign';
-import Item from '../../entities/Item';
-import ScrambledSign from '../../entities/ScrambledSign';
-import InteractiveZone from '../../entities/InteractiveZone';
-import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Tile, Animation, Frame, TileAction, Direction } from '../../constants';
+import Chest from '../entities/Chest';
+import Safe from '../entities/Safe';
+import Door from '../entities/Door';
+import Sign from '../entities/Sign';
+import Item from '../entities/Item';
+import ScrambledSign from '../entities/ScrambledSign';
+import InteractiveZone from '../entities/InteractiveZone';
+import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Tile, Animation, Frame, TileAction, Direction } from '../constants';
 
-export default class BaseRoomScene extends Phaser.Scene {
+const TRANSITION_DELAY = 500;
+
+export default class GameScene extends Phaser.Scene {
 	signs = [];
 	scrambledSigns = [];
 	door = null;
@@ -20,8 +22,13 @@ export default class BaseRoomScene extends Phaser.Scene {
 	selectedRectangle = null;
 	dialogGroup = null;
 
-	create(roomKey) {
-		this.loadRoom(roomKey);
+	constructor() {
+		super('game');
+	}
+
+	create() {
+		this.loadRoom('room-one');
+		this.createAnimations();
 		this.createHud();
 		this.startTimer(1);
 	}
@@ -47,11 +54,19 @@ export default class BaseRoomScene extends Phaser.Scene {
 	}
 
 	loadRoom(roomKey) {
+		this.cameras.main.fadeIn(TRANSITION_DELAY, 0, 0, 0);
 		this.tileMap = this.createTileMap(roomKey);
 		const tileSet = this.createTileSet(this.tileMap, 'castle-tiles', LoaderKey.TILESET);
 		const { objectsLayer, foregroundLayer } = this.getTileMapLayers(this.tileMap, tileSet);
 		this.loadTileMapObjects(objectsLayer);
-		this.createAnimations();
+	}
+
+	reloadRoom(roomKey) {
+		this.cameras.main.fadeOut(TRANSITION_DELAY, 0, 0, 0, (camera, progress) => {
+			if (progress === 1) {
+				this.loadRoom(roomKey);
+			}
+		})
 	}
 
 	createTileMap(tileMapKey) {
@@ -106,6 +121,7 @@ export default class BaseRoomScene extends Phaser.Scene {
 				.map((s) => parseInt(s))
 		);
 		const itemName = this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_NAME);
+		zone.setNavigateTo(this.getCustomProperty(tileMapObject, CustomProperty.NAVIGATE_TO));
 		if (itemName) {
 			zone.setSpawnItem(
 				new Item(

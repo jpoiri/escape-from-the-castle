@@ -7,6 +7,7 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	action = null;
 	newTiles = null;
 	spawnItem = null;
+	navigateTo = null;
 
 	constructor(scene, x, y, width, height) {
 		super(scene, x, y, width, height);
@@ -70,6 +71,9 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 			if (this.spawnItem) {
 				scene.spawnItem(this.x + this.width / 2, this.y + this.height / 2, this.spawnItem);
 			}
+			if (this.navigateTo) {
+				scene.reloadRoom(this.navigateTo);
+			}
 			this.destroy();
 		});
 	}
@@ -112,5 +116,13 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 
 	getNewTiles() {
 		return this.newTiles;
+	}
+
+	setNavigateTo(navigateTo) {
+		this.navigateTo = navigateTo;
+	}
+
+	getNavigateTo() {
+		return this.navigateTo;
 	}
 }
