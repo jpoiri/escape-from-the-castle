@@ -655,6 +655,11 @@
                          "value":"replace"
                         }, 
                         {
+                         "name":"navigateTo",
+                         "type":"string",
+                         "value":"room-two"
+                        }, 
+                        {
                          "name":"newTiles",
                          "type":"string",
                          "value":"25,26,75,76"

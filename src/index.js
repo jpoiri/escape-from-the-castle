@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
-import RoomOneScene from './scenes/rooms/RoomOne';
-import RoomTwoScene from './scenes/rooms/RoomTwo';
+import GameScene from './scenes/Game';
 import GameOverScene  from './scenes/GameOver';
 import WinScene from './scenes/Win';
 import SplashScene from './scenes/Menu';
@@ -21,7 +20,7 @@ const config = {
 			gravity: { y: 200 }
 		}
 	},
-	scene: [LoadingScene, SplashScene, RoomOneScene, RoomTwoScene, GameOverScene, WinScene]
+	scene: [LoadingScene, SplashScene, GameScene, GameOverScene, WinScene]
 };
 
 const game = new Phaser.Game(config);

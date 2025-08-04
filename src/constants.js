@@ -14,7 +14,8 @@ const CustomProperty = {
 	ACTION: 'action',
 	NEW_TILES: 'newTiles',
 	VELOCITY: 'velocity',
-	DIRECTION: 'direction'
+	DIRECTION: 'direction',
+	NAVIGATE_TO: 'navigateTo'
 };
 
 const TileAction = {
