@@ -125,7 +125,7 @@
                          "value":540
                         }],
                  "rotation":0,
-                 "type":"safe",
+                 "type":"Safe",
                  "visible":true,
                  "width":0,
                  "x":1016.67937084089,
@@ -140,7 +140,7 @@
                         {
                          "name":"locked",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }, 
                         {
                          "name":"lockedMessage",
@@ -168,7 +168,7 @@
                          "value":"items"
                         }],
                  "rotation":0,
-                 "type":"chest",
+                 "type":"Chest",
                  "visible":true,
                  "width":0,
                  "x":641.353861622245,
@@ -191,7 +191,7 @@
                          "value":"You shall not pass!"
                         }],
                  "rotation":0,
-                 "type":"door",
+                 "type":"Door",
                  "visible":true,
                  "width":0,
                  "x":924.223230490018,
@@ -223,7 +223,7 @@
                          "value":true
                         }],
                  "rotation":0,
-                 "type":"scrambled-sign",
+                 "type":"ScrambledSign",
                  "visible":true,
                  "width":30,
                  "x":717.647266248469,
@@ -255,14 +255,14 @@
                          "value":true
                         }],
                  "rotation":0,
-                 "type":"scrambled-sign",
+                 "type":"ScrambledSign",
                  "visible":true,
                  "width":46.0290381125228,
                  "x":1052.47549909256,
                  "y":90.263157894737
                 }, 
                 {
-                 "height":24,
+                 "height":47.3505183842275,
                  "id":40,
                  "name":"knight-sign",
                  "properties":[
@@ -274,14 +274,14 @@
                         {
                          "name":"visible",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }],
                  "rotation":0,
-                 "type":"sign",
+                 "type":"Sign",
                  "visible":true,
-                 "width":30,
-                 "x":994.246823956443,
-                 "y":475.969147005445
+                 "width":53.3505183842276,
+                 "x":609.470890581563,
+                 "y":162.260008712997
                 }, 
                 {
                  "height":24,
@@ -309,7 +309,7 @@
                          "value":true
                         }],
                  "rotation":0,
-                 "type":"sign",
+                 "type":"Sign",
                  "visible":true,
                  "width":30,
                  "x":947.880217785844,
@@ -352,7 +352,7 @@
                          "value":"items"
                         }],
                  "rotation":0,
-                 "type":"safe",
+                 "type":"Safe",
                  "visible":true,
                  "width":0,
                  "x":1037.5335753176,
@@ -395,7 +395,7 @@
                          "value":"items"
                         }],
                  "rotation":0,
-                 "type":"safe",
+                 "type":"Safe",
                  "visible":true,
                  "width":0,
                  "x":659.209039636321,
@@ -417,7 +417,7 @@
                          "value":false
                         }],
                  "rotation":0,
-                 "type":"sign",
+                 "type":"Sign",
                  "visible":true,
                  "width":30,
                  "x":971.001814882033,
@@ -440,7 +440,7 @@
                          "value":"You shall not pass!"
                         }],
                  "rotation":0,
-                 "type":"door",
+                 "type":"Door",
                  "visible":true,
                  "width":0,
                  "x":934.89082916107,
@@ -799,8 +799,8 @@
                  "type":"InteractiveZone",
                  "visible":true,
                  "width":53.8531204917569,
-                 "x":615.212695320378,
-                 "y":157.029877284573
+                 "x":566.481178692425,
+                 "y":110.328840516118
                 }],
          "opacity":1,
          "type":"objectgroup",

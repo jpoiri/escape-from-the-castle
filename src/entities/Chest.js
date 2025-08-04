@@ -1,14 +1,14 @@
 import Phaser from 'phaser';
-import ItemContainer from './ItemContainer';
 
-export default class Chest extends ItemContainer {
+export default class Chest extends Phaser.Physics.Arcade.Sprite {
 
 	locked = true;
 	lockedMessage = null;
 	opened = false;
+	spawnItem = null;
 
-	constructor(scene, x, y, texture, frame, name, locked, lockedMessage, spawnItem, spawnItemTexture, spawnItemFrame, spawnItemDescription) {
-		super(scene, x, y, texture, frame, name, spawnItem, spawnItemTexture, spawnItemFrame, spawnItemDescription);
+	constructor(scene, x, y, texture, frame, name, locked, lockedMessage) {
+		super(scene, x, y, texture, frame, name);
 		scene.add.existing(this);
 		this.setInteractive();
 		this.name = name;
@@ -42,5 +42,13 @@ export default class Chest extends ItemContainer {
 
 	setOpened(opened) {
 		this.opened = opened;
+	}
+
+	setSpawnItem(spawnItem) {
+		this.spawmItem = spawnItem;
+	}
+
+	getSpawnItem() {
+		return this.spawmItem;
 	}
 }
