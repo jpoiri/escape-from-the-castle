@@ -1,4 +1,4 @@
-import Sign from './Sign';
+import Sign from './TextModal';
 
 export default class ScrambledSign extends Sign {
 

@@ -2,10 +2,10 @@ import Phaser from 'phaser';
 import Chest from '../entities/Chest';
 import Safe from '../entities/Safe';
 import Door from '../entities/Door';
-import Sign from '../entities/Sign';
+import TextModal from '../entities/TextModal';
 import Item from '../entities/Item';
 import ScrambledSign from '../entities/ScrambledSign';
-import ImageSign from '../entities/ImageSign';
+import ImageModal from '../entities/ImageModal';
 import InteractiveZone from '../entities/InteractiveZone';
 import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Tile, Animation, Frame, TileAction, Direction } from '../constants';
 
@@ -40,6 +40,7 @@ export default class GameScene extends Phaser.Scene {
 	updateHud() {
 		for (let i = 0; i < this.items.length; i++) {
 			const image = this.add.image(950, i * 50 + 80, this.items[i].texture, this.items[i].frame);
+			image.setAlpha(0);
 			image.setScale(2);
 			image.setInteractive();
 			image.on('pointerdown', () => {
@@ -49,6 +50,14 @@ export default class GameScene extends Phaser.Scene {
 				this.selectedItem = this.items[i];
 				this.selectedRectangle = this.add.rectangle(image.x, image.y, 50, 50);
 				this.selectedRectangle.setStrokeStyle(3, 0xffffff);
+			});
+			this.tweens.add({
+				targets: image,
+				alpha: 1,
+				ease: 'Linear',
+				duration: 200,
+				repeat: 0,
+				yoyo: false
 			});
 		}
 	}
@@ -100,14 +109,11 @@ export default class GameScene extends Phaser.Scene {
 				case EntityType.DOOR:
 					this.door = this.createDoor(tileMapObjects[i]);
 					break;
-				case EntityType.SCRAMBLED_SIGN:
-					this.scrambledSigns.push(this.createScrambledSign(tileMapObjects[i]));
+				case EntityType.TEXT_MODAL:
+					this.signs.push(this.createTextModal(tileMapObjects[i]));
 					break;
-				case EntityType.SIGN:
-					this.signs.push(this.createSign(tileMapObjects[i]));
-					break;
-				case EntityType.IMAGE_SIGN:
-					this.createImageSign(tileMapObjects[i]);
+				case EntityType.IMAGE_MODAL:
+					this.createImageModal(tileMapObjects[i]);
 			}
 		}
 	}
@@ -136,11 +142,11 @@ export default class GameScene extends Phaser.Scene {
 		}
 	}
 
-	createImageSign(tileMapObject) {
-		const imageSign = new ImageSign(this, tileMapObject.x, tileMapObject.y, tileMapObject.width, tileMapObject.height);
+	createImageModal(tileMapObject) {
+		const imageSign = new ImageModal(this, tileMapObject.x, tileMapObject.y, tileMapObject.width, tileMapObject.height);
 		imageSign.setImageKey(this.getCustomProperty(tileMapObject, CustomProperty.IMAGE_KEY));
 		imageSign.on('pointerdown', () => {
-			this.showTextModal('Test text', 'large');
+			this.showImageModal(imageSign.getImageKey());
 		});
 	}
 
@@ -260,8 +266,8 @@ export default class GameScene extends Phaser.Scene {
 		return sign;
 	}
 
-	createSign(spawnObject) {
-		const sign = new Sign(
+	createTextModal(spawnObject) {
+		const sign = new TextModal(
 			this,
 			spawnObject.x,
 			spawnObject.y,
@@ -285,7 +291,7 @@ export default class GameScene extends Phaser.Scene {
 
 	showItemModal(itemDescription, itemTexture, itemFrame, closeCallback) {
 		const blocker = this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000, 0.5).setOrigin(0).setInteractive();
-		const modal = this.add.container(450, 350);
+		const modal = this.add.container(450, 350).setAlpha(0);
 
 		const box = this.add.rectangle(0, 0, 450, 150, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
 		const closeText = this.add
@@ -313,12 +319,19 @@ export default class GameScene extends Phaser.Scene {
 			}
 		});
 
+		this.tweens.add({
+			targets: modal,
+			alpha: 1,
+			ease: 'Linear',
+			duration: 200
+		});
+
 		modal.add([box, itemImage, itemDescriptionText, closeText]);
 	}
 
 	showImageModal(imageKey, closeCallback) {
 		const blocker = this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000, 0.5).setOrigin(0).setInteractive();
-		const modal = this.add.container(450, 350);
+		const modal = this.add.container(450, 350).setAlpha(0);
 		const box = this.add.rectangle(0, 0, 450, 350, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
 		const image = this.add.image(0, 0, imageKey).setOrigin(0.5);
 		image.setDisplaySize(box.width - 60, box.height - 60);
@@ -339,12 +352,19 @@ export default class GameScene extends Phaser.Scene {
 			}
 		});
 
+		this.tweens.add({
+			targets: modal,
+			alpha: 1,
+			ease: 'Linear',
+			duration: 200
+		});
+
 		modal.add([box, image, closeText]);
 	}
 
 	showTextModal(text, size = 'normal', closeCallback) {
 		const blocker = this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000, 0.5).setOrigin(0).setInteractive();
-		const modal = this.add.container(450, 350);
+		const modal = this.add.container(450, 350).setAlpha(0);
 		let box = null;
 		let closeText = null;
 
@@ -388,7 +408,12 @@ export default class GameScene extends Phaser.Scene {
 				closeCallback();
 			}
 		});
-
+		this.tweens.add({
+			targets: modal,
+			alpha: 1,
+			ease: 'Linear',
+			duration: 200
+		});
 		modal.add([box, textObj, closeText]);
 	}
 
@@ -422,6 +447,7 @@ export default class GameScene extends Phaser.Scene {
 	spawnItem(x, y, item) {
 		const image = this.add.image(x, y, item.getTexture(), item.getFrame());
 		image.setScale(2);
+		image.setAlpha(0);
 		image.setInteractive();
 		image.on('pointerdown', () => {
 			image.destroy();
@@ -433,6 +459,12 @@ export default class GameScene extends Phaser.Scene {
 				});
 				this.updateHud();
 			});
+		});
+		this.tweens.add({
+			targets: image,
+			alpha: 1,
+			ease: 'Linear',
+			duration: 200
 		});
 	}
 

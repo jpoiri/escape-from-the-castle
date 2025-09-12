@@ -42,10 +42,9 @@ const EntityType = {
 	DOOR: 'Door',
 	SAFE: 'Safe',
 	CHEST: 'Chest',
-	SIGN: 'Sign',
-	SCRAMBLED_SIGN: 'ScrambledSign',
+	TEXT_MODAL: 'TextModal',
 	INTERACTIVE_ZONE: 'InteractiveZone',
-	IMAGE_SIGN: 'ImageSign'
+	IMAGE_MODAL: 'ImageModal'
 };
 
 const LoaderKey = {
@@ -55,7 +54,8 @@ const LoaderKey = {
 	UI: 'ui',
 	CHEST: 'chest',
 	DOOR: 'door',
-	SAFE: 'safe'
+	SAFE: 'safe',
+	MENU_IMAGE: 'menu-image'
 };
 
 const Tile = {
