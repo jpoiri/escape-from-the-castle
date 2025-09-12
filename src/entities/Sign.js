@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-export default class Sign extends Phaser.Physics.Arcade.Image {
+export default class Sign extends Phaser.GameObjects.Rectangle {
 	text = null;
 	name = null;
 	visible = false;

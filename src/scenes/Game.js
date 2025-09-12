@@ -5,6 +5,7 @@ import Door from '../entities/Door';
 import Sign from '../entities/Sign';
 import Item from '../entities/Item';
 import ScrambledSign from '../entities/ScrambledSign';
+import ImageSign from '../entities/ImageSign';
 import InteractiveZone from '../entities/InteractiveZone';
 import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Tile, Animation, Frame, TileAction, Direction } from '../constants';
 
@@ -20,7 +21,6 @@ export default class GameScene extends Phaser.Scene {
 	items = [];
 	selectedItem = null;
 	selectedRectangle = null;
-	dialogGroup = null;
 
 	constructor() {
 		super('game');
@@ -66,7 +66,7 @@ export default class GameScene extends Phaser.Scene {
 			if (progress === 1) {
 				this.loadRoom(roomKey);
 			}
-		})
+		});
 	}
 
 	createTileMap(tileMapKey) {
@@ -106,6 +106,8 @@ export default class GameScene extends Phaser.Scene {
 				case EntityType.SIGN:
 					this.signs.push(this.createSign(tileMapObjects[i]));
 					break;
+				case EntityType.IMAGE_SIGN:
+					this.createImageSign(tileMapObjects[i]);
 			}
 		}
 	}
@@ -134,6 +136,14 @@ export default class GameScene extends Phaser.Scene {
 		}
 	}
 
+	createImageSign(tileMapObject) {
+		const imageSign = new ImageSign(this, tileMapObject.x, tileMapObject.y, tileMapObject.width, tileMapObject.height);
+		imageSign.setImageKey(this.getCustomProperty(tileMapObject, CustomProperty.IMAGE_KEY));
+		imageSign.on('pointerdown', () => {
+			this.showTextModal('Test text', 'large');
+		});
+	}
+
 	createSafe(tileMapObject) {
 		const safe = new Safe(
 			this,
@@ -143,7 +153,7 @@ export default class GameScene extends Phaser.Scene {
 			12,
 			tileMapObject.name,
 			this.getCustomProperty(tileMapObject, CustomProperty.COMBINATION),
-			this.getCustomProperty(tileMapObject, CustomProperty.PROMPT_MESSAGE),
+			this.getCustomProperty(tileMapObject, CustomProperty.PROMPT_MESSAGE)
 		);
 		const itemName = this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM_NAME);
 		if (itemName) {
@@ -162,11 +172,7 @@ export default class GameScene extends Phaser.Scene {
 				if (answer && answer.toLocaleUpperCase() === safe.getCombination().toLocaleUpperCase()) {
 					safe.play(Animation.SAFE_OPEN);
 					safe.setOpened(true);
-					this.spawnItem(
-						safe.x,
-						safe.y + safe.height,
-						safe.getSpawnItem()
-					);
+					this.spawnItem(safe.x, safe.y + safe.height, safe.getSpawnItem());
 				}
 			}
 		});
@@ -186,7 +192,7 @@ export default class GameScene extends Phaser.Scene {
 		);
 		door.on('pointerdown', () => {
 			if (door.isLocked()) {
-				this.showDialog(door.getLockedMessage());
+				this.showTextModal(door.getLockedMessage());
 			} else {
 				door.play(Animation.DOOR_OPEN);
 				door.setOpened(true);
@@ -219,16 +225,12 @@ export default class GameScene extends Phaser.Scene {
 		}
 		chest.on('pointerdown', () => {
 			if (chest.isLocked()) {
-				this.showDialog(chest.lockedMessage);
+				this.showTextModal(chest.lockedMessage);
 			} else {
 				if (!chest.isOpened()) {
 					chest.play(Animation.CHEST_OPEN);
 					chest.setOpened(true);
-					this.spawnItem(
-						chest.x,
-						chest.y + chest.height + 5,
-						chest.getSpawnItem()
-					);
+					this.spawnItem(chest.x, chest.y + chest.height + 5, chest.getSpawnItem());
 				}
 			}
 		});
@@ -249,9 +251,9 @@ export default class GameScene extends Phaser.Scene {
 		sign.on('pointerdown', () => {
 			if (sign.isVisible()) {
 				if (sign.isScrambled()) {
-					this.showDialog(sign.getScrambledText());
+					this.showTextModal(sign.getScrambledText());
 				} else {
-					this.showDialog(sign.getText());
+					this.showTextModal(sign.getText());
 				}
 			}
 		});
@@ -269,7 +271,7 @@ export default class GameScene extends Phaser.Scene {
 		);
 		sign.on('pointerdown', () => {
 			if (sign.isVisible()) {
-				this.showDialog(sign.getText());
+				this.showTextModal(sign.getText());
 			}
 		});
 		return sign;
@@ -281,38 +283,113 @@ export default class GameScene extends Phaser.Scene {
 		}
 	}
 
-	showDialog(text, itemTexture, itemFrame, closeCallback) {
-		if (this.dialogGroup) {
-			this.dialogGroup.destroy(true, false);
-		}
-		this.dialogGroup = this.add.group();
-		const dialogFrame = this.add.nineslice(450, 350, LoaderKey.FRAME, null, 300, 550);
-		let textY = 350;
-		if (itemTexture) {
-			textY = 330;
-			const dialogImage = this.add.image(450, 360, itemTexture, itemFrame);
-			dialogImage.setScale(2);
-			dialogImage.setOrigin(0.5, 0.5);
-			this.dialogGroup.add(dialogImage);
-		}
-		const dialogText = this.add.text(450, textY, text, {
-			fontFamily: 'Verdana',
-			fontSize: '12px'
-		});
-		dialogText.setOrigin(0.5, 0.5);
-		dialogText.setWordWrapWidth(250);
-		const closeButton = this.add.image(585, 300, LoaderKey.UI, 2);
-		closeButton.setInteractive();
+	showItemModal(itemDescription, itemTexture, itemFrame, closeCallback) {
+		const blocker = this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000, 0.5).setOrigin(0).setInteractive();
+		const modal = this.add.container(450, 350);
 
-		this.dialogGroup.add(closeButton);
-		this.dialogGroup.add(dialogText);
-		this.dialogGroup.add(dialogFrame);
-		closeButton.on('pointerdown', () => {
-			this.dialogGroup.destroy(true, false);
+		const box = this.add.rectangle(0, 0, 450, 150, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
+		const closeText = this.add
+			.text(155, -69, 'Close X', {
+				fontSize: '16px',
+				fontFamily: 'verdana',
+				fill: '#FFFFFF'
+			})
+			.setInteractive();
+
+		const itemImage = this.add.image(0, -10, itemTexture, itemFrame).setScale(2.5);
+		const itemDescriptionText = this.add
+			.text(0, 30, itemDescription, {
+				fontSize: '16px',
+				fontFamily: 'verdana',
+				fill: '#FFFFFF'
+			})
+			.setOrigin(0.5);
+
+		closeText.on('pointerdown', () => {
+			blocker.destroy();
+			modal.destroy();
 			if (closeCallback) {
 				closeCallback();
 			}
 		});
+
+		modal.add([box, itemImage, itemDescriptionText, closeText]);
+	}
+
+	showImageModal(imageKey, closeCallback) {
+		const blocker = this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000, 0.5).setOrigin(0).setInteractive();
+		const modal = this.add.container(450, 350);
+		const box = this.add.rectangle(0, 0, 450, 350, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
+		const image = this.add.image(0, 0, imageKey).setOrigin(0.5);
+		image.setDisplaySize(box.width - 60, box.height - 60);
+
+		const closeText = this.add
+			.text(155, -169, 'Close X', {
+				fontSize: '16px',
+				fontFamily: 'verdana',
+				fill: '#FFFFFF'
+			})
+			.setInteractive();
+
+		closeText.on('pointerdown', () => {
+			blocker.destroy();
+			modal.destroy();
+			if (closeCallback) {
+				closeCallback();
+			}
+		});
+
+		modal.add([box, image, closeText]);
+	}
+
+	showTextModal(text, size = 'normal', closeCallback) {
+		const blocker = this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000, 0.5).setOrigin(0).setInteractive();
+		const modal = this.add.container(450, 350);
+		let box = null;
+		let closeText = null;
+
+		switch (size) {
+			case 'normal':
+				box = this.add.rectangle(0, 0, 450, 150, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
+				closeText = this.add
+					.text(155, -69, 'Close X', {
+						fontSize: '16px',
+						fontFamily: 'verdana',
+						fill: '#FFFFFF'
+					})
+					.setInteractive();
+				break;
+			case 'large':
+				closeText = this.add
+					.text(155, -169, 'Close X', {
+						fontSize: '16px',
+						fontFamily: 'verdana',
+						fill: '#FFFFFF'
+					})
+					.setInteractive();
+				box = this.add.rectangle(0, 0, 450, 350, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
+				break;
+		}
+		const textObj = this.add
+			.text(0, 0, text, {
+				wordWrap: {
+					width: 400
+				},
+				fontSize: '16px',
+				fontFamily: 'verdana',
+				fill: '#FFFFFF'
+			})
+			.setOrigin(0.5);
+
+		closeText.on('pointerdown', () => {
+			blocker.destroy();
+			modal.destroy();
+			if (closeCallback) {
+				closeCallback();
+			}
+		});
+
+		modal.add([box, textObj, closeText]);
 	}
 
 	createAnimations() {
@@ -341,14 +418,14 @@ export default class GameScene extends Phaser.Scene {
 	getDialog(dialogs, name) {
 		return dialogs.find((dialog) => dialog.name == name);
 	}
-	
+
 	spawnItem(x, y, item) {
 		const image = this.add.image(x, y, item.getTexture(), item.getFrame());
 		image.setScale(2);
 		image.setInteractive();
 		image.on('pointerdown', () => {
 			image.destroy();
-			this.showDialog(item.getDescription(), item.getTexture(), item.getFrame(), () => {
+			this.showItemModal(item.getDescription(), item.getTexture(), item.getFrame(), () => {
 				this.items.push({
 					name: item.getName(),
 					texture: item.getTexture(),
@@ -392,19 +469,10 @@ export default class GameScene extends Phaser.Scene {
 		if (this.timeRemaining) {
 			this.timeText = this.add.text(915, 730, `${hoursRemaining}:${minutesRemaining}:${secondsRemaining}`, {
 				fontSize: '12px',
-				fontFamily: 'Verdana'
+				fontFamily: 'Verdana',
+				color: 0xffffff
 			});
 		}
-	}
-
-	getPointerTile() {
-		const worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
-
-		// Rounds down to nearest tile
-		const pointerTileX = this.tileMap.worldToTileX(worldPoint.x);
-		const pointerTileY = this.tileMap.worldToTileY(worldPoint.y);
-
-		return this.tileMap.getTileAt(pointerTileX, pointerTileY, false, TilemapLayer.FOREGROUND);
 	}
 
 	update() {
