@@ -15,7 +15,8 @@ const CustomProperty = {
 	NEW_TILES: 'newTiles',
 	VELOCITY: 'velocity',
 	DIRECTION: 'direction',
-	NAVIGATE_TO: 'navigateTo'
+	NAVIGATE_TO: 'navigateTo',
+	IMAGE_KEY: 'imageKey'
 };
 
 const TileAction = {
@@ -43,13 +44,13 @@ const EntityType = {
 	CHEST: 'Chest',
 	SIGN: 'Sign',
 	SCRAMBLED_SIGN: 'ScrambledSign',
-	INTERACTIVE_ZONE: 'InteractiveZone'
+	INTERACTIVE_ZONE: 'InteractiveZone',
+	IMAGE_SIGN: 'ImageSign'
 };
 
 const LoaderKey = {
 	TILEMAP: 'tilemap',
 	TILESET: 'tiles',
-	FRAME: 'frame',
 	ITEMS: 'items',
 	UI: 'ui',
 	CHEST: 'chest',
