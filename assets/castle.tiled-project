@@ -13,6 +13,77 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 14,
+            "members": [
+                {
+                    "name": "direction",
+                    "propertyType": "Direction",
+                    "type": "string",
+                    "value": "UP"
+                },
+                {
+                    "name": "newTiles",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "text",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "textureFrame",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "textureKey",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "type",
+                    "propertyType": "ActionType",
+                    "type": "string",
+                    "value": "SHOW_TEXT"
+                },
+                {
+                    "name": "velocity",
+                    "type": "int",
+                    "value": 0
+                }
+            ],
+            "name": "Action",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "id": 9,
+            "name": "ActionType",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "SHOW_TEXT",
+                "MOVE_TILE",
+                "REPLACE_TILE",
+                "DESTROY_TILE",
+                "SHOW_IMAGE"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 6,
             "members": [
                 {
@@ -27,23 +98,10 @@
                 },
                 {
                     "name": "spawnItem",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "spawnItemDescription",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "spawnItemFrame",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "spawnItemTexture",
-                    "type": "string",
-                    "value": ""
+                    "propertyType": "Item",
+                    "type": "class",
+                    "value": {
+                    }
                 }
             ],
             "name": "Chest",
@@ -61,69 +119,17 @@
             ]
         },
         {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 8,
-            "members": [
-                {
-                    "name": "imageKey",
-                    "type": "string",
-                    "value": ""
-                }
+            "id": 11,
+            "name": "Direction",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "UP",
+                "DOWN",
+                "RIGHT",
+                "LEFT"
             ],
-            "name": "ImageModal",
-            "type": "class",
-            "useAs": [
-                "property",
-                "map",
-                "layer",
-                "object",
-                "tile",
-                "tileset",
-                "wangcolor",
-                "wangset",
-                "project"
-            ]
-        },
-        {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 2,
-            "members": [
-                {
-                    "name": "scrambled",
-                    "type": "bool",
-                    "value": false
-                },
-                {
-                    "name": "scrambledText",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "text",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "visible",
-                    "type": "string",
-                    "value": ""
-                }
-            ],
-            "name": "TextModal",
-            "type": "class",
-            "useAs": [
-                "property",
-                "map",
-                "layer",
-                "object",
-                "tile",
-                "tileset",
-                "wangcolor",
-                "wangset",
-                "project"
-            ]
+            "valuesAsFlags": false
         },
         {
             "color": "#ffa0a0a4",
@@ -167,13 +173,25 @@
             "members": [
                 {
                     "name": "action",
+                    "propertyType": "Action",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "itemRequired",
                     "type": "string",
                     "value": ""
                 },
                 {
-                    "name": "direction",
+                    "name": "itemRequiredMessage",
                     "type": "string",
                     "value": ""
+                },
+                {
+                    "name": "itemRequiredMessageVisible",
+                    "type": "bool",
+                    "value": false
                 },
                 {
                     "name": "navigateTo",
@@ -181,37 +199,59 @@
                     "value": ""
                 },
                 {
-                    "name": "newTiles",
-                    "type": "string",
-                    "value": ""
+                    "name": "repeatableAction",
+                    "type": "bool",
+                    "value": false
                 },
                 {
                     "name": "spawnItem",
+                    "propertyType": "Item",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "InteractiveZone",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 12,
+            "members": [
+                {
+                    "name": "description",
                     "type": "string",
                     "value": ""
                 },
                 {
-                    "name": "spawnItemDescription",
+                    "name": "name",
                     "type": "string",
                     "value": ""
                 },
                 {
-                    "name": "spawnItemFrame",
+                    "name": "textureFrame",
                     "type": "string",
                     "value": ""
                 },
                 {
-                    "name": "spawnItemTexture",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "velocity",
+                    "name": "textureKey",
                     "type": "string",
                     "value": ""
                 }
             ],
-            "name": "InteractiveZone",
+            "name": "Item",
             "type": "class",
             "useAs": [
                 "property",
@@ -242,23 +282,10 @@
                 },
                 {
                     "name": "spawnItem",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "spawnItemDescription",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "spawnItemFrame",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "spawnItemTexture",
-                    "type": "string",
-                    "value": ""
+                    "propertyType": "Item",
+                    "type": "class",
+                    "value": {
+                    }
                 }
             ],
             "name": "Safe",

@@ -1,22 +1,40 @@
 import Phaser from 'phaser';
-import { TilemapLayer, TileAction, Direction } from '../constants';
+import { TilemapLayer, ActionType, Direction } from '../constants';
+import ModalUtils from '../utils/ModalUtils';
 
 export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
-	velocity = 0;
-	direction = null;
+	
 	action = null;
-	newTiles = null;
 	spawnItem = null;
 	navigateTo = null;
+	repeatableAction = false;
+	itemRequired = null;
+	itemRequiredMessage = null;
+	itemRequiredMessageVisible = false;
 
 	constructor(scene, x, y, width, height) {
 		super(scene, x, y, width, height);
 		this.setOrigin(0, 0);
 		this.setInteractive();
 		scene.add.existing(this);
+	}
 
-		this.on('pointerdown', () => {
-			const tiles = scene.tileMap.getTilesWithinWorldXY(
+	executeAction(item) {
+		console.log('execute action 1');
+		if (this.itemRequired && item?.name !== this.itemRequired) {
+			if (this.itemRequiredMessageVisible) {
+				ModalUtils.showTextModal(this.scene, this.itemRequiredMessage);
+			}
+		} else {
+			let { type, velocity, newTiles, direction, text, textureKey } = this.action;
+
+			newTiles = newTiles?.split(',').map((s) => {
+				return parseInt(s, 10);
+			});
+
+			console.log(text);
+
+			const tiles = this.scene.tileMap.getTilesWithinWorldXY(
 				this.x,
 				this.y,
 				this.width,
@@ -27,63 +45,64 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 				null,
 				TilemapLayer.FOREGROUND
 			);
-			switch (this.action) {
-				case TileAction.REPLACE:
+			switch (type) {
+				case ActionType.REPLACE_TILE:
 					for (let i = 0, len = tiles.length; i < len; i++) {
-						if (this.newTiles[i]) {
-							scene.tileMap.putTileAt(this.newTiles[i], tiles[i].x, tiles[i].y);
+						if (newTiles[i]) {
+							this.scene.tileMap.putTileAt(newTiles[i], tiles[i].x, tiles[i].y);
 						}
 					}
 					break;
-				case TileAction.DESTROY:
+				case ActionType.DESTROY_TILE:
 					for (let i = 0, len = tiles.length; i < len; i++) {
-						scene.tileMap.removeTileAt(tiles[i].x, tiles[i].y);
+						this.scene.tileMap.removeTileAt(tiles[i].x, tiles[i].y);
 					}
 					break;
-				case TileAction.MOVE:
+				case ActionType.MOVE_TILE:
 					for (let i = 0, len = tiles.length; i < len; i++) {
-						scene.tileMap.removeTileAt(tiles[i].x, tiles[i].y);
+						this.scene.tileMap.removeTileAt(tiles[i].x, tiles[i].y);
 					}
-					switch (this.direction) {
+					switch (direction) {
 						case Direction.LEFT:
 							for (let i = 0, len = tiles.length; i < len; i++) {
-								scene.tileMap.putTileAt(tiles[i].index, tiles[i].x + this.velocity, tiles[i].y);
+								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x + velocity, tiles[i].y);
 							}
 							break;
 						case Direction.RIGHT:
 							for (let i = 0, len = tiles.length; i < len; i++) {
-								scene.tileMap.putTileAt(tiles[i].index, tiles[i].x - this.velocity, tiles[i].y);
+								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x - velocity, tiles[i].y);
 							}
 							break;
 						case Direction.UP:
 							for (let i = 0, len = tiles.length; i < len; i++) {
-								scene.tileMap.putTileAt(tiles[i].index, tiles[i].x, tiles[i].y - this.velocity);
+								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x, tiles[i].y - velocity);
 							}
 							break;
 						case Direction.DOWN:
 							for (let i = 0, len = tiles.length; i < len; i++) {
-								scene.tileMap.putTileAt(tiles[i].index, tiles[i].x, tiles[i].y + this.velocity);
+								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x, tiles[i].y + velocity);
 							}
 							break;
 					}
 					break;
+				case ActionType.SHOW_TEXT:
+					console.log('show text');
+					ModalUtils.showTextModal(this.scene, text);
+					break;
+				case ActionType.SHOW_IMAGE:
+					ModalUtils.showImageModal(this.scene, textureKey);
+					break;
 			}
 			if (this.spawnItem) {
-				scene.spawnItem(this.x + this.width / 2, this.y + this.height / 2, this.spawnItem);
+				this.scene.spawnItem(this.x + this.width / 2, this.y + this.height / 2, this.spawnItem);
 			}
 			if (this.navigateTo) {
-				scene.reloadRoom(this.navigateTo);
+				this.scene.reloadRoom(this.navigateTo);
 			}
-			this.destroy();
-		});
-	}
-
-	setVelocity(velocity) {
-		this.velocity = velocity;
-	}
-
-	getVelocity() {
-		return this.velocity;
+			if (!this.repeatableAction) {
+				this.destroy();
+			}
+		}
 	}
 
 	setAction(action) {
@@ -94,14 +113,6 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 		return this.action;
 	}
 
-	setDirection(direction) {
-		this.direction = direction;
-	}
-
-	getDirection() {
-		return this.direction;
-	}
-
 	setSpawnItem(spawnItem) {
 		this.spawnItem = spawnItem;
 	}
@@ -110,19 +121,43 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 		return this.spawnItem;
 	}
 
-	setNewTiles(newTiles) {
-		this.newTiles = newTiles;
-	}
-
-	getNewTiles() {
-		return this.newTiles;
-	}
-
 	setNavigateTo(navigateTo) {
 		this.navigateTo = navigateTo;
 	}
 
 	getNavigateTo() {
 		return this.navigateTo;
+	}
+
+	setRepeatableAction(repeatableAction) {
+		this.repeatableAction = repeatableAction;
+	}
+
+	isRepeatableAction() {
+		return this.repeatableAction;
+	}
+
+	setItemRequired(itemRequired) {
+		this.itemRequired = itemRequired;
+	}
+
+	getItemRequired() {
+		return this.itemRequired;
+	}
+
+	setItemRequiredMessage(itemRequiredMessage) {
+		this.itemRequiredMessage = itemRequiredMessage;
+	}
+
+	getItemRequiredMessage() {
+		return this.itemRequiredMessage;
+	}
+
+	setItemRequiredMessageVisible(itemRequiredMessageVisible) {
+		this.itemRequiredMessageVisible = itemRequiredMessageVisible;
+	}
+
+	isItemRequiredMessageVisible() {
+		return this.itemRequiredMessageVisible;
 	}
 }

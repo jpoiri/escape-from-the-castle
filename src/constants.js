@@ -1,10 +1,7 @@
 const CustomProperty = {
 	COMBINATION: 'combination',
 	PROMPT_MESSAGE: 'promptMessage',
-	SPAWN_ITEM_NAME: 'spawnItem',
-	SPAWN_ITEM_TEXTURE: 'spawnItemTexture',
-	SPAWN_ITEM_FRAME: 'spawnItemFrame',
-	SPAWN_ITEM_DESCRIPTION: 'spawnItemDescription',
+	SPAWN_ITEM: 'spawnItem',
 	LOCKED: 'locked',
 	LOCKED_MESSAGE: 'lockedMessage',
 	TEXT: 'text',
@@ -16,20 +13,26 @@ const CustomProperty = {
 	VELOCITY: 'velocity',
 	DIRECTION: 'direction',
 	NAVIGATE_TO: 'navigateTo',
-	IMAGE_KEY: 'imageKey'
+	IMAGE_KEY: 'imageKey',
+	REPEATABLE_ACTION: 'repeatableAction',
+	ITEM_REQUIRED_MESSAGE_VISIBLE: 'itemRequiredMessageVisible',
+	ITEM_REQUIRED: 'itemRequired',
+	ITEM_REQUIRED_MESSAGE: 'itemRequiredMessage'
 };
 
-const TileAction = {
-	MOVE: 'move',
-	DESTROY: 'destroy',
-	REPLACE: 'replace'
+const ActionType = {
+	MOVE_TILE: 'MOVE_TILE',
+	DESTROY_TILE: 'DESTROY_TILE',
+	REPLACE_TILE: 'REPLACE_TILE',
+	SHOW_TEXT: 'SHOW_TEXT',
+	SHOW_IMAGE: 'SHOW_IMAGE'
 };
 
 const Direction = {
-	LEFT: 'left',
-	RIGHT: 'right',
+	LEFT: 'LEFT',
+	RIGHT: 'RIGHT',
 	UP: 'UP',
-	DOWN: 'down'
+	DOWN: 'DOWN'
 };
 
 const TilemapLayer = {
@@ -120,6 +123,6 @@ Object.freeze(Item);
 Object.freeze(Animation);
 Object.freeze(Frame);
 Object.freeze(Direction);
-Object.freeze(TileAction);
+Object.freeze(ActionType);
 
-export { TilemapLayer, CustomProperty, LoaderKey, EntityType, Tile, Item, Animation, Frame, TileAction, Direction };
+export { TilemapLayer, CustomProperty, LoaderKey, EntityType, Tile, Item, Animation, Frame, ActionType, Direction };

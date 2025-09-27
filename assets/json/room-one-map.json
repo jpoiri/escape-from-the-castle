@@ -96,23 +96,17 @@
                         }, 
                         {
                          "name":"spawnItem",
-                         "type":"string",
-                         "value":"shovel"
-                        }, 
-                        {
-                         "name":"spawnItemDescription",
-                         "type":"string",
-                         "value":"You got a shovel"
-                        }, 
-                        {
-                         "name":"spawnItemFrame",
-                         "type":"string",
-                         "value":"82"
-                        }, 
-                        {
-                         "name":"spawnItemTexture",
-                         "type":"string",
-                         "value":"items"
+                         "propertytype":"Item",
+                         "type":"class",
+                         "value":
+                            {
+                             "description":"You got a shovel",
+                             "frame":"82",
+                             "name":"shovel",
+                             "texture":"items",
+                             "textureFrame":"125",
+                             "textureKey":"items"
+                            }
                         }],
                  "rotation":0,
                  "type":"Chest",
@@ -127,27 +121,22 @@
                  "name":"cave-dialog",
                  "properties":[
                         {
-                         "name":"scrambled",
-                         "type":"bool",
-                         "value":true
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "text":"Secrets are closer than expected",
+                             "type":"SHOW_TEXT"
+                            }
                         }, 
                         {
-                         "name":"scrambledText",
-                         "type":"string",
-                         "value":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nulla.\n\n"
-                        }, 
-                        {
-                         "name":"text",
-                         "type":"string",
-                         "value":"Secrets are closer than expected"
-                        }, 
-                        {
-                         "name":"visible",
+                         "name":"repeatableAction",
                          "type":"bool",
                          "value":true
                         }],
                  "rotation":0,
-                 "type":"TextModal",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":30,
                  "x":717.647266248469,
@@ -159,17 +148,22 @@
                  "name":"knight-sign",
                  "properties":[
                         {
-                         "name":"text",
-                         "type":"string",
-                         "value":"This unicode character is the key to opening this safe"
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "text":"This unicode character is the key to opening this safe",
+                             "type":"SHOW_TEXT"
+                            }
                         }, 
                         {
-                         "name":"visible",
+                         "name":"repeatableAction",
                          "type":"bool",
                          "value":true
                         }],
                  "rotation":0,
-                 "type":"TextModal",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":53.3505183842276,
                  "x":609.470890581563,
@@ -193,23 +187,17 @@
                         }, 
                         {
                          "name":"spawnItem",
-                         "type":"string",
-                         "value":"ice-rod"
-                        }, 
-                        {
-                         "name":"spawnItemDescription",
-                         "type":"string",
-                         "value":"You got the magical rod"
-                        }, 
-                        {
-                         "name":"spawnItemFrame",
-                         "type":"int",
-                         "value":145
-                        }, 
-                        {
-                         "name":"spawnItemTexture",
-                         "type":"string",
-                         "value":"items"
+                         "propertytype":"Item",
+                         "type":"class",
+                         "value":
+                            {
+                             "description":"You got the magical rod",
+                             "frame":"145",
+                             "name":"ice-rod",
+                             "texture":"items",
+                             "textureFrame":"115",
+                             "textureKey":"items"
+                            }
                         }],
                  "rotation":0,
                  "type":"Safe",
@@ -225,13 +213,13 @@
                  "properties":[
                         {
                          "name":"action",
-                         "type":"string",
-                         "value":"replace"
-                        }, 
-                        {
-                         "name":"newTiles",
-                         "type":"string",
-                         "value":"741, 742, 791, 792"
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "newTiles":"741,742,791,792",
+                             "type":"REPLACE_TILE"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -241,200 +229,24 @@
                  "y":290.35852973501
                 }, 
                 {
-                 "height":57.2085,
-                 "id":51,
-                 "name":"middle-right-barrel",
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"replace"
-                        }, 
-                        {
-                         "name":"newTiles",
-                         "type":"string",
-                         "value":"743, 744, 793, 794"
-                        }],
-                 "rotation":0,
-                 "type":"InteractiveZone",
-                 "visible":true,
-                 "width":44.0786,
-                 "x":296.940795249725,
-                 "y":387.052362529002
-                }, 
-                {
-                 "height":57.2085,
-                 "id":52,
-                 "name":"top-right-barrel",
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"replace"
-                        }, 
-                        {
-                         "name":"newTiles",
-                         "type":"string",
-                         "value":"745, 746, 795, 796"
-                        }],
-                 "rotation":0,
-                 "type":"InteractiveZone",
-                 "visible":true,
-                 "width":44.0786,
-                 "x":296.889629051166,
-                 "y":289.511148705581
-                }, 
-                {
-                 "height":57.2085,
-                 "id":53,
-                 "name":" bottom-middle-barrel",
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"replace"
-                        }, 
-                        {
-                         "name":"newTiles",
-                         "type":"string",
-                         "value":"743, 744, 793, 794"
-                        }],
-                 "rotation":0,
-                 "type":"InteractiveZone",
-                 "visible":true,
-                 "width":44.0786,
-                 "x":201.540380058615,
-                 "y":483.644742550983
-                }, 
-                {
-                 "height":57.2085,
-                 "id":55,
-                 "name":"middle-center-barrel",
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"replace"
-                        }, 
-                        {
-                         "name":"newTiles",
-                         "type":"string",
-                         "value":"741, 742, 791, 792"
-                        }],
-                 "rotation":0,
-                 "type":"InteractiveZone",
-                 "visible":true,
-                 "width":44.0786,
-                 "x":200.421562132129,
-                 "y":387.36314528636
-                }, 
-                {
-                 "height":57.2085,
-                 "id":56,
-                 "name":"top-center-barrel",
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"replace"
-                        }, 
-                        {
-                         "name":"newTiles",
-                         "type":"string",
-                         "value":"743, 744, 793, 794"
-                        }],
-                 "rotation":0,
-                 "type":"InteractiveZone",
-                 "visible":true,
-                 "width":44.0786,
-                 "x":200.9188145439,
-                 "y":290.132714220296
-                }, 
-                {
-                 "height":57.2085,
-                 "id":57,
-                 "name":"bottom-left-barrel",
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"replace"
-                        }, 
-                        {
-                         "name":"newTiles",
-                         "type":"string",
-                         "value":"743, 744, 793, 794"
-                        }],
-                 "rotation":0,
-                 "type":"InteractiveZone",
-                 "visible":true,
-                 "width":44.0786,
-                 "x":104.032137293931,
-                 "y":484.306483911345
-                }, 
-                {
-                 "height":57.2085,
-                 "id":58,
-                 "name":"middle-right-barrel",
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"replace"
-                        }, 
-                        {
-                         "name":"newTiles",
-                         "type":"string",
-                         "value":"743, 744, 793, 794"
-                        }],
-                 "rotation":0,
-                 "type":"InteractiveZone",
-                 "visible":true,
-                 "width":44.0786,
-                 "x":296.703159396752,
-                 "y":484.08533358774
-                }, 
-                {
-                 "height":57.2085,
-                 "id":59,
-                 "name":"middle-left-barrel",
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"replace"
-                        }, 
-                        {
-                         "name":"newTiles",
-                         "type":"string",
-                         "value":"743, 744, 793, 794"
-                        }],
-                 "rotation":0,
-                 "type":"InteractiveZone",
-                 "visible":true,
-                 "width":44.0786,
-                 "x":104.066817963121,
-                 "y":387.792745970204
-                }, 
-                {
                  "height":53.4571262058859,
                  "id":60,
                  "name":"door",
                  "properties":[
                         {
                          "name":"action",
-                         "type":"string",
-                         "value":"replace"
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "newTiles":"25,26,75,76",
+                             "type":"REPLACE_TILE"
+                            }
                         }, 
                         {
                          "name":"navigateTo",
                          "type":"string",
                          "value":"room-two"
-                        }, 
-                        {
-                         "name":"newTiles",
-                         "type":"string",
-                         "value":"25,26,75,76"
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -450,28 +262,26 @@
                  "properties":[
                         {
                          "name":"action",
-                         "type":"string",
-                         "value":"destroy"
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "type":"DESTROY_TILE"
+                            }
                         }, 
                         {
                          "name":"spawnItem",
-                         "type":"string",
-                         "value":"something cool"
-                        }, 
-                        {
-                         "name":"spawnItemDescription",
-                         "type":"string",
-                         "value":"You got an item"
-                        }, 
-                        {
-                         "name":"spawnItemFrame",
-                         "type":"int",
-                         "value":115
-                        }, 
-                        {
-                         "name":"spawnItemTexture",
-                         "type":"string",
-                         "value":"items"
+                         "propertytype":"Item",
+                         "type":"class",
+                         "value":
+                            {
+                             "description":"You got an item",
+                             "frame":"115",
+                             "name":"test",
+                             "texture":"items",
+                             "textureFrame":"115",
+                             "textureKey":"items"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -487,38 +297,26 @@
                  "properties":[
                         {
                          "name":"action",
-                         "type":"string",
-                         "value":"move"
-                        }, 
-                        {
-                         "name":"direction",
-                         "type":"string",
-                         "value":"left"
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "direction":"LEFT",
+                             "type":"MOVE_TILE",
+                             "velocity":2
+                            }
                         }, 
                         {
                          "name":"spawnItem",
-                         "type":"string",
-                         "value":"hammer"
-                        }, 
-                        {
-                         "name":"spawnItemDescription",
-                         "type":"string",
-                         "value":"You got the hammer"
-                        }, 
-                        {
-                         "name":"spawnItemFrame",
-                         "type":"int",
-                         "value":111
-                        }, 
-                        {
-                         "name":"spawnItemTexture",
-                         "type":"string",
-                         "value":"items"
-                        }, 
-                        {
-                         "name":"velocity",
-                         "type":"int",
-                         "value":2
+                         "propertytype":"Item",
+                         "type":"class",
+                         "value":
+                            {
+                             "description":"You got the hammer",
+                             "name":"hammer             ",
+                             "textureFrame":"111",
+                             "textureKey":"items"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -528,64 +326,37 @@
                  "y":146.772487977775
                 }, 
                 {
-                 "height":49.3961402810039,
-                 "id":72,
-                 "name":" drawer",
-                 "properties":[
-                        {
-                         "name":"action",
-                         "type":"string",
-                         "value":"move"
-                        }, 
-                        {
-                         "name":"direction",
-                         "type":"string",
-                         "value":"left"
-                        }, 
-                        {
-                         "name":"spawnItem",
-                         "type":"string",
-                         "value":"hammer"
-                        }, 
-                        {
-                         "name":"spawnItemDescription",
-                         "type":"string",
-                         "value":"You got the hammer"
-                        }, 
-                        {
-                         "name":"spawnItemFrame",
-                         "type":"int",
-                         "value":111
-                        }, 
-                        {
-                         "name":"spawnItemTexture",
-                         "type":"string",
-                         "value":"items"
-                        }, 
-                        {
-                         "name":"velocity",
-                         "type":"int",
-                         "value":2
-                        }],
-                 "rotation":0,
-                 "type":"InteractiveZone",
-                 "visible":true,
-                 "width":53.8531204917569,
-                 "x":566.481178692425,
-                 "y":110.328840516118
-                }, 
-                {
                  "height":42.6400770494589,
                  "id":73,
                  "name":"Image",
                  "properties":[
                         {
-                         "name":"imageKey",
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "textureKey":"test",
+                             "type":"SHOW_IMAGE"
+                            }
+                        }, 
+                        {
+                         "name":"itemRequiredMessage",
                          "type":"string",
-                         "value":"test"
+                         "value":""
+                        }, 
+                        {
+                         "name":"itemRequiredMessageVisible",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"repeatableAction",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
-                 "type":"ImageModal",
+                 "type":"InteractiveZone",
                  "visible":true,
                  "width":51.7772364172001,
                  "x":102.630672483145,
@@ -598,7 +369,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":75,
+ "nextobjectid":76,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
