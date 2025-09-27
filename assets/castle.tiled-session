@@ -1,0 +1,39 @@
+{
+    "activeFile": "json/room-one-map.json",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "json/room-one-map.json": {
+            "scale": 0.9849888392857143,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": -183.2508073196986,
+                "y": 383.7606934451305
+            }
+        },
+        "json/room-one-map.json#castle-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-two-map.json": {
+            "scale": 0.9849888392857143,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 448.2284289841935,
+                "y": 383.7606934451305
+            }
+        },
+        "json/room-two-map.json#castle-tiles": {
+            "scaleInDock": 1
+        }
+    },
+    "openFiles": [
+        "json/room-one-map.json"
+    ],
+    "project": "castle.tiled-project",
+    "property.type": "Action",
+    "recentFiles": [
+        "json/room-one-map.json",
+        "json/room-two-map.json"
+    ]
+}

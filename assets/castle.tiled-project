@@ -1,0 +1,306 @@
+{
+    "automappingRulesFile": "",
+    "commands": [
+    ],
+    "compatibilityVersion": 1100,
+    "extensionsPath": "extensions",
+    "folders": [
+        "."
+    ],
+    "properties": [
+    ],
+    "propertyTypes": [
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 14,
+            "members": [
+                {
+                    "name": "direction",
+                    "propertyType": "Direction",
+                    "type": "string",
+                    "value": "UP"
+                },
+                {
+                    "name": "newTiles",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "text",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "textureFrame",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "textureKey",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "type",
+                    "propertyType": "ActionType",
+                    "type": "string",
+                    "value": "SHOW_TEXT"
+                },
+                {
+                    "name": "velocity",
+                    "type": "int",
+                    "value": 0
+                }
+            ],
+            "name": "Action",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "id": 9,
+            "name": "ActionType",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "SHOW_TEXT",
+                "MOVE_TILE",
+                "REPLACE_TILE",
+                "DESTROY_TILE",
+                "SHOW_IMAGE"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 6,
+            "members": [
+                {
+                    "name": "locked",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "lockedMessage",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "spawnItem",
+                    "propertyType": "Item",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Chest",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "id": 11,
+            "name": "Direction",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "UP",
+                "DOWN",
+                "RIGHT",
+                "LEFT"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 3,
+            "members": [
+                {
+                    "name": "locked",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "lockedMessage",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "navigateTo",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Door",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 5,
+            "members": [
+                {
+                    "name": "action",
+                    "propertyType": "Action",
+                    "type": "class",
+                    "value": {
+                    }
+                },
+                {
+                    "name": "itemRequired",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "itemRequiredMessage",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "itemRequiredMessageVisible",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "navigateTo",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "repeatableAction",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "spawnItem",
+                    "propertyType": "Item",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "InteractiveZone",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 12,
+            "members": [
+                {
+                    "name": "description",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "textureFrame",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "textureKey",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Item",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 4,
+            "members": [
+                {
+                    "name": "combination",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "promptMessage",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "spawnItem",
+                    "propertyType": "Item",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Safe",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        }
+    ]
+}
