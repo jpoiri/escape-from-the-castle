@@ -4,17 +4,8 @@ const CustomProperty = {
 	SPAWN_ITEM: 'spawnItem',
 	LOCKED: 'locked',
 	LOCKED_MESSAGE: 'lockedMessage',
-	TEXT: 'text',
-	VISIBLE: 'visible',
-	SCRAMBLED: 'scrambled',
-	SCRAMBLED_TEXT: 'scrambledText',
 	ACTION: 'action',
-	NEW_TILES: 'newTiles',
-	VELOCITY: 'velocity',
-	DIRECTION: 'direction',
 	NAVIGATE_TO: 'navigateTo',
-	IMAGE_KEY: 'imageKey',
-	REPEATABLE_ACTION: 'repeatableAction',
 	ITEM_REQUIRED_MESSAGE_VISIBLE: 'itemRequiredMessageVisible',
 	ITEM_REQUIRED: 'itemRequired',
 	ITEM_REQUIRED_MESSAGE: 'itemRequiredMessage'
@@ -24,6 +15,7 @@ const ActionType = {
 	MOVE_TILE: 'MOVE_TILE',
 	DESTROY_TILE: 'DESTROY_TILE',
 	REPLACE_TILE: 'REPLACE_TILE',
+	TOGGLE_TILE: 'TOGGLE_TILE',
 	SHOW_TEXT: 'SHOW_TEXT',
 	SHOW_IMAGE: 'SHOW_IMAGE'
 };

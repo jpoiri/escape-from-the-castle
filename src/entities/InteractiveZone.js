@@ -3,7 +3,6 @@ import { TilemapLayer, ActionType, Direction } from '../constants';
 import ModalUtils from '../utils/ModalUtils';
 
 export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
-	
 	action = null;
 	spawnItem = null;
 	navigateTo = null;
@@ -19,20 +18,21 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 		scene.add.existing(this);
 	}
 
-	executeAction(item) {
-		console.log('execute action 1');
+	executeAction(item, onCompleteCallback) {
+		let itemUsed = false;
 		if (this.itemRequired && item?.name !== this.itemRequired) {
 			if (this.itemRequiredMessageVisible) {
 				ModalUtils.showTextModal(this.scene, this.itemRequiredMessage);
 			}
 		} else {
-			let { type, velocity, newTiles, direction, text, textureKey } = this.action;
+			if (this.itemRequired && item?.name === this.itemRequired) {
+				itemUsed = true;
+			}	
+			let { type, velocity, newTiles, direction, text, textureKey, repeat } = this.action;
 
 			newTiles = newTiles?.split(',').map((s) => {
 				return parseInt(s, 10);
 			});
-
-			console.log(text);
 
 			const tiles = this.scene.tileMap.getTilesWithinWorldXY(
 				this.x,
@@ -51,6 +51,23 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 						if (newTiles[i]) {
 							this.scene.tileMap.putTileAt(newTiles[i], tiles[i].x, tiles[i].y);
 						}
+					}
+					break;
+				case ActionType.TOGGLE_TILE:
+					if (!this.previousTiles) {
+						this.previousTiles = tiles.map(t => t.index);
+						for (let i = 0, len = tiles.length; i < len; i++) {
+							if (newTiles[i]) {
+								this.scene.tileMap.putTileAt(newTiles[i], tiles[i].x, tiles[i].y);
+							}
+						}
+					} else {
+						for (let i = 0, len = tiles.length; i < len; i++) {
+							if (this.previousTiles[i]) {
+								this.scene.tileMap.putTileAt(this.previousTiles[i], tiles[i].x, tiles[i].y);
+							}
+						}
+						this.previousTiles = null;
 					}
 					break;
 				case ActionType.DESTROY_TILE:
@@ -86,7 +103,6 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 					}
 					break;
 				case ActionType.SHOW_TEXT:
-					console.log('show text');
 					ModalUtils.showTextModal(this.scene, text);
 					break;
 				case ActionType.SHOW_IMAGE:
@@ -99,8 +115,11 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 			if (this.navigateTo) {
 				this.scene.reloadRoom(this.navigateTo);
 			}
-			if (!this.repeatableAction) {
+			if (!repeat) {
 				this.destroy();
+			}
+			if (onCompleteCallback) {
+				onCompleteCallback(itemUsed);
 			}
 		}
 	}
@@ -127,14 +146,6 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 
 	getNavigateTo() {
 		return this.navigateTo;
-	}
-
-	setRepeatableAction(repeatableAction) {
-		this.repeatableAction = repeatableAction;
-	}
-
-	isRepeatableAction() {
-		return this.repeatableAction;
 	}
 
 	setItemRequired(itemRequired) {

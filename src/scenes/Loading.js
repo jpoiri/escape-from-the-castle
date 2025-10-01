@@ -9,7 +9,8 @@ export default class LoadingScene extends Phaser.Scene {
 	preload() {
 		this.load.tilemapTiledJSON('room-one', 'assets/json/room-one-map.json');
 		this.load.tilemapTiledJSON('room-two', 'assets/json/room-two-map.json');
-		this.load.image(LoaderKey.TILESET, 'assets/img/castle-tiles/Tileset.png');
+		this.load.image('castle-tiles', 'assets/img/castle-tiles/Tileset.png');
+		this.load.image('creepy-tiles', 'assets/img/tiles.png');
 		this.load.image(LoaderKey.MENU_IMAGE, 'assets/img/castle.png');
 		this.load.image('test', 'assets/img/html-css-javascript.jpg');
 		this.load.spritesheet(LoaderKey.ITEMS, 'assets/img/items.png', { frameWidth: 16, frameHeight: 16 });

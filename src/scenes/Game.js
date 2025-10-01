@@ -17,6 +17,7 @@ export default class GameScene extends Phaser.Scene {
 	tileMap = null;
 	safes = [];
 	items = [];
+	itemImages = [];
 	selectedItem = null;
 	selectedRectangle = null;
 	roomName = null;
@@ -37,27 +38,36 @@ export default class GameScene extends Phaser.Scene {
 	}
 
 	updateHud() {
+		if (this.selectedRectangle && !this.selectedItem) {
+			this.selectedRectangle.destroy();
+		}
+		if (this.itemImages) {
+			for (let i = 0; i < this.itemImages.length; i++) {
+				this.itemImages[i].destroy();
+			}
+		}
 		for (let i = 0; i < this.items.length; i++) {
-			const image = this.add.image(950, i * 50 + 80, this.items[i].textureKey, this.items[i].textureFrame);
-			image.setAlpha(0);
-			image.setScale(2);
-			image.setInteractive();
-			image.on('pointerdown', () => {
+			const itemImage = this.add.image(950, i * 50 + 80, this.items[i].textureKey, this.items[i].textureFrame);
+			itemImage.setAlpha(0);
+			itemImage.setScale(2);
+			itemImage.setInteractive();
+			itemImage.on('pointerdown', () => {
 				if (this.selectedRectangle) {
 					this.selectedRectangle.destroy();
 				}
 				this.selectedItem = this.items[i];
-				this.selectedRectangle = this.add.rectangle(image.x, image.y, 50, 50);
+				this.selectedRectangle = this.add.rectangle(itemImage.x, itemImage.y, 50, 50);
 				this.selectedRectangle.setStrokeStyle(3, 0xffffff);
 			});
 			this.tweens.add({
-				targets: image,
+				targets: itemImage,
 				alpha: 1,
 				ease: 'Linear',
 				duration: 200,
 				repeat: 0,
 				yoyo: false
 			});
+			this.itemImages.push(itemImage);
 		}
 	}
 
@@ -65,8 +75,9 @@ export default class GameScene extends Phaser.Scene {
 		this.roomName = roomName;
 		this.cameras.main.fadeIn(TRANSITION_DELAY, 0, 0, 0);
 		this.tileMap = this.createTileMap(roomName);
-		const tileSet = this.createTileSet(this.tileMap, 'castle-tiles', LoaderKey.TILESET);
-		const { objectsLayer, foregroundLayer } = this.getTileMapLayers(this.tileMap, tileSet);
+		const castleTiles = this.createTileSet(this.tileMap, 'castle-tiles', 'castle-tiles');
+		const creepyTiles = this.createTileSet(this.tileMap, 'creepy-tiles', 'creepy-tiles');
+		const { objectsLayer, foregroundLayer } = this.getTileMapLayers(this.tileMap, [creepyTiles, castleTiles]);
 		this.loadTileMapObjects(objectsLayer);
 	}
 
@@ -86,9 +97,9 @@ export default class GameScene extends Phaser.Scene {
 		return tileMap.addTilesetImage(tileSetKey, tileSetTextureKey);
 	}
 
-	getTileMapLayers(tilemap, tileset) {
-		const backgroundLayer = tilemap.createLayer(TilemapLayer.BACKGROUND, tileset);
-		const foregroundLayer = tilemap.createLayer(TilemapLayer.FOREGROUND, tileset);
+	getTileMapLayers(tilemap, tilesets) {
+		const backgroundLayer = tilemap.createLayer(TilemapLayer.BACKGROUND, tilesets);
+		const foregroundLayer = tilemap.createLayer(TilemapLayer.FOREGROUND, tilesets);
 		const objectsLayer = tilemap.getObjectLayer(TilemapLayer.OBJECTS);
 		return { backgroundLayer, foregroundLayer, objectsLayer };
 	}
@@ -115,16 +126,21 @@ export default class GameScene extends Phaser.Scene {
 
 	createInteractiveZone(tileMapObject) {
 		const zone = new InteractiveZone(this, tileMapObject.x, tileMapObject.y, tileMapObject.width, tileMapObject.height);
-		console.log(this.getCustomProperty(tileMapObject, CustomProperty.ACTION));
 		zone.setAction(this.getCustomProperty(tileMapObject, CustomProperty.ACTION));
-		zone.setNavigateTo(this.getCustomProperty(tileMapObject, CustomProperty.NAVIGATE_TO))
-		zone.setRepeatableAction(this.getCustomProperty(tileMapObject, CustomProperty.REPEATABLE_ACTION));
+		zone.setNavigateTo(this.getCustomProperty(tileMapObject, CustomProperty.NAVIGATE_TO));
 		zone.setItemRequired(this.getCustomProperty(tileMapObject, CustomProperty.ITEM_REQUIRED));
 		zone.setItemRequiredMessage(this.getCustomProperty(tileMapObject, CustomProperty.ITEM_REQUIRED_MESSAGE));
 		zone.setItemRequiredMessageVisible(this.getCustomProperty(tileMapObject, CustomProperty.ITEM_REQUIRED_MESSAGE_VISIBLE));
 		zone.setSpawnItem(this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM));
 		zone.on('pointerdown', () => {
-			zone.executeAction(this.selectedItem);
+			zone.executeAction(this.selectedItem, (itemUsed) => {
+				if (itemUsed) {
+					const index = this.items.findIndex((item) => item?.name === this.selectedItem?.name);
+					this.items.splice(index, 1);
+					this.selectedItem = null;
+					this.updateHud();
+				}
+			});
 		});
 	}
 
@@ -286,7 +302,7 @@ export default class GameScene extends Phaser.Scene {
 			this.timeText = this.add.text(915, 730, `${hoursRemaining}:${minutesRemaining}:${secondsRemaining}`, {
 				fontSize: '12px',
 				fontFamily: 'Verdana',
-				color: 0xffffff
+				fill: '#FFFFFF'
 			});
 		}
 	}
