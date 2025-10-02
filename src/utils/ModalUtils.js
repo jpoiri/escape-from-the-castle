@@ -1,6 +1,10 @@
+import { assert } from '../utils/AssertUtils';
+
 export default class ModalUtils {
 
     static showTextModal(scene, text, size = 'normal', closeCallback) {
+		assert(!scene, 'The scene is undefined');
+		assert(!text, 'The text is undefined');
 		const blocker = scene.add.rectangle(0, 0, scene.scale.width, scene.scale.height, 0x000000, 0.5).setOrigin(0).setInteractive();
 		const modal = scene.add.container(450, 350).setAlpha(0);
 		let box = null;
@@ -56,6 +60,8 @@ export default class ModalUtils {
     }
     
     static showImageModal(scene, imageKey, closeCallback) {
+		assert(!scene, 'The scene is undefined');
+		assert(!imageKey, 'The imageKey is undefined');
 		const blocker = scene.add.rectangle(0, 0, scene.scale.width, scene.scale.height, 0x000000, 0.5).setOrigin(0).setInteractive();
 		const modal = scene.add.container(450, 350).setAlpha(0);
 		const box = scene.add.rectangle(0, 0, 450, 350, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
@@ -89,6 +95,8 @@ export default class ModalUtils {
     }
     
     static showItemModal(scene, itemDescription, itemTexture, itemFrame, closeCallback) {
+		assert(!scene, 'The scene is undefined');
+		assert(!itemDescription, 'The itemDescription is undefined');
 		const blocker = scene.add.rectangle(0, 0, scene.scale.width, scene.scale.height, 0x000000, 0.5).setOrigin(0).setInteractive();
 		const modal = scene.add.container(450, 350).setAlpha(0);
 		const box = scene.add.rectangle(0, 0, 450, 150, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);

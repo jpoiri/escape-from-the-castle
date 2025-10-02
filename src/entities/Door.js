@@ -7,7 +7,6 @@ export default class Door extends Phaser.Physics.Arcade.Sprite {
 	opened = false;
 
 	constructor(scene, x, y, texture, frame, name, locked, lockedMessage) {
-		console.log(frame);
 		super(scene, x, y, texture, frame);
 		this.name = name;
 		this.locked = locked;
