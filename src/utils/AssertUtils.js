@@ -1,4 +1,4 @@
-import InvalidaArgumentError from '../errors/InvalidaArgumentError';
+import InvalidArgumentError from '../errors/InvalidaArgumentError';
 
 const assert = function (condition, message) {
 	if (condition) {

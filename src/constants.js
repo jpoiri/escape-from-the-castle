@@ -5,10 +5,10 @@ const CustomProperty = {
 	LOCKED: 'locked',
 	LOCKED_MESSAGE: 'lockedMessage',
 	ACTION: 'action',
+	CONSTRAINTS: 'constraints',
 	NAVIGATE_TO: 'navigateTo',
-	ITEM_REQUIRED_MESSAGE_VISIBLE: 'itemRequiredMessageVisible',
-	ITEM_REQUIRED: 'itemRequired',
-	ITEM_REQUIRED_MESSAGE: 'itemRequiredMessage'
+	CONSTRAINT_MESSAGE: 'constraintMessage',
+	EVENTS: 'events'
 };
 
 const ActionType = {
