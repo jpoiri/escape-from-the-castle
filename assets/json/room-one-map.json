@@ -128,19 +128,19 @@
                             }
                         }, 
                         {
-                         "name":"itemRequired",
-                         "type":"string",
-                         "value":"cell-key"
-                        }, 
-                        {
-                         "name":"itemRequiredMessage",
+                         "name":"constraintMessage",
                          "type":"string",
                          "value":"Locked!"
                         }, 
                         {
-                         "name":"itemRequiredMessageVisible",
-                         "type":"bool",
-                         "value":true
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"cell-key",
+                             "message":""
+                            }
                         }, 
                         {
                          "name":"navigateTo",

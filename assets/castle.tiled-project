@@ -19,7 +19,7 @@
                     "name": "direction",
                     "propertyType": "Direction",
                     "type": "string",
-                    "value": "UP"
+                    "value": ""
                 },
                 {
                     "name": "newTiles",
@@ -125,6 +125,46 @@
             ]
         },
         {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 15,
+            "members": [
+                {
+                    "name": "dependsOn",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "itemRequired",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "promptAnswer",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "promptQuestion",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Constraints",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
             "id": 11,
             "name": "Direction",
             "storageType": "string",
@@ -133,7 +173,8 @@
                 "UP",
                 "DOWN",
                 "RIGHT",
-                "LEFT"
+                "LEFT",
+                ""
             ],
             "valuesAsFlags": false
         },
@@ -175,6 +216,36 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 18,
+            "members": [
+                {
+                    "name": "emitEvent",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "listenTo",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Events",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 5,
             "members": [
                 {
@@ -185,19 +256,23 @@
                     }
                 },
                 {
-                    "name": "itemRequired",
+                    "name": "constraintMessage",
                     "type": "string",
                     "value": ""
                 },
                 {
-                    "name": "itemRequiredMessage",
-                    "type": "string",
-                    "value": ""
+                    "name": "constraints",
+                    "propertyType": "Constraints",
+                    "type": "class",
+                    "value": {
+                    }
                 },
                 {
-                    "name": "itemRequiredMessageVisible",
-                    "type": "bool",
-                    "value": false
+                    "name": "events",
+                    "propertyType": "Events",
+                    "type": "class",
+                    "value": {
+                    }
                 },
                 {
                     "name": "navigateTo",
@@ -269,6 +344,36 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 17,
+            "members": [
+                {
+                    "name": "answer",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "question",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Prompt",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 4,
             "members": [
                 {
@@ -301,6 +406,18 @@
                 "wangcolor",
                 "wangset",
                 "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 19,
+            "members": [
+            ],
+            "name": "Class9",
+            "type": "class",
+            "useAs": [
+                "property"
             ]
         }
     ]

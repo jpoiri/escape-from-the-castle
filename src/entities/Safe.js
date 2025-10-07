@@ -5,14 +5,23 @@ export default class Safe extends Phaser.Physics.Arcade.Sprite {
 	promptMessage = null;
 	opened = false;
 	spawnItem = null;
+	name = null;
 
 	constructor(scene, x, y, texture, frame, name, combination, promptMessage) {
-		super(scene, x, y, texture, frame, name);
+		super(scene, x, y, texture, frame);
 		scene.add.existing(this);
 		this.setInteractive();
 		this.name = name;
 		this.combination = combination;
 		this.promptMessage = promptMessage;
+	}
+
+	getName() {
+		return this.name;
+	}
+
+	setName(name) {
+		this.name = name;
 	}
 
 	getCombination() {
@@ -41,9 +50,9 @@ export default class Safe extends Phaser.Physics.Arcade.Sprite {
 
 	setSpawnItem(spawnItem) {
 		this.spawnItem = spawnItem;
-    }
-    
-    getSpawnItem() {
-        return this.spawnItem;
-    }
+	}
+
+	getSpawnItem() {
+		return this.spawnItem;
+	}
 }

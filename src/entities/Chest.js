@@ -6,14 +6,23 @@ export default class Chest extends Phaser.Physics.Arcade.Sprite {
 	lockedMessage = null;
 	opened = false;
 	spawnItem = null;
+	name = null;
 
 	constructor(scene, x, y, texture, frame, name, locked, lockedMessage) {
-		super(scene, x, y, texture, frame, name);
+		super(scene, x, y, texture, frame);
 		scene.add.existing(this);
 		this.setInteractive();
 		this.name = name;
 		this.locked = locked;
 		this.lockedMessage = lockedMessage;
+	}
+
+	getName() {
+		return this.name;
+	}
+
+	setName(name) {
+		this.name = name;
 	}
 
 	lock() {

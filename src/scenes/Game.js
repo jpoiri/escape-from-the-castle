@@ -22,6 +22,7 @@ export default class GameScene extends Phaser.Scene {
 	selectedItem = null;
 	selectedRectangle = null;
 	roomName = null;
+	dirtyObjectMap = null;
 
 	constructor() {
 		super('game');
@@ -75,6 +76,7 @@ export default class GameScene extends Phaser.Scene {
 	loadRoom(roomName) {
 		assert(!roomName, 'The roomName is undefined');
 		this.roomName = roomName;
+		this.dirtyObjectMap = new Map();
 		this.cameras.main.fadeIn(TRANSITION_DELAY, 0, 0, 0);
 		this.tileMap = this.createTileMap(roomName);
 		const castleTiles = this.createTileSet(this.tileMap, 'castle-tiles', 'castle-tiles');
@@ -136,23 +138,66 @@ export default class GameScene extends Phaser.Scene {
 
 	createInteractiveZone(tileMapObject) {
 		assert(!tileMapObject, 'The tileMapObject is undefined');
-		const zone = new InteractiveZone(this, tileMapObject.x, tileMapObject.y, tileMapObject.width, tileMapObject.height);
+		const zone = new InteractiveZone(
+			this,
+			tileMapObject.name,
+			tileMapObject.x,
+			tileMapObject.y,
+			tileMapObject.width,
+			tileMapObject.height
+		);
 		zone.setAction(this.getCustomProperty(tileMapObject, CustomProperty.ACTION));
+		zone.setConstraints(this.getCustomProperty(tileMapObject, CustomProperty.CONSTRAINTS));
+		zone.setConstraintMessage(this.getCustomProperty(tileMapObject, CustomProperty.CONSTRAINT_MESSAGE));
 		zone.setNavigateTo(this.getCustomProperty(tileMapObject, CustomProperty.NAVIGATE_TO));
-		zone.setItemRequired(this.getCustomProperty(tileMapObject, CustomProperty.ITEM_REQUIRED));
-		zone.setItemRequiredMessage(this.getCustomProperty(tileMapObject, CustomProperty.ITEM_REQUIRED_MESSAGE));
-		zone.setItemRequiredMessageVisible(this.getCustomProperty(tileMapObject, CustomProperty.ITEM_REQUIRED_MESSAGE_VISIBLE));
 		zone.setSpawnItem(this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM));
-		zone.on('pointerdown', () => {
-			zone.executeAction(this.selectedItem, (itemUsed) => {
-				if (itemUsed) {
-					const index = this.items.findIndex((item) => item?.name === this.selectedItem?.name);
-					this.items.splice(index, 1);
-					this.selectedItem = null;
-					this.updateHud();
-				}
+
+		const events = this.getCustomProperty(tileMapObject, CustomProperty.EVENTS);
+
+		if (events) {
+			const { listenTo, emitEvent } = this.getCustomProperty(tileMapObject, CustomProperty.EVENTS);
+
+			if (listenTo) {
+				this.events.on(listenTo, () => {
+					zone.executeAction(this.selectedItem, this.dirtyObjectMap);
+				});
+			} else {
+				zone.on('pointerdown', () => {
+					zone.executeAction(this.selectedItem, this.dirtyObjectMap, (itemUsed) => {
+						if (itemUsed) {
+							const index = this.items.findIndex((item) => item?.name === this.selectedItem?.name);
+							this.items.splice(index, 1);
+							this.selectedItem = null;
+							this.updateHud();
+						}
+						if (zone.isDirty()) {
+							this.dirtyObjectMap.set(zone.name, zone);
+						} else {
+							this.dirtyObjectMap.delete(zone.name);
+						}
+						if (emitEvent) {
+							this.events.emit(emitEvent);
+						}
+					});
+				});
+			}
+		} else {
+			zone.on('pointerdown', () => {
+				zone.executeAction(this.selectedItem, this.dirtyObjectMap, (itemUsed) => {
+					if (itemUsed) {
+						const index = this.items.findIndex((item) => item?.name === this.selectedItem?.name);
+						this.items.splice(index, 1);
+						this.selectedItem = null;
+						this.updateHud();
+					}
+					if (zone.isDirty()) {
+						this.dirtyObjectMap.set(zone.name, zone);
+					} else {
+						this.dirtyObjectMap.delete(zone.name);
+					}
+				});
 			});
-		});
+		}
 	}
 
 	createSafe(tileMapObject) {
@@ -175,6 +220,7 @@ export default class GameScene extends Phaser.Scene {
 					safe.play(Animation.SAFE_OPEN);
 					safe.setOpened(true);
 					this.spawnItem(safe.x, safe.y + safe.height, safe.getSpawnItem());
+					this.dirtyObjectMap.set(safe.name, safe);
 				}
 			}
 		});
@@ -199,6 +245,7 @@ export default class GameScene extends Phaser.Scene {
 			} else {
 				door.play(Animation.DOOR_OPEN);
 				door.setOpened(true);
+				this.dirtyObjectMap.set(door.name, door);
 			}
 		});
 		return door;
@@ -225,6 +272,7 @@ export default class GameScene extends Phaser.Scene {
 					chest.play(Animation.CHEST_OPEN);
 					chest.setOpened(true);
 					this.spawnItem(chest.x, chest.y + chest.height + 5, chest.getSpawnItem());
+					this.dirtyObjectMap.set(chest.name, chest);
 				}
 			}
 		});
