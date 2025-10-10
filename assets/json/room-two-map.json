@@ -90,8 +90,10 @@
                             {
                              "direction":"DOWN",
                              "event":"",
-                             "type":"MOVE_TILE",
-                             "velocity":1
+                             "repeat":true,
+                             "type":"TOGGLE_TILE_MOVEMENT",
+                             "velocity":1,
+                             "yoyo":true
                             }
                         }, 
                         {
@@ -110,8 +112,14 @@
                          "type":"class",
                          "value":
                             {
+                             "emit":"axe-down",
                              "emitEvent":"axe-down"
                             }
+                        }, 
+                        {
+                         "name":"visible",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -165,6 +173,11 @@
                              "textureFrame":"50",
                              "textureKey":"items"
                             }
+                        }, 
+                        {
+                         "name":"visible",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -206,8 +219,14 @@
                          "type":"class",
                          "value":
                             {
+                             "emit":"axe-down",
                              "emitEvent":"axe-down"
                             }
+                        }, 
+                        {
+                         "name":"visible",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -249,8 +268,14 @@
                          "type":"class",
                          "value":
                             {
+                             "emit":"axe-down",
                              "emitEvent":"axe-down"
                             }
+                        }, 
+                        {
+                         "name":"visible",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -292,8 +317,14 @@
                          "type":"class",
                          "value":
                             {
+                             "emit":"axe-down",
                              "emitEvent":"axe-down"
                             }
+                        }, 
+                        {
+                         "name":"visible",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -330,6 +361,11 @@
                             {
                              "itemRequired":"cell-key"
                             }
+                        }, 
+                        {
+                         "name":"visible",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -337,6 +373,64 @@
                  "width":38.579117330463,
                  "x":685.363152229335,
                  "y":493.406605858025
+                }, 
+                {
+                 "height":36.5486,
+                 "id":59,
+                 "name":"circle-grate",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "executeOn":"",
+                             "newTiles":"",
+                             "type":"HIDE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "dependsOn":""
+                            }
+                        }, 
+                        {
+                         "name":"events",
+                         "propertytype":"Events",
+                         "type":"class",
+                         "value":
+                            {
+                             "listenTo":""
+                            }
+                        }, 
+                        {
+                         "name":"spawnItem",
+                         "propertytype":"Item",
+                         "type":"class",
+                         "value":
+                            {
+                             "description":"You got the cell key",
+                             "name":"cell-key",
+                             "textureFrame":"50",
+                             "textureKey":"items"
+                            }
+                        }, 
+                        {
+                         "name":"visible",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":35.5334,
+                 "x":429.525124825789,
+                 "y":429.686778692425
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -345,7 +439,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":59,
+ "nextobjectid":60,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

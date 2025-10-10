@@ -68,8 +68,8 @@
             "scale": 0.9849888392857143,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 500.0056654013936,
-                "y": 332.9986969576794
+                "x": 448.22842898419356,
+                "y": 383.25307348025603
             }
         },
         "json/room-two-map.json#castle-tiles": {
@@ -83,7 +83,7 @@
         "json/room-one-map.json"
     ],
     "project": "castle.tiled-project",
-    "property.type": "Events",
+    "property.type": "bool",
     "recentFiles": [
         "json/room-one-map.json",
         "json/room-two-map.json",

@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { TilemapLayer, ActionType, Direction } from '../constants';
-import ModalUtils from '../utils/ModalUtils';
+import { showImageModal, showTextModal } from '../utils/ModalUtils';
 
 export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	action = null;
@@ -21,9 +21,10 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 
 	executeAction(item, dirtyObjectMap, onCompleteCallback) {
 		let itemUsed = false;
+		let tiles = null;
 		if (!this.canExecute(item, dirtyObjectMap)) {
 			if (this.constraintMessage) {
-				ModalUtils.showTextModal(this.scene, this.constraintMessage);
+				showTextModal(this.scene, this.constraintMessage);
 			}
 		} else {
 			const { itemRequired } = this.constraints;
@@ -38,20 +39,19 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 				return parseInt(s, 10);
 			});
 
-			const tiles = this.scene.tileMap.getTilesWithinWorldXY(
-				this.x,
-				this.y,
-				this.width,
-				this.height,
-				{
-					isNotEmpty: true
-				},
-				null,
-				TilemapLayer.FOREGROUND
-			);
-
 			switch (type) {
 				case ActionType.REPLACE_TILE:
+					tiles = this.scene.tileMap.getTilesWithinWorldXY(
+						this.x,
+						this.y,
+						this.width,
+						this.height,
+						{
+							isNotEmpty: true
+						},
+						null,
+						TilemapLayer.FOREGROUND
+					);
 					for (let i = 0, len = tiles.length; i < len; i++) {
 						if (newTiles[i]) {
 							this.scene.tileMap.putTileAt(newTiles[i], tiles[i].x, tiles[i].y);
@@ -60,7 +60,18 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 					this.dirty = true;
 					break;
 				case ActionType.TOGGLE_TILE:
-					if (!this.previousTiles) {
+					tiles = this.scene.tileMap.getTilesWithinWorldXY(
+						this.x,
+						this.y,
+						this.width,
+						this.height,
+						{
+							isNotEmpty: true
+						},
+						null,
+						TilemapLayer.FOREGROUND
+					);
+					if (!this.dirty) {
 						this.previousTiles = tiles.map((t) => t.index);
 						for (let i = 0, len = tiles.length; i < len; i++) {
 							if (newTiles[i]) {
@@ -79,12 +90,34 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 					}
 					break;
 				case ActionType.DESTROY_TILE:
+					tiles = this.scene.tileMap.getTilesWithinWorldXY(
+						this.x,
+						this.y,
+						this.width,
+						this.height,
+						{
+							isNotEmpty: true
+						},
+						null,
+						TilemapLayer.FOREGROUND
+					);
 					for (let i = 0, len = tiles.length; i < len; i++) {
 						this.scene.tileMap.removeTileAt(tiles[i].x, tiles[i].y);
 					}
 					this.dirty = true;
 					break;
 				case ActionType.MOVE_TILE:
+					tiles = this.scene.tileMap.getTilesWithinWorldXY(
+						this.x,
+						this.y,
+						this.width,
+						this.height,
+						{
+							isNotEmpty: true
+						},
+						null,
+						TilemapLayer.FOREGROUND
+					);
 					for (let i = 0, len = tiles.length; i < len; i++) {
 						this.scene.tileMap.removeTileAt(tiles[i].x, tiles[i].y);
 					}
@@ -93,31 +126,164 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 							for (let i = 0, len = tiles.length; i < len; i++) {
 								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x + velocity, tiles[i].y);
 							}
+							this.x = this.x + this.width + velocity;
+							this.reverseDirection = Direction.RIGHT;
 							break;
 						case Direction.RIGHT:
 							for (let i = 0, len = tiles.length; i < len; i++) {
 								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x - velocity, tiles[i].y);
 							}
+							this.x = this.x - this.width - velocity;
+							this.reverseDirection = Direction.LEFT;
 							break;
 						case Direction.UP:
 							for (let i = 0, len = tiles.length; i < len; i++) {
 								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x, tiles[i].y - velocity);
 							}
+							this.y = this.y - this.height - velocity;
+							this.reverseDirection = Direction.DOWN;
 							break;
 						case Direction.DOWN:
 							for (let i = 0, len = tiles.length; i < len; i++) {
 								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x, tiles[i].y + velocity);
 							}
+							this.y = this.y + this.height + velocity;
+							this.reverseDirection = Direction.UP;
 							break;
 					}
 					this.dirty = true;
 					break;
+				case ActionType.TOGGLE_TILE_MOVEMENT:
+					tiles = this.scene.tileMap.getTilesWithinWorldXY(
+						this.x,
+						this.y,
+						this.width,
+						this.height,
+						{
+							isNotEmpty: true
+						},
+						null,
+						TilemapLayer.FOREGROUND
+					);
+					if (!this.dirty) {
+						for (let i = 0, len = tiles.length; i < len; i++) {
+							this.scene.tileMap.removeTileAt(tiles[i].x, tiles[i].y);
+						}
+						switch (direction) {
+							case Direction.LEFT:
+								for (let i = 0, len = tiles.length; i < len; i++) {
+									this.scene.tileMap.putTileAt(
+										tiles[i].index,
+										tiles[i].x + velocity,
+										tiles[i].y
+									);
+								}
+								this.x = this.x + this.width + velocity;
+								this.reverseDirection = Direction.RIGHT;
+								break;
+							case Direction.RIGHT:
+								for (let i = 0, len = tiles.length; i < len; i++) {
+									this.scene.tileMap.putTileAt(
+										tiles[i].index,
+										tiles[i].x - velocity,
+										tiles[i].y
+									);
+								}
+								this.x = this.x - this.width - velocity;
+								this.reverseDirection = Direction.LEFT;
+								break;
+							case Direction.UP:
+								for (let i = 0, len = tiles.length; i < len; i++) {
+									this.scene.tileMap.putTileAt(
+										tiles[i].index,
+										tiles[i].x,
+										tiles[i].y - velocity
+									);
+								}
+								this.y = this.y - this.height - velocity;
+								this.reverseDirection = Direction.DOWN;
+								break;
+							case Direction.DOWN:
+								for (let i = 0, len = tiles.length; i < len; i++) {
+									this.scene.tileMap.putTileAt(
+										tiles[i].index,
+										tiles[i].x,
+										tiles[i].y + velocity
+									);
+								}
+								this.y = this.y + this.height + velocity;
+								this.reverseDirection = Direction.UP;
+								break;
+						}
+
+						this.dirty = true;
+					} else {
+						const movedTiles = this.scene.tileMap.getTilesWithinWorldXY(
+							this.x,
+							this.y,
+							this.width,
+							this.height,
+							{
+								isNotEmpty: true
+							},
+							null,
+							TilemapLayer.FOREGROUND
+						);
+
+						for (let i = 0, len = movedTiles.length; i < len; i++) {
+							this.scene.tileMap.removeTileAt(movedTiles[i].x, movedTiles[i].y);
+						}
+						switch (this.reverseDirection) {
+							case Direction.LEFT:
+								for (let i = 0, len = movedTiles.length; i < len; i++) {
+									this.scene.tileMap.putTileAt(
+										movedTiles[i].index,
+										movedTiles[i].x + velocity,
+										movedTiles[i].y
+									);
+								}
+								this.x = this.x + this.width + velocity;
+								break;
+							case Direction.RIGHT:
+								for (let i = 0, len = movedTiles.length; i < len; i++) {
+									this.scene.tileMap.putTileAt(
+										movedTiles[i].index,
+										movedTiles[i].x - velocity,
+										movedTiles[i].y
+									);
+								}
+								this.x = this.x - this.width - velocity;
+								break;
+							case Direction.UP:
+								for (let i = 0, len = movedTiles.length; i < len; i++) {
+									this.scene.tileMap.putTileAt(
+										movedTiles[i].index,
+										movedTiles[i].x,
+										movedTiles[i].y - velocity
+									);
+								}
+								this.y = this.y - this.height - velocity;
+								break;
+							case Direction.DOWN:
+								for (let i = 0, len = movedTiles.length; i < len; i++) {
+									this.scene.tileMap.putTileAt(
+										movedTiles[i].index,
+										movedTiles[i].x,
+										movedTiles[i].y + velocity
+									);
+								}
+								this.y = this.y + this.height + velocity;
+								break;
+						}
+						this.dirty = false;
+					}
+					break;
 				case ActionType.SHOW_TEXT:
-					ModalUtils.showTextModal(this.scene, text);
+					showTextModal(this.scene, text);
 					this.dirty = true;
 					break;
 				case ActionType.SHOW_IMAGE:
-					ModalUtils.showImageModal(this.scene, textureKey);
+					showImageModal(this.scene, textureKey);
 					this.dirty = true;
 					break;
 			}

@@ -83,7 +83,10 @@
                 "REPLACE_TILE",
                 "DESTROY_TILE",
                 "SHOW_IMAGE",
-                "TOGGLE_TILE"
+                "SHOW",
+                "HIDE",
+                "TOGGLE_VISIBILITY",
+                "TOGGLE_TILE_MOVEMENT"
             ],
             "valuesAsFlags": false
         },
@@ -219,7 +222,7 @@
             "id": 18,
             "members": [
                 {
-                    "name": "emitEvent",
+                    "name": "emit",
                     "type": "string",
                     "value": ""
                 },
@@ -285,6 +288,11 @@
                     "type": "class",
                     "value": {
                     }
+                },
+                {
+                    "name": "visible",
+                    "type": "bool",
+                    "value": true
                 }
             ],
             "name": "InteractiveZone",
@@ -406,18 +414,6 @@
                 "wangcolor",
                 "wangset",
                 "project"
-            ]
-        },
-        {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 19,
-            "members": [
-            ],
-            "name": "Class9",
-            "type": "class",
-            "useAs": [
-                "property"
             ]
         }
     ]

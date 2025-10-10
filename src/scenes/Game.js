@@ -3,7 +3,7 @@ import Chest from '../entities/Chest';
 import Safe from '../entities/Safe';
 import Door from '../entities/Door';
 import InteractiveZone from '../entities/InteractiveZone';
-import ModalUtils from '../utils/ModalUtils';
+import { showTextModal, showItemModal } from '../utils/ModalUtils';
 import { assert } from '../utils/AssertUtils';
 
 import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Animation } from '../constants';
@@ -29,7 +29,7 @@ export default class GameScene extends Phaser.Scene {
 	}
 
 	create() {
-		this.loadRoom('room-one');
+		this.loadRoom('room-two');
 		this.createAnimations();
 		this.createHud();
 		this.startTimer(1);
@@ -155,7 +155,7 @@ export default class GameScene extends Phaser.Scene {
 		const events = this.getCustomProperty(tileMapObject, CustomProperty.EVENTS);
 
 		if (events) {
-			const { listenTo, emitEvent } = this.getCustomProperty(tileMapObject, CustomProperty.EVENTS);
+			const { listenTo, emit } = this.getCustomProperty(tileMapObject, CustomProperty.EVENTS);
 
 			if (listenTo) {
 				this.events.on(listenTo, () => {
@@ -175,8 +175,8 @@ export default class GameScene extends Phaser.Scene {
 						} else {
 							this.dirtyObjectMap.delete(zone.name);
 						}
-						if (emitEvent) {
-							this.events.emit(emitEvent);
+						if (emit) {
+							this.events.emit(emit);
 						}
 					});
 				});
@@ -241,7 +241,7 @@ export default class GameScene extends Phaser.Scene {
 		);
 		door.on('pointerdown', () => {
 			if (door.isLocked()) {
-				ModalUtils.showTextModal(this, door.getLockedMessage());
+				showTextModal(this, door.getLockedMessage());
 			} else {
 				door.play(Animation.DOOR_OPEN);
 				door.setOpened(true);
@@ -266,7 +266,7 @@ export default class GameScene extends Phaser.Scene {
 		chest.setSpawnItem(this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM));
 		chest.on('pointerdown', () => {
 			if (chest.isLocked()) {
-				ModalUtils.showTextModal(this, chest.lockedMessage);
+				showTextModal(this, chest.lockedMessage);
 			} else {
 				if (!chest.isOpened()) {
 					chest.play(Animation.CHEST_OPEN);
@@ -314,7 +314,7 @@ export default class GameScene extends Phaser.Scene {
 		itemImage.setInteractive();
 		itemImage.on('pointerdown', () => {
 			itemImage.destroy();
-			ModalUtils.showItemModal(this, item.description, item.textureKey, item.textureFrame, () => {
+			showItemModal(this, item.description, item.textureKey, item.textureFrame, () => {
 				this.items.push({
 					name: item.name,
 					textureKey: item.textureKey,
