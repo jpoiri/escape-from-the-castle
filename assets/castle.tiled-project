@@ -19,7 +19,7 @@
                     "name": "direction",
                     "propertyType": "Direction",
                     "type": "string",
-                    "value": "UP"
+                    "value": ""
                 },
                 {
                     "name": "newTiles",
@@ -83,7 +83,7 @@
                 "REPLACE_TILE",
                 "DESTROY_TILE",
                 "SHOW_IMAGE",
-                "TOGGLE_TILE"
+                "TOGGLE_TILE_MOVEMENT"
             ],
             "valuesAsFlags": false
         },
@@ -104,13 +104,50 @@
                 },
                 {
                     "name": "spawnItem",
-                    "propertyType": "Item",
+                    "propertyType": "Spawn",
                     "type": "class",
                     "value": {
                     }
                 }
             ],
             "name": "Chest",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 15,
+            "members": [
+                {
+                    "name": "dependsOn",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "itemRequired",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "promptRequired",
+                    "propertyType": "Prompt",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Constraints",
             "type": "class",
             "useAs": [
                 "property",
@@ -133,7 +170,8 @@
                 "UP",
                 "DOWN",
                 "RIGHT",
-                "LEFT"
+                "LEFT",
+                ""
             ],
             "valuesAsFlags": false
         },
@@ -175,6 +213,36 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 18,
+            "members": [
+                {
+                    "name": "emit",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "listenTo",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Events",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 5,
             "members": [
                 {
@@ -185,19 +253,23 @@
                     }
                 },
                 {
-                    "name": "itemRequired",
+                    "name": "constraintMessage",
                     "type": "string",
                     "value": ""
                 },
                 {
-                    "name": "itemRequiredMessage",
-                    "type": "string",
-                    "value": ""
+                    "name": "constraints",
+                    "propertyType": "Constraints",
+                    "type": "class",
+                    "value": {
+                    }
                 },
                 {
-                    "name": "itemRequiredMessageVisible",
-                    "type": "bool",
-                    "value": false
+                    "name": "events",
+                    "propertyType": "Events",
+                    "type": "class",
+                    "value": {
+                    }
                 },
                 {
                     "name": "navigateTo",
@@ -205,14 +277,81 @@
                     "value": ""
                 },
                 {
-                    "name": "spawnItem",
-                    "propertyType": "Item",
+                    "name": "spawn",
+                    "propertyType": "Spawn",
                     "type": "class",
                     "value": {
                     }
                 }
             ],
             "name": "InteractiveZone",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 17,
+            "members": [
+                {
+                    "name": "answer",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "question",
+                    "type": "string",
+                    "value": ""
+                }
+            ],
+            "name": "Prompt",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 4,
+            "members": [
+                {
+                    "name": "combination",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "promptMessage",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "spawnItem",
+                    "propertyType": "Spawn",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "Safe",
             "type": "class",
             "useAs": [
                 "property",
@@ -250,9 +389,15 @@
                     "name": "textureKey",
                     "type": "string",
                     "value": ""
+                },
+                {
+                    "name": "type",
+                    "propertyType": "SpawnType",
+                    "type": "string",
+                    "value": "ITEM"
                 }
             ],
-            "name": "Item",
+            "name": "Spawn",
             "type": "class",
             "useAs": [
                 "property",
@@ -267,41 +412,15 @@
             ]
         },
         {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 4,
-            "members": [
-                {
-                    "name": "combination",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "promptMessage",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "spawnItem",
-                    "propertyType": "Item",
-                    "type": "class",
-                    "value": {
-                    }
-                }
+            "id": 21,
+            "name": "SpawnType",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "ITEM",
+                "NPC"
             ],
-            "name": "Safe",
-            "type": "class",
-            "useAs": [
-                "property",
-                "map",
-                "layer",
-                "object",
-                "tile",
-                "tileset",
-                "wangcolor",
-                "wangset",
-                "project"
-            ]
+            "valuesAsFlags": false
         }
     ]
 }

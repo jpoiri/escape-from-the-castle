@@ -95,7 +95,7 @@
                         }, 
                         {
                          "name":"spawnItem",
-                         "propertytype":"Item",
+                         "propertytype":"Spawn",
                          "type":"class",
                          "value":
                             {
@@ -128,19 +128,19 @@
                             }
                         }, 
                         {
-                         "name":"itemRequired",
-                         "type":"string",
-                         "value":"cell-key"
-                        }, 
-                        {
-                         "name":"itemRequiredMessage",
+                         "name":"constraintMessage",
                          "type":"string",
                          "value":"Locked!"
                         }, 
                         {
-                         "name":"itemRequiredMessageVisible",
-                         "type":"bool",
-                         "value":true
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"cell-key",
+                             "message":""
+                            }
                         }, 
                         {
                          "name":"navigateTo",
@@ -165,6 +165,12 @@
  "nextlayerid":11,
  "nextobjectid":84,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"screenText",
+         "type":"string",
+         "value":"You awaken inside the king\u2019s abandoned castle. A sorcerer\u2019s curse has locked the gates. Solve the castle\u2019s riddles before time runs out, or be trapped forever within its stone walls."
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
  "tileheight":32,
