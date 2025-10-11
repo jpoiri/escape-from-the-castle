@@ -163,21 +163,17 @@
                             }
                         }, 
                         {
-                         "name":"spawnItem",
-                         "propertytype":"Item",
+                         "name":"spawn",
+                         "propertytype":"Spawn",
                          "type":"class",
                          "value":
                             {
-                             "description":"You got the cell key",
-                             "name":"cell-key",
-                             "textureFrame":"50",
-                             "textureKey":"items"
+                             "description":"You got the axe",
+                             "name":"axe",
+                             "textureFrame":"86",
+                             "textureKey":"items",
+                             "type":"ITEM"
                             }
-                        }, 
-                        {
-                         "name":"visible",
-                         "type":"bool",
-                         "value":true
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -199,7 +195,8 @@
                             {
                              "direction":"DOWN",
                              "event":"",
-                             "type":"MOVE_TILE",
+                             "repeat":true,
+                             "type":"TOGGLE_TILE_MOVEMENT",
                              "velocity":1
                             }
                         }, 
@@ -222,11 +219,6 @@
                              "emit":"axe-down",
                              "emitEvent":"axe-down"
                             }
-                        }, 
-                        {
-                         "name":"visible",
-                         "type":"bool",
-                         "value":true
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -248,7 +240,8 @@
                             {
                              "direction":"DOWN",
                              "event":"",
-                             "type":"MOVE_TILE",
+                             "repeat":true,
+                             "type":"TOGGLE_TILE_MOVEMENT",
                              "velocity":1
                             }
                         }, 
@@ -297,7 +290,8 @@
                             {
                              "direction":"DOWN",
                              "event":"",
-                             "type":"MOVE_TILE",
+                             "repeat":true,
+                             "type":"TOGGLE_TILE_MOVEMENT",
                              "velocity":1
                             }
                         }, 
@@ -351,7 +345,7 @@
                         {
                          "name":"constraintMessage",
                          "type":"string",
-                         "value":"Prisoner: Help me! 0101 axes"
+                         "value":"Prisoner: Please help me!"
                         }, 
                         {
                          "name":"constraints",
@@ -363,9 +357,17 @@
                             }
                         }, 
                         {
-                         "name":"visible",
-                         "type":"bool",
-                         "value":true
+                         "name":"spawn",
+                         "propertytype":"Spawn",
+                         "type":"class",
+                         "value":
+                            {
+                             "description":"He was famous rex of Sweeden",
+                             "name":"monster",
+                             "textureFrame":"177",
+                             "textureKey":"dungeon-crawl",
+                             "type":"NPC"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -375,9 +377,104 @@
                  "y":493.406605858025
                 }, 
                 {
+                 "height":55.8382,
+                 "id":60,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "newTiles":"29,30,79,80",
+                             "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraintMessage",
+                         "type":"string",
+                         "value":""
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"",
+                             "promptRequired":
+                                {
+                                 "answer":"Carolus",
+                                 "question":"What is secret password?"
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"spawn",
+                         "propertytype":"Spawn",
+                         "type":"class",
+                         "value":
+                            {
+                             "description":"You got door key",
+                             "name":"room-key",
+                             "textureFrame":"50",
+                             "textureKey":"items",
+                             "type":"ITEM"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":38.5791,
+                 "x":173.238975296017,
+                 "y":494.005663469492
+                }, 
+                {
+                 "height":55.8382,
+                 "id":61,
+                 "name":"door",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "newTiles":"29,30,79,80",
+                             "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraintMessage",
+                         "type":"string",
+                         "value":"Locked!"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"room-key"
+                            }
+                        }, 
+                        {
+                         "name":"navigateTo",
+                         "type":"string",
+                         "value":"room-three"
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":38.5791,
+                 "x":427.05739918135,
+                 "y":75.0526863010595
+                }, 
+                {
                  "height":36.5486,
-                 "id":59,
-                 "name":"circle-grate",
+                 "id":62,
+                 "name":"grate2",
                  "properties":[
                         {
                          "name":"action",
@@ -386,8 +483,8 @@
                          "value":
                             {
                              "executeOn":"",
-                             "newTiles":"",
-                             "type":"HIDE"
+                             "newTiles":"841,842,891,892",
+                             "type":"REPLACE_TILE"
                             }
                         }, 
                         {
@@ -396,7 +493,8 @@
                          "type":"class",
                          "value":
                             {
-                             "dependsOn":""
+                             "dependsOn":"",
+                             "itemRequired":"axe"
                             }
                         }, 
                         {
@@ -409,28 +507,24 @@
                             }
                         }, 
                         {
-                         "name":"spawnItem",
-                         "propertytype":"Item",
+                         "name":"spawn",
+                         "propertytype":"Spawn",
                          "type":"class",
                          "value":
                             {
                              "description":"You got the cell key",
                              "name":"cell-key",
                              "textureFrame":"50",
-                             "textureKey":"items"
+                             "textureKey":"items",
+                             "type":"ITEM"
                             }
-                        }, 
-                        {
-                         "name":"visible",
-                         "type":"bool",
-                         "value":true
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
                  "visible":true,
                  "width":35.5334,
-                 "x":429.525124825789,
-                 "y":429.686778692425
+                 "x":684.956375179876,
+                 "y":588.808698130417
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -439,8 +533,14 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":60,
+ "nextobjectid":63,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"screenText",
+         "type":"string",
+         "value":"You manage to escape your cell\u2014but freedom is still far away. The castle dungeon stretches before you, silent and cold."
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
  "tileheight":32,
@@ -455,6 +555,32 @@
          "name":"castle-tiles",
          "spacing":0,
          "tilecount":1300,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":64,
+         "firstgid":1301,
+         "image":"..\/img\/dungeon-crawl.png",
+         "imageheight":1536,
+         "imagewidth":2048,
+         "margin":0,
+         "name":"dungeon-crawl",
+         "spacing":0,
+         "tilecount":3072,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":6,
+         "firstgid":4373,
+         "image":"..\/img\/items.png",
+         "imageheight":240,
+         "imagewidth":208,
+         "margin":0,
+         "name":"items",
+         "spacing":0,
+         "tilecount":42,
          "tileheight":32,
          "tilewidth":32
         }],

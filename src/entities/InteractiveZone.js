@@ -1,11 +1,11 @@
 import Phaser from 'phaser';
-import { TilemapLayer, ActionType, Direction } from '../constants';
+import { TilemapLayer, ActionType, Direction, SpawnTyoe, SpawnType } from '../constants';
 import { showImageModal, showTextModal } from '../utils/ModalUtils';
 
 export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	action = null;
 	constraints = null;
-	spawnItem = null;
+	spawn = null;
 	navigateTo = null;
 	constraintMessage = null;
 	dirty = false;
@@ -23,10 +23,12 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 		let itemUsed = false;
 		let tiles = null;
 		if (!this.canExecute(item, dirtyObjectMap)) {
+			console.log('cannot execute');
 			if (this.constraintMessage) {
 				showTextModal(this.scene, this.constraintMessage);
 			}
 		} else {
+			console.log('execute');
 			const { itemRequired } = this.constraints;
 
 			if (itemRequired && item?.name === itemRequired) {
@@ -287,11 +289,22 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 					this.dirty = true;
 					break;
 			}
-			if (this.spawnItem) {
-				if (type === (ActionType.REPLACE_TILE || ActionType.TOGGLE_TILE)) {
-					this.scene.spawnItem(this.x + this.width / 2, this.y + 50, this.spawnItem);
-				} else {
-					this.scene.spawnItem(this.x + this.width / 2, this.y + this.height / 2, this.spawnItem);
+			if (this.spawn) {
+				switch (this.spawn.type) {
+					case SpawnType.NPC:
+						if (type === (ActionType.REPLACE_TILE || ActionType.TOGGLE_TILE)) {
+							this.scene.spawnNPC(this.x + this.width / 2, this.y + 50, this.spawn);
+						} else {
+							this.scene.spawnNPC(this.x + this.width / 2, this.y + this.height / 2, this.spawn);
+						}
+						break;
+					case SpawnType.ITEM:
+						if (type === (ActionType.REPLACE_TILE || ActionType.TOGGLE_TILE)) {
+							this.scene.spawnItem(this.x + this.width / 2, this.y + 50, this.spawn);
+						} else {
+							this.scene.spawnItem(this.x + this.width / 2, this.y + this.height / 2, this.spawn);
+						}
+						break;
 				}
 			}
 			if (this.navigateTo) {
@@ -308,12 +321,15 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 
 	canExecute(item, dirtyObjectMap) {
 		if (this.constraints) {
-			const { itemRequired, promptQuestion, promptAnswer, dependsOn } = this.constraints;
+			const { itemRequired, promptRequired, dependsOn } = this.constraints;
 			if (itemRequired && item?.name !== itemRequired) {
 				return false;
-			} else if (promptQuestion) {
-				const answer = window.prompt(promptQuestion);
-				if (answer && answer.toLocaleLowerCase() === promptAnswer) {
+			} else if (promptRequired) {
+				const answer = window.prompt(promptRequired.question);
+				console.log(answer);
+				console.log(promptRequired.answer);
+				if (answer && answer.toLocaleLowerCase() === promptRequired.answer.toLocaleLowerCase()) {
+					console.log('goes here');
 					return true;
 				}
 				return false;
@@ -364,12 +380,12 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 		return this.constraints;
 	}
 
-	setSpawnItem(spawnItem) {
-		this.spawnItem = spawnItem;
+	setSpawn(spawn) {
+		this.spawn = spawn;
 	}
 
-	getSpawnItem() {
-		return this.spawnItem;
+	getSpawn() {
+		return this.spawn;
 	}
 
 	setNavigateTo(navigateTo) {

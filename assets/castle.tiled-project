@@ -83,9 +83,6 @@
                 "REPLACE_TILE",
                 "DESTROY_TILE",
                 "SHOW_IMAGE",
-                "SHOW",
-                "HIDE",
-                "TOGGLE_VISIBILITY",
                 "TOGGLE_TILE_MOVEMENT"
             ],
             "valuesAsFlags": false
@@ -107,7 +104,7 @@
                 },
                 {
                     "name": "spawnItem",
-                    "propertyType": "Item",
+                    "propertyType": "Spawn",
                     "type": "class",
                     "value": {
                     }
@@ -143,14 +140,11 @@
                     "value": ""
                 },
                 {
-                    "name": "promptAnswer",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "promptQuestion",
-                    "type": "string",
-                    "value": ""
+                    "name": "promptRequired",
+                    "propertyType": "Prompt",
+                    "type": "class",
+                    "value": {
+                    }
                 }
             ],
             "name": "Constraints",
@@ -283,59 +277,14 @@
                     "value": ""
                 },
                 {
-                    "name": "spawnItem",
-                    "propertyType": "Item",
+                    "name": "spawn",
+                    "propertyType": "Spawn",
                     "type": "class",
                     "value": {
                     }
-                },
-                {
-                    "name": "visible",
-                    "type": "bool",
-                    "value": true
                 }
             ],
             "name": "InteractiveZone",
-            "type": "class",
-            "useAs": [
-                "property",
-                "map",
-                "layer",
-                "object",
-                "tile",
-                "tileset",
-                "wangcolor",
-                "wangset",
-                "project"
-            ]
-        },
-        {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 12,
-            "members": [
-                {
-                    "name": "description",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "name",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "textureFrame",
-                    "type": "string",
-                    "value": ""
-                },
-                {
-                    "name": "textureKey",
-                    "type": "string",
-                    "value": ""
-                }
-            ],
-            "name": "Item",
             "type": "class",
             "useAs": [
                 "property",
@@ -396,7 +345,7 @@
                 },
                 {
                     "name": "spawnItem",
-                    "propertyType": "Item",
+                    "propertyType": "Spawn",
                     "type": "class",
                     "value": {
                     }
@@ -415,6 +364,63 @@
                 "wangset",
                 "project"
             ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 12,
+            "members": [
+                {
+                    "name": "description",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "textureFrame",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "textureKey",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "type",
+                    "propertyType": "SpawnType",
+                    "type": "string",
+                    "value": "ITEM"
+                }
+            ],
+            "name": "Spawn",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "id": 21,
+            "name": "SpawnType",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "ITEM",
+                "NPC"
+            ],
+            "valuesAsFlags": false
         }
     ]
 }

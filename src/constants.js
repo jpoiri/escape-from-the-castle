@@ -1,6 +1,7 @@
 const CustomProperty = {
 	COMBINATION: 'combination',
 	PROMPT_MESSAGE: 'promptMessage',
+	SPAWN: 'spawn',
 	SPAWN_ITEM: 'spawnItem',
 	LOCKED: 'locked',
 	LOCKED_MESSAGE: 'lockedMessage',
@@ -8,7 +9,8 @@ const CustomProperty = {
 	CONSTRAINTS: 'constraints',
 	NAVIGATE_TO: 'navigateTo',
 	CONSTRAINT_MESSAGE: 'constraintMessage',
-	EVENTS: 'events'
+	EVENTS: 'events',
+	SCREEN_TEXT: 'screenText'
 };
 
 const ActionType = {
@@ -20,6 +22,11 @@ const ActionType = {
 	SHOW_TEXT: 'SHOW_TEXT',
 	SHOW_IMAGE: 'SHOW_IMAGE'
 };
+
+const SpawnType = {
+	ITEM: 'ITEM',
+	NPC: 'NPC'
+}
 
 const Direction = {
 	LEFT: 'LEFT',
@@ -118,4 +125,4 @@ Object.freeze(Frame);
 Object.freeze(Direction);
 Object.freeze(ActionType);
 
-export { TilemapLayer, CustomProperty, LoaderKey, EntityType, Tile, Item, Animation, Frame, ActionType, Direction };
+export { TilemapLayer, CustomProperty, LoaderKey, EntityType, Tile, Item, Animation, Frame, ActionType, Direction, SpawnType };

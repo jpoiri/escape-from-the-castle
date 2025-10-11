@@ -29,7 +29,7 @@ export default class GameScene extends Phaser.Scene {
 	}
 
 	create() {
-		this.loadRoom('room-two');
+		this.loadRoom('room-one');
 		this.createAnimations();
 		this.createHud();
 		this.startTimer(1);
@@ -79,10 +79,15 @@ export default class GameScene extends Phaser.Scene {
 		this.dirtyObjectMap = new Map();
 		this.cameras.main.fadeIn(TRANSITION_DELAY, 0, 0, 0);
 		this.tileMap = this.createTileMap(roomName);
+
 		const castleTiles = this.createTileSet(this.tileMap, 'castle-tiles', 'castle-tiles');
 		const creepyTiles = this.createTileSet(this.tileMap, 'creepy-tiles', 'creepy-tiles');
 		const { objectsLayer, foregroundLayer } = this.getTileMapLayers(this.tileMap, [creepyTiles, castleTiles]);
+		
 		this.loadTileMapObjects(objectsLayer);
+
+		const screenText = this.getCustomProperty(this.tileMap, CustomProperty.SCREEN_TEXT);
+		showTextModal(this, screenText, 'large');
 	}
 
 	reloadRoom(roomKey) {
@@ -150,7 +155,7 @@ export default class GameScene extends Phaser.Scene {
 		zone.setConstraints(this.getCustomProperty(tileMapObject, CustomProperty.CONSTRAINTS));
 		zone.setConstraintMessage(this.getCustomProperty(tileMapObject, CustomProperty.CONSTRAINT_MESSAGE));
 		zone.setNavigateTo(this.getCustomProperty(tileMapObject, CustomProperty.NAVIGATE_TO));
-		zone.setSpawnItem(this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM));
+		zone.setSpawn(this.getCustomProperty(tileMapObject, CustomProperty.SPAWN));
 
 		const events = this.getCustomProperty(tileMapObject, CustomProperty.EVENTS);
 
@@ -325,6 +330,25 @@ export default class GameScene extends Phaser.Scene {
 		});
 		this.tweens.add({
 			targets: itemImage,
+			alpha: 1,
+			ease: 'Linear',
+			duration: 200
+		});
+	}
+
+	spawnNPC(x, y, npc) {
+		assert(!x, 'The x is undefined');
+		assert(!y, 'The y is undefined');
+		assert(!npc, 'The npc is undefined');
+		const npcSprite = this.add.sprite(x, y, npc.textureKey, npc.textureFrame);
+		npcSprite.setScale(2);
+		npcSprite.setAlpha(0);
+		npcSprite.setInteractive();
+		npcSprite.on('pointerdown', () => {
+			showTextModal(this, npc.description);
+		});
+		this.tweens.add({
+			targets: npcSprite,
 			alpha: 1,
 			ease: 'Linear',
 			duration: 200
