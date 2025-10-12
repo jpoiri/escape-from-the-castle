@@ -401,5 +401,18 @@ export default class GameScene extends Phaser.Scene {
 		if (this.isTimeElapsed) {
 			this.scene.start('gameover');
 		}
+		if (this.selectedItem && !this.pointerItem) {
+			const { x, y } = this.input.activePointer;
+			const { textureKey, textureFrame } = this.selectedItem;
+			this.pointerItem = this.add.image(x, y, textureKey, textureFrame);
+			this.pointerItem.setScale(2);
+		} else if (this.selectedItem && this.pointerItem) {
+			const { x, y } = this.input.activePointer;
+			this.pointerItem.x = x;
+			this.pointerItem.y = y;
+		} else if (!this.selectedItem && this.pointerItem) {
+			this.pointerItem.destroy();
+			this.pointerItem = null;
+		}
 	}
 }
