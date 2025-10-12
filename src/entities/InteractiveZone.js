@@ -326,8 +326,6 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 				return false;
 			} else if (promptRequired) {
 				const answer = window.prompt(promptRequired.question);
-				console.log(answer);
-				console.log(promptRequired.answer);
 				if (answer && answer.toLocaleLowerCase() === promptRequired.answer.toLocaleLowerCase()) {
 					console.log('goes here');
 					return true;
