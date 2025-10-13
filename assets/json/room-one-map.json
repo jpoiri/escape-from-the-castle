@@ -101,6 +101,7 @@
                             {
                              "description":"You got the cell key",
                              "name":"cell-key",
+                             "singleUse":true,
                              "textureFrame":"50",
                              "textureKey":"items"
                             }
@@ -166,6 +167,12 @@
  "nextobjectid":84,
  "orientation":"orthogonal",
  "properties":[
+        {
+         "name":"modalSize",
+         "propertytype":"ModalSize",
+         "type":"string",
+         "value":"LARGE"
+        }, 
         {
          "name":"screenText",
          "type":"string",

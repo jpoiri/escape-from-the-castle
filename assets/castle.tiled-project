@@ -299,6 +299,17 @@
             ]
         },
         {
+            "id": 22,
+            "name": "ModalSize",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "REGULAR",
+                "LARGE"
+            ],
+            "valuesAsFlags": false
+        },
+        {
             "color": "#ffa0a0a4",
             "drawFill": true,
             "id": 17,
@@ -379,6 +390,11 @@
                     "name": "name",
                     "type": "string",
                     "value": ""
+                },
+                {
+                    "name": "singleUse",
+                    "type": "bool",
+                    "value": false
                 },
                 {
                     "name": "textureFrame",
