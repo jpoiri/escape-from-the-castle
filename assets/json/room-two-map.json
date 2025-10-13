@@ -170,6 +170,7 @@
                             {
                              "description":"You got the axe",
                              "name":"axe",
+                             "singleUse":false,
                              "textureFrame":"86",
                              "textureKey":"items",
                              "type":"ITEM"
@@ -418,6 +419,7 @@
                             {
                              "description":"You got door key",
                              "name":"room-key",
+                             "singleUse":true,
                              "textureFrame":"50",
                              "textureKey":"items",
                              "type":"ITEM"
@@ -514,6 +516,7 @@
                             {
                              "description":"You got the cell key",
                              "name":"cell-key",
+                             "singleUse":true,
                              "textureFrame":"50",
                              "textureKey":"items",
                              "type":"ITEM"
@@ -536,6 +539,12 @@
  "nextobjectid":63,
  "orientation":"orthogonal",
  "properties":[
+        {
+         "name":"modalSize",
+         "propertytype":"ModalSize",
+         "type":"string",
+         "value":"REGULAR"
+        }, 
         {
          "name":"screenText",
          "type":"string",

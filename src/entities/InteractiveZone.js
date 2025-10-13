@@ -23,18 +23,16 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 		let itemUsed = false;
 		let tiles = null;
 		if (!this.canExecute(item, dirtyObjectMap)) {
-			console.log('cannot execute');
 			if (this.constraintMessage) {
 				showTextModal(this.scene, this.constraintMessage);
 			}
 		} else {
-			console.log('execute');
-			const { itemRequired } = this.constraints;
-
-			if (itemRequired && item?.name === itemRequired) {
-				itemUsed = true;
+			if (this.constraints) {
+				const { itemRequired } = this.constraints;
+				if (itemRequired && item?.name === itemRequired) {
+					itemUsed = true;
+				}
 			}
-
 			let { type, velocity, newTiles, direction, text, textureKey, repeat } = this.action;
 
 			newTiles = newTiles?.split(',').map((s) => {
@@ -126,16 +124,16 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 					switch (direction) {
 						case Direction.LEFT:
 							for (let i = 0, len = tiles.length; i < len; i++) {
-								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x + velocity, tiles[i].y);
+								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x - velocity, tiles[i].y);
 							}
-							this.x = this.x + this.width + velocity;
+							this.x = this.x - this.width - velocity;
 							this.reverseDirection = Direction.RIGHT;
 							break;
 						case Direction.RIGHT:
 							for (let i = 0, len = tiles.length; i < len; i++) {
-								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x - velocity, tiles[i].y);
+								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x + velocity, tiles[i].y);
 							}
-							this.x = this.x - this.width - velocity;
+							this.x = this.x + this.width + velocity;
 							this.reverseDirection = Direction.LEFT;
 							break;
 						case Direction.UP:
@@ -176,22 +174,22 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 								for (let i = 0, len = tiles.length; i < len; i++) {
 									this.scene.tileMap.putTileAt(
 										tiles[i].index,
-										tiles[i].x + velocity,
+										tiles[i].x - velocity,
 										tiles[i].y
 									);
 								}
-								this.x = this.x + this.width + velocity;
+								this.x = this.x - this.width - velocity;
 								this.reverseDirection = Direction.RIGHT;
 								break;
 							case Direction.RIGHT:
 								for (let i = 0, len = tiles.length; i < len; i++) {
 									this.scene.tileMap.putTileAt(
 										tiles[i].index,
-										tiles[i].x - velocity,
+										tiles[i].x + velocity,
 										tiles[i].y
 									);
 								}
-								this.x = this.x - this.width - velocity;
+								this.x = this.x + this.width + velocity;
 								this.reverseDirection = Direction.LEFT;
 								break;
 							case Direction.UP:
@@ -240,21 +238,21 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 								for (let i = 0, len = movedTiles.length; i < len; i++) {
 									this.scene.tileMap.putTileAt(
 										movedTiles[i].index,
-										movedTiles[i].x + velocity,
-										movedTiles[i].y
-									);
-								}
-								this.x = this.x + this.width + velocity;
-								break;
-							case Direction.RIGHT:
-								for (let i = 0, len = movedTiles.length; i < len; i++) {
-									this.scene.tileMap.putTileAt(
-										movedTiles[i].index,
 										movedTiles[i].x - velocity,
 										movedTiles[i].y
 									);
 								}
 								this.x = this.x - this.width - velocity;
+								break;
+							case Direction.RIGHT:
+								for (let i = 0, len = movedTiles.length; i < len; i++) {
+									this.scene.tileMap.putTileAt(
+										movedTiles[i].index,
+										movedTiles[i].x + velocity,
+										movedTiles[i].y
+									);
+								}
+								this.x = this.x + this.width + velocity;
 								break;
 							case Direction.UP:
 								for (let i = 0, len = movedTiles.length; i < len; i++) {
@@ -293,14 +291,14 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 				switch (this.spawn.type) {
 					case SpawnType.NPC:
 						if (type === (ActionType.REPLACE_TILE || ActionType.TOGGLE_TILE)) {
-							this.scene.spawnNPC(this.x + this.width / 2, this.y + 50, this.spawn);
+							this.scene.spawnNPC(this.x + this.width / 2, this.y + 60, this.spawn);
 						} else {
 							this.scene.spawnNPC(this.x + this.width / 2, this.y + this.height / 2, this.spawn);
 						}
 						break;
 					case SpawnType.ITEM:
 						if (type === (ActionType.REPLACE_TILE || ActionType.TOGGLE_TILE)) {
-							this.scene.spawnItem(this.x + this.width / 2, this.y + 50, this.spawn);
+							this.scene.spawnItem(this.x + this.width / 2, this.y + 60, this.spawn);
 						} else {
 							this.scene.spawnItem(this.x + this.width / 2, this.y + this.height / 2, this.spawn);
 						}
@@ -327,7 +325,6 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 			} else if (promptRequired) {
 				const answer = window.prompt(promptRequired.question);
 				if (answer && answer.toLocaleLowerCase() === promptRequired.answer.toLocaleLowerCase()) {
-					console.log('goes here');
 					return true;
 				}
 				return false;

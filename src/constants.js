@@ -10,7 +10,8 @@ const CustomProperty = {
 	NAVIGATE_TO: 'navigateTo',
 	CONSTRAINT_MESSAGE: 'constraintMessage',
 	EVENTS: 'events',
-	SCREEN_TEXT: 'screenText'
+	SCREEN_TEXT: 'screenText',
+	MODAL_SIZE: 'modalSize'
 };
 
 const ActionType = {
@@ -34,6 +35,11 @@ const Direction = {
 	UP: 'UP',
 	DOWN: 'DOWN'
 };
+
+const ModalSize = {
+	REGULAR: 'REGULAR',
+	LARGE: 'LARGE'
+}
 
 const TilemapLayer = {
 	BACKGROUND: 'background',
@@ -125,4 +131,4 @@ Object.freeze(Frame);
 Object.freeze(Direction);
 Object.freeze(ActionType);
 
-export { TilemapLayer, CustomProperty, LoaderKey, EntityType, Tile, Item, Animation, Frame, ActionType, Direction, SpawnType };
+export { TilemapLayer, CustomProperty, LoaderKey, EntityType, Tile, Item, Animation, Frame, ActionType, Direction, SpawnType , ModalSize };

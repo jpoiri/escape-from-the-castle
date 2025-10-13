@@ -29,7 +29,7 @@ export default class GameScene extends Phaser.Scene {
 	}
 
 	create() {
-		this.loadRoom('room-one');
+		this.loadRoom('room-three');
 		this.createAnimations();
 		this.createHud();
 		this.startTimer(1);
@@ -57,6 +57,10 @@ export default class GameScene extends Phaser.Scene {
 				if (this.selectedRectangle) {
 					this.selectedRectangle.destroy();
 				}
+				if (this.pointerItem) {
+					this.pointerItem.destroy();
+					this.pointerItem = null;
+				}
 				this.selectedItem = this.items[i];
 				this.selectedRectangle = this.add.rectangle(itemImage.x, itemImage.y, 50, 50);
 				this.selectedRectangle.setStrokeStyle(3, 0xffffff);
@@ -83,11 +87,12 @@ export default class GameScene extends Phaser.Scene {
 		const castleTiles = this.createTileSet(this.tileMap, 'castle-tiles', 'castle-tiles');
 		const creepyTiles = this.createTileSet(this.tileMap, 'creepy-tiles', 'creepy-tiles');
 		const { objectsLayer, foregroundLayer } = this.getTileMapLayers(this.tileMap, [creepyTiles, castleTiles]);
-		
+
 		this.loadTileMapObjects(objectsLayer);
 
 		const screenText = this.getCustomProperty(this.tileMap, CustomProperty.SCREEN_TEXT);
-		showTextModal(this, screenText, 'large');
+		const modalSize = this.getCustomProperty(this.tileMap, CustomProperty.MODAL_SIZE);
+		showTextModal(this, screenText, modalSize);
 	}
 
 	reloadRoom(roomKey) {
@@ -170,10 +175,13 @@ export default class GameScene extends Phaser.Scene {
 				zone.on('pointerdown', () => {
 					zone.executeAction(this.selectedItem, this.dirtyObjectMap, (itemUsed) => {
 						if (itemUsed) {
-							const index = this.items.findIndex((item) => item?.name === this.selectedItem?.name);
-							this.items.splice(index, 1);
-							this.selectedItem = null;
-							this.updateHud();
+							if (this.selectedItem.singleUse) {
+								console.log('destroying item');
+								const index = this.items.findIndex((item) => item?.name === this.selectedItem?.name);
+								this.items.splice(index, 1);
+								this.selectedItem = null;
+								this.updateHud();
+							}
 						}
 						if (zone.isDirty()) {
 							this.dirtyObjectMap.set(zone.name, zone);
@@ -190,10 +198,13 @@ export default class GameScene extends Phaser.Scene {
 			zone.on('pointerdown', () => {
 				zone.executeAction(this.selectedItem, this.dirtyObjectMap, (itemUsed) => {
 					if (itemUsed) {
-						const index = this.items.findIndex((item) => item?.name === this.selectedItem?.name);
-						this.items.splice(index, 1);
-						this.selectedItem = null;
-						this.updateHud();
+						console.log(this.selectedItem);
+						if (this.selectedItem.singleUse) {
+							const index = this.items.findIndex((item) => item?.name === this.selectedItem?.name);
+							this.items.splice(index, 1);
+							this.selectedItem = null;
+							this.updateHud();
+						}
 					}
 					if (zone.isDirty()) {
 						this.dirtyObjectMap.set(zone.name, zone);
@@ -320,11 +331,7 @@ export default class GameScene extends Phaser.Scene {
 		itemImage.on('pointerdown', () => {
 			itemImage.destroy();
 			showItemModal(this, item.description, item.textureKey, item.textureFrame, () => {
-				this.items.push({
-					name: item.name,
-					textureKey: item.textureKey,
-					textureFrame: item.textureFrame
-				});
+				this.items.push(item);
 				this.updateHud();
 			});
 		});
