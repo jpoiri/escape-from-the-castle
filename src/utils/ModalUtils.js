@@ -1,6 +1,7 @@
 import { assert } from '../utils/AssertUtils';
-
-export function showTextModal(scene, text, size = 'normal', closeCallback) {
+import { ModalSize } from '../constants';
+   
+export function showTextModal(scene, text, size = ModalSize.REGULAR, closeCallback) {
 	assert(!scene, 'The scene is undefined');
 	assert(!text, 'The text is undefined');
 	const blocker = scene.add.rectangle(0, 0, scene.scale.width, scene.scale.height, 0x000000, 0.5).setOrigin(0).setInteractive();
@@ -9,7 +10,7 @@ export function showTextModal(scene, text, size = 'normal', closeCallback) {
 	let closeText = null;
 
 	switch (size) {
-		case 'normal':
+		case ModalSize.REGULAR:
 			box = scene.add.rectangle(0, 0, 450, 150, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
 			closeText = scene.add
 				.text(155, -69, 'Close X', {
@@ -19,7 +20,7 @@ export function showTextModal(scene, text, size = 'normal', closeCallback) {
 				})
 				.setInteractive();
 			break;
-		case 'large':
+		case ModalSize.LARGE:
 			closeText = scene.add
 				.text(155, -169, 'Close X', {
 					fontSize: '16px',
