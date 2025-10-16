@@ -1,4 +1,4 @@
-import { assert } from '../utils/AssertUtils';
+import { assert } from './assert-utils';
 import { ModalSize } from '../constants';
    
 export function showTextModal(scene, text, size = ModalSize.REGULAR, closeCallback) {
@@ -107,7 +107,7 @@ export function showItemModal(scene, itemDescription, itemTexture, itemFrame, cl
 		})
 		.setInteractive();
 
-	const itemImage = scene.add.image(0, -10, itemTexture, itemFrame).setScale(2.5);
+	const itemImage = scene.add.image(0, -10, itemTexture, itemFrame).setScale(2);
 	const itemDescriptionText = scene.add
 		.text(0, 30, itemDescription, {
 			fontSize: '16px',

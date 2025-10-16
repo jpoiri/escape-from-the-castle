@@ -49,8 +49,8 @@
                 {
                     "name": "type",
                     "propertyType": "ActionType",
-                    "type": "string",
-                    "value": "SHOW_TEXT"
+                    "type": "int",
+                    "value": 8
                 },
                 {
                     "name": "velocity",
@@ -83,7 +83,9 @@
                 "REPLACE_TILE",
                 "DESTROY_TILE",
                 "SHOW_IMAGE",
-                "TOGGLE_TILE_MOVEMENT"
+                "TOGGLE_TILE_MOVEMENT",
+                "DESTROY",
+                "SET_ALPHA"
             ],
             "valuesAsFlags": false
         },

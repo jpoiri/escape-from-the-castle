@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
-import { TilemapLayer, ActionType, Direction, SpawnTyoe, SpawnType } from '../constants';
-import { showImageModal, showTextModal } from '../utils/ModalUtils';
+import { ActionType, Direction, SpawnType, Rotation } from '../constants';
+import { assert } from '../utils/assert-utils';
+import { getTilesWithinWorldXY, removeTiles, replaceTiles, moveTiles } from '../utils/tilemap-utils';
+import { showImageModal, showTextModal } from '../utils/modal-utils';
 
 export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	action = null;
@@ -27,12 +29,6 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 				showTextModal(this.scene, this.constraintMessage);
 			}
 		} else {
-			if (this.constraints) {
-				const { itemRequired } = this.constraints;
-				if (itemRequired && item?.name === itemRequired) {
-					itemUsed = true;
-				}
-			}
 			let { type, velocity, newTiles, direction, text, textureKey, repeat } = this.action;
 
 			newTiles = newTiles?.split(',').map((s) => {
@@ -41,240 +37,46 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 
 			switch (type) {
 				case ActionType.REPLACE_TILE:
-					tiles = this.scene.tileMap.getTilesWithinWorldXY(
-						this.x,
-						this.y,
-						this.width,
-						this.height,
-						{
-							isNotEmpty: true
-						},
-						null,
-						TilemapLayer.FOREGROUND
-					);
-					for (let i = 0, len = tiles.length; i < len; i++) {
-						if (newTiles[i]) {
-							this.scene.tileMap.putTileAt(newTiles[i], tiles[i].x, tiles[i].y);
-						}
-					}
+					tiles = getTilesWithinWorldXY(this.scene.tileMap, this.x, this.y, this.width, this.height);
+					replaceTiles(this.scene.tileMap, tiles, newTiles);
 					this.dirty = true;
 					break;
 				case ActionType.TOGGLE_TILE:
-					tiles = this.scene.tileMap.getTilesWithinWorldXY(
-						this.x,
-						this.y,
-						this.width,
-						this.height,
-						{
-							isNotEmpty: true
-						},
-						null,
-						TilemapLayer.FOREGROUND
-					);
+					tiles = getTilesWithinWorldXY(this.scene.tileMap, this.x, this.y, this.width, this.height);
 					if (!this.dirty) {
 						this.previousTiles = tiles.map((t) => t.index);
-						for (let i = 0, len = tiles.length; i < len; i++) {
-							if (newTiles[i]) {
-								this.scene.tileMap.putTileAt(newTiles[i], tiles[i].x, tiles[i].y);
-							}
-						}
+						replaceTiles(this.scene.tileMap, tiles, newTiles);
 						this.dirty = true;
 					} else {
-						for (let i = 0, len = tiles.length; i < len; i++) {
-							if (this.previousTiles[i]) {
-								this.scene.tileMap.putTileAt(this.previousTiles[i], tiles[i].x, tiles[i].y);
-							}
-						}
+						replaceTiles(this.scene.tileMap, tiles, this.previousTiles);
 						this.previousTiles = null;
 						this.dirty = false;
 					}
 					break;
 				case ActionType.DESTROY_TILE:
-					tiles = this.scene.tileMap.getTilesWithinWorldXY(
-						this.x,
-						this.y,
-						this.width,
-						this.height,
-						{
-							isNotEmpty: true
-						},
-						null,
-						TilemapLayer.FOREGROUND
-					);
-					for (let i = 0, len = tiles.length; i < len; i++) {
-						this.scene.tileMap.removeTileAt(tiles[i].x, tiles[i].y);
-					}
+					tiles = getTilesWithinWorldXY(this.scene.tileMap, this.x, this.y, this.width, this.height);
+					removeTiles(this.scene.tileMap, tiles);
 					this.dirty = true;
 					break;
 				case ActionType.MOVE_TILE:
-					tiles = this.scene.tileMap.getTilesWithinWorldXY(
-						this.x,
-						this.y,
-						this.width,
-						this.height,
-						{
-							isNotEmpty: true
-						},
-						null,
-						TilemapLayer.FOREGROUND
-					);
-					for (let i = 0, len = tiles.length; i < len; i++) {
-						this.scene.tileMap.removeTileAt(tiles[i].x, tiles[i].y);
-					}
-					switch (direction) {
-						case Direction.LEFT:
-							for (let i = 0, len = tiles.length; i < len; i++) {
-								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x - velocity, tiles[i].y);
-							}
-							this.x = this.x - this.width - velocity;
-							this.reverseDirection = Direction.RIGHT;
-							break;
-						case Direction.RIGHT:
-							for (let i = 0, len = tiles.length; i < len; i++) {
-								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x + velocity, tiles[i].y);
-							}
-							this.x = this.x + this.width + velocity;
-							this.reverseDirection = Direction.LEFT;
-							break;
-						case Direction.UP:
-							for (let i = 0, len = tiles.length; i < len; i++) {
-								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x, tiles[i].y - velocity);
-							}
-							this.y = this.y - this.height - velocity;
-							this.reverseDirection = Direction.DOWN;
-							break;
-						case Direction.DOWN:
-							for (let i = 0, len = tiles.length; i < len; i++) {
-								this.scene.tileMap.putTileAt(tiles[i].index, tiles[i].x, tiles[i].y + velocity);
-							}
-							this.y = this.y + this.height + velocity;
-							this.reverseDirection = Direction.UP;
-							break;
-					}
+					tiles = getTilesWithinWorldXY(this.scene.tileMap, this.x, this.y, this.width, this.height);
+					removeTiles(this.scene.tileMap, tiles);
+					moveTiles(this.scene.tileMap, tiles, direction, velocity);
+					this.move(direction, velocity);
 					this.dirty = true;
 					break;
 				case ActionType.TOGGLE_TILE_MOVEMENT:
-					tiles = this.scene.tileMap.getTilesWithinWorldXY(
-						this.x,
-						this.y,
-						this.width,
-						this.height,
-						{
-							isNotEmpty: true
-						},
-						null,
-						TilemapLayer.FOREGROUND
-					);
+					tiles = getTilesWithinWorldXY(this.scene.tileMap, this.x, this.y, this.width, this.height);
 					if (!this.dirty) {
-						for (let i = 0, len = tiles.length; i < len; i++) {
-							this.scene.tileMap.removeTileAt(tiles[i].x, tiles[i].y);
-						}
-						switch (direction) {
-							case Direction.LEFT:
-								for (let i = 0, len = tiles.length; i < len; i++) {
-									this.scene.tileMap.putTileAt(
-										tiles[i].index,
-										tiles[i].x - velocity,
-										tiles[i].y
-									);
-								}
-								this.x = this.x - this.width - velocity;
-								this.reverseDirection = Direction.RIGHT;
-								break;
-							case Direction.RIGHT:
-								for (let i = 0, len = tiles.length; i < len; i++) {
-									this.scene.tileMap.putTileAt(
-										tiles[i].index,
-										tiles[i].x + velocity,
-										tiles[i].y
-									);
-								}
-								this.x = this.x + this.width + velocity;
-								this.reverseDirection = Direction.LEFT;
-								break;
-							case Direction.UP:
-								for (let i = 0, len = tiles.length; i < len; i++) {
-									this.scene.tileMap.putTileAt(
-										tiles[i].index,
-										tiles[i].x,
-										tiles[i].y - velocity
-									);
-								}
-								this.y = this.y - this.height - velocity;
-								this.reverseDirection = Direction.DOWN;
-								break;
-							case Direction.DOWN:
-								for (let i = 0, len = tiles.length; i < len; i++) {
-									this.scene.tileMap.putTileAt(
-										tiles[i].index,
-										tiles[i].x,
-										tiles[i].y + velocity
-									);
-								}
-								this.y = this.y + this.height + velocity;
-								this.reverseDirection = Direction.UP;
-								break;
-						}
-
+						removeTiles(this.scene.tileMap, tiles);
+						moveTiles(this.scene.tileMap, tiles, direction, velocity);
+						this.move(direction, velocity);
 						this.dirty = true;
 					} else {
-						const movedTiles = this.scene.tileMap.getTilesWithinWorldXY(
-							this.x,
-							this.y,
-							this.width,
-							this.height,
-							{
-								isNotEmpty: true
-							},
-							null,
-							TilemapLayer.FOREGROUND
-						);
-
-						for (let i = 0, len = movedTiles.length; i < len; i++) {
-							this.scene.tileMap.removeTileAt(movedTiles[i].x, movedTiles[i].y);
-						}
-						switch (this.reverseDirection) {
-							case Direction.LEFT:
-								for (let i = 0, len = movedTiles.length; i < len; i++) {
-									this.scene.tileMap.putTileAt(
-										movedTiles[i].index,
-										movedTiles[i].x - velocity,
-										movedTiles[i].y
-									);
-								}
-								this.x = this.x - this.width - velocity;
-								break;
-							case Direction.RIGHT:
-								for (let i = 0, len = movedTiles.length; i < len; i++) {
-									this.scene.tileMap.putTileAt(
-										movedTiles[i].index,
-										movedTiles[i].x + velocity,
-										movedTiles[i].y
-									);
-								}
-								this.x = this.x + this.width + velocity;
-								break;
-							case Direction.UP:
-								for (let i = 0, len = movedTiles.length; i < len; i++) {
-									this.scene.tileMap.putTileAt(
-										movedTiles[i].index,
-										movedTiles[i].x,
-										movedTiles[i].y - velocity
-									);
-								}
-								this.y = this.y - this.height - velocity;
-								break;
-							case Direction.DOWN:
-								for (let i = 0, len = movedTiles.length; i < len; i++) {
-									this.scene.tileMap.putTileAt(
-										movedTiles[i].index,
-										movedTiles[i].x,
-										movedTiles[i].y + velocity
-									);
-								}
-								this.y = this.y + this.height + velocity;
-								break;
-						}
+						const movedTiles = getTilesWithinWorldXY(this.scene.tileMap, this.x, this.y, this.width, this.height);
+						removeTiles(this.scene.tileMap, movedTiles);
+						moveTiles(this.scene.tileMap, tiles, this.reverseDirection, velocity);
+						this.move(this.reverseDirection, velocity);
 						this.dirty = false;
 					}
 					break;
@@ -286,34 +88,77 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 					showImageModal(this.scene, textureKey);
 					this.dirty = true;
 					break;
+				case ActionType.DESTROY: {
+					this.destroy();
+					this.dirty = true;
+					break;
+				}
 			}
 			if (this.spawn) {
-				switch (this.spawn.type) {
-					case SpawnType.NPC:
-						if (type === (ActionType.REPLACE_TILE || ActionType.TOGGLE_TILE)) {
-							this.scene.spawnNPC(this.x + this.width / 2, this.y + 60, this.spawn);
-						} else {
-							this.scene.spawnNPC(this.x + this.width / 2, this.y + this.height / 2, this.spawn);
-						}
-						break;
-					case SpawnType.ITEM:
-						if (type === (ActionType.REPLACE_TILE || ActionType.TOGGLE_TILE)) {
-							this.scene.spawnItem(this.x + this.width / 2, this.y + 60, this.spawn);
-						} else {
-							this.scene.spawnItem(this.x + this.width / 2, this.y + this.height / 2, this.spawn);
-						}
-						break;
-				}
+				this.spawnObject(this.spawn, type);
 			}
 			if (this.navigateTo) {
 				this.scene.reloadRoom(this.navigateTo);
 			}
 			if (onCompleteCallback) {
-				onCompleteCallback(itemUsed);
+				onCompleteCallback(this.isItemUsed(item));
 			}
-			if (!repeat) {
+			if (!repeat && this.active) {
 				this.destroy();
 			}
+		}
+	}
+
+	spawnObject(spawn, actionType) {
+		assert(!spawn, 'The spawn is undefined');
+		switch (spawn.type) {
+			case SpawnType.NPC:
+				if (actionType === (ActionType.REPLACE_TILE || ActionType.TOGGLE_TILE)) {
+					this.scene.spawnNPC(this.x + this.width / 2, this.y + 50, this.spawn);
+				} else {
+					this.scene.spawnNPC(this.x + this.width / 2, this.y + this.height / 2, this.spawn);
+				}
+				break;
+			case SpawnType.ITEM:
+				if (actionType === (ActionType.REPLACE_TILE || ActionType.TOGGLE_TILE)) {
+					this.scene.spawnItem(this.x + this.width / 2, this.y + 50, this.spawn);
+				} else {
+					this.scene.spawnItem(this.x + this.width / 2, this.y + this.height / 2, this.spawn);
+				}
+				break;
+		}
+	}
+
+	isItemUsed(item) {
+		if (this.constraints && item) {
+			const { itemRequired } = this.constraints;
+			if (itemRequired && item?.name === itemRequired) {
+				return true;
+			}
+		}
+		return false;	
+	}
+
+	move(direction, velocity) {
+		assert(!direction, 'The direction is undefined');
+		assert(!velocity, 'The velocity is undefined');
+		switch (direction) {
+			case Direction.LEFT:
+				this.x = this.x - this.width - velocity;
+				this.reverseDirection = Direction.RIGHT;
+				break;
+			case Direction.RIGHT:
+				this.x = this.x + this.width + velocity;
+				this.reverseDirection = Direction.LEFT;
+				break;
+			case Direction.UP:
+				this.y = this.y - this.height - velocity;
+				this.reverseDirection = Direction.DOWN;
+				break;
+			case Direction.DOWN:
+				this.y = this.y + this.height + velocity;
+				this.reverseDirection = Direction.UP;
+				break;
 		}
 	}
 

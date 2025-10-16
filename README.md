@@ -52,3 +52,4 @@ Thank you https://opengameart.org/ for the free artwork used in this project.
 * https://opengameart.org/content/rpgmaker-style-doors
 * https://opengameart.org/content/castle-dungeon
 * https://opengameart.org/content/dungeon-crawl-32x32-tiles
+* https://opengameart.org/content/4-color-dawnbringer-icons-for-adventurerpg

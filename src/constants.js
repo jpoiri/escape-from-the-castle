@@ -21,13 +21,15 @@ const ActionType = {
 	REPLACE_TILE: 'REPLACE_TILE',
 	TOGGLE_TILE: 'TOGGLE_TILE',
 	SHOW_TEXT: 'SHOW_TEXT',
-	SHOW_IMAGE: 'SHOW_IMAGE'
+	SHOW_IMAGE: 'SHOW_IMAGE',
+	DESTROY: 'DESTROY',
+	ROTATE_TILE: 'ROTATE_TILE'
 };
 
 const SpawnType = {
 	ITEM: 'ITEM',
 	NPC: 'NPC'
-}
+};
 
 const Direction = {
 	LEFT: 'LEFT',
@@ -36,10 +38,16 @@ const Direction = {
 	DOWN: 'DOWN'
 };
 
+const Rotation = {
+	ROTATE_90: '90',
+	ROTATE_180: '180',
+	ROTATE_270: '270'
+};
+
 const ModalSize = {
 	REGULAR: 'REGULAR',
 	LARGE: 'LARGE'
-}
+};
 
 const TilemapLayer = {
 	BACKGROUND: 'background',
@@ -131,4 +139,4 @@ Object.freeze(Frame);
 Object.freeze(Direction);
 Object.freeze(ActionType);
 
-export { TilemapLayer, CustomProperty, LoaderKey, EntityType, Tile, Item, Animation, Frame, ActionType, Direction, SpawnType , ModalSize };
+export { TilemapLayer, CustomProperty, LoaderKey, EntityType, Tile, Item, Animation, Frame, ActionType, Direction, SpawnType, ModalSize, Rotation };
