@@ -1310,7 +1310,7 @@
                 {
                  "height":58.8839159254433,
                  "id":127,
-                 "name":"",
+                 "name":"door",
                  "properties":[
                         {
                          "name":"action",
@@ -1355,7 +1355,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":128,
+ "nextobjectid":129,
  "orientation":"orthogonal",
  "properties":[
         {

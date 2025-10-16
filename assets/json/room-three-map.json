@@ -42,9 +42,9 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 33, 34, 0, 0, 33, 34, 0, 545, 546, 17, 18, 545, 546, 0, 33, 34, 0, 0, 33, 34, 0, 0, 0, 0,
+            0, 0, 0, 0, 33, 34, 0, 0, 33, 34, 0, 545, 546, 17, 18, 545, 546, 1444, 33, 34, 0, 0, 33, 34, 0, 0, 0, 0,
             0, 0, 0, 0, 83, 84, 0, 0, 83, 84, 0, 595, 596, 67, 68, 595, 596, 0, 83, 84, 0, 0, 83, 84, 0, 0, 0, 0,
-            0, 0, 0, 0, 133, 134, 0, 0, 133, 134, 0, 0, 0, 0, 0, 0, 0, 0, 133, 134, 0, 0, 133, 134, 0, 0, 0, 0,
+            0, 0, 0, 0, 133, 134, 0, 0, 133, 134, 0, 1864, 0, 0, 0, 0, 0, 0, 133, 134, 0, 0, 133, 134, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -80,7 +80,7 @@
                 {
                  "height":58.8839159254433,
                  "id":127,
-                 "name":"",
+                 "name":"room-door",
                  "properties":[
                         {
                          "name":"action",
@@ -96,6 +96,15 @@
                          "name":"constraintMessage",
                          "type":"string",
                          "value":"Locked!"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"room-key"
+                            }
                         }, 
                         {
                          "name":"navigateTo",
@@ -124,11 +133,21 @@
                             }
                         }, 
                         {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "dependsOn":"right-knight,left-knight"
+                            }
+                        }, 
+                        {
                          "name":"events",
                          "propertytype":"Events",
                          "type":"class",
                          "value":
                             {
+                             "emit":"",
                              "listenTo":"knight-move"
                             }
                         }],
@@ -150,9 +169,24 @@
                          "type":"class",
                          "value":
                             {
-                             "direction":"RIGHT",
-                             "type":"TOGGLE_TILE_MOVEMENT",
+                             "direction":"LEFT",
+                             "repeat":true,
+                             "rotation":1,
+                             "type":"MOVE_TILE",
                              "velocity":1
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "promptRequired":
+                                {
+                                 "answer":"watchman",
+                                 "question":"Silent by day, I shout at night; I warn of fire or signal a fight.\n"
+                                }
                             }
                         }, 
                         {
@@ -170,6 +204,176 @@
                  "width":33.5029176817177,
                  "x":512.696164523256,
                  "y":585.793439465186
+                }, 
+                {
+                 "height":53.8077,
+                 "id":134,
+                 "name":"left-knight",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "direction":"RIGHT",
+                             "rotation":1,
+                             "type":"MOVE_TILE",
+                             "velocity":1
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "promptRequired":
+                                {
+                                 "answer":"piano",
+                                 "question":"What has many keys but guards no doors?\n"
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"events",
+                         "propertytype":"Events",
+                         "type":"class",
+                         "value":
+                            {
+                             "emit":"knight-move"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":33.5029,
+                 "x":350.843870378449,
+                 "y":585.883754101751
+                }, 
+                {
+                 "height":30.4571978924707,
+                 "id":135,
+                 "name":"chest",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "promptRequired":
+                                {
+                                 "answer":"sword",
+                                 "question":"What is the combination?"
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"spawn",
+                         "propertytype":"Spawn",
+                         "type":"class",
+                         "value":
+                            {
+                             "description":"You got the room key!",
+                             "name":"room-key",
+                             "singleUse":true,
+                             "textureFrame":"50",
+                             "textureKey":"items",
+                             "type":"ITEM"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":28.4267180329725,
+                 "x":353.30349555266,
+                 "y":193.910826582063
+                }, 
+                {
+                 "height":27.411480210753,
+                 "id":137,
+                 "name":"sign",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "repeat":true,
+                             "text":"S teel that gleams beneath the sun,  \nW arrior\u2019s trust when day is done,  \nO rdered strikes that guard the line,  \nR ighteous cause and honor\u2019s sign,  \nD estiny sealed with every parry.",
+                             "type":"SHOW_TEXT"
+                            }
+                        }, 
+                        {
+                         "name":"spawn",
+                         "propertytype":"Spawn",
+                         "type":"class",
+                         "value":
+                            {
+
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":26.3962201405019,
+                 "x":546.532103515382,
+                 "y":134.971785247295
+                }, 
+                {
+                 "height":257.870942156251,
+                 "id":133,
+                 "name":"mask",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "type":"DESTROY"
+                            }
+                        }, 
+                        {
+                         "name":"constraintMessage",
+                         "type":"string",
+                         "value":"Can't reach!"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "dependsOn":"bridge-mask"
+                            }
+                        }, 
+                        {
+                         "name":"events",
+                         "propertytype":"Events",
+                         "type":"class",
+                         "value":
+                            {
+                             "listenTo":""
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":775.643306328253,
+                 "x":64.1582346609256,
+                 "y":61.0139368874284
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -178,7 +382,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":132,
+ "nextobjectid":138,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -218,6 +422,19 @@
          "name":"creepy-tiles",
          "spacing":0,
          "tilecount":384,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":16,
+         "firstgid":1685,
+         "image":"..\/img\/container\/container.png",
+         "imageheight":2048,
+         "imagewidth":512,
+         "margin":0,
+         "name":"containers",
+         "spacing":0,
+         "tilecount":1024,
          "tileheight":32,
          "tilewidth":32
         }],
