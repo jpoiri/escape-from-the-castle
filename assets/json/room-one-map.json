@@ -46,12 +46,12 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1444, 0, 0, 0, 0, 0, 0, 1444, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 77, 78, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1862, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 209, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 209, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 209, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1372, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 209, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 209, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 209, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -78,45 +78,9 @@
          "name":"objects",
          "objects":[
                 {
-                 "height":0,
-                 "id":76,
-                 "name":"cell-safe",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"combination",
-                         "type":"string",
-                         "value":"crown"
-                        }, 
-                        {
-                         "name":"promptMessage",
-                         "type":"string",
-                         "value":"A symbol of true power"
-                        }, 
-                        {
-                         "name":"spawnItem",
-                         "propertytype":"Spawn",
-                         "type":"class",
-                         "value":
-                            {
-                             "description":"You got the cell key",
-                             "name":"cell-key",
-                             "singleUse":true,
-                             "textureFrame":"50",
-                             "textureKey":"items"
-                            }
-                        }],
-                 "rotation":0,
-                 "type":"Safe",
-                 "visible":true,
-                 "width":0,
-                 "x":288.328140048722,
-                 "y":349.638774007138
-                }, 
-                {
                  "height":57.8686759956943,
                  "id":82,
-                 "name":"",
+                 "name":"room-door",
                  "properties":[
                         {
                          "name":"action",
@@ -154,6 +118,101 @@
                  "width":46.701036768455,
                  "x":401.019772250864,
                  "y":283.251940399977
+                }, 
+                {
+                 "height":22.3352784544785,
+                 "id":84,
+                 "name":"right-sign",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "repeat":true,
+                             "text":"1 19-25-13-2-15-12 15-6 16-15-23-5-18 1-14-4 19-20-18-5-14-7-20-8",
+                             "type":"SHOW_TEXT"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":28.4267180329726,
+                 "x":522.863803750496,
+                 "y":248.672823069514
+                }, 
+                {
+                 "height":22.3353,
+                 "id":85,
+                 "name":"left-sign",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "repeat":true,
+                             "text":"Every letter holds a number; the sum unlocks the way forward.",
+                             "type":"SHOW_TEXT"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":28.4267,
+                 "x":297.818092977735,
+                 "y":249.809971664495
+                }, 
+                {
+                 "height":27.4114781032236,
+                 "id":86,
+                 "name":"chest",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "newTiles":"1878",
+                             "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "promptRequired":
+                                {
+                                 "answer":"crown",
+                                 "question":"What is the password?"
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"spawn",
+                         "propertytype":"Spawn",
+                         "type":"class",
+                         "value":
+                            {
+                             "description":"You got the cell key!",
+                             "name":"cell-key",
+                             "singleUse":true,
+                             "textureFrame":"50",
+                             "textureKey":"items",
+                             "type":"ITEM"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":29.4419579627217,
+                 "x":298.663418503201,
+                 "y":338.882612883123
                 }],
          "offsetx":23.3505183842275,
          "offsety":14.2133590164863,
@@ -164,14 +223,14 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":84,
+ "nextobjectid":87,
  "orientation":"orthogonal",
  "properties":[
         {
          "name":"modalSize",
          "propertytype":"ModalSize",
          "type":"string",
-         "value":"LARGE"
+         "value":"REGULAR"
         }, 
         {
          "name":"screenText",
@@ -209,17 +268,17 @@
          "tilewidth":32
         }, 
         {
-         "columns":13,
+         "columns":16,
          "firstgid":1685,
-         "image":"..\/img\/items.png",
-         "imageheight":240,
-         "imagewidth":208,
+         "image":"..\/img\/container\/container.png",
+         "imageheight":2048,
+         "imagewidth":512,
          "margin":0,
-         "name":"items",
+         "name":"containers",
          "spacing":0,
-         "tilecount":195,
-         "tileheight":16,
-         "tilewidth":16
+         "tilecount":1024,
+         "tileheight":32,
+         "tilewidth":32
         }],
  "tilewidth":32,
  "type":"map",

@@ -3,8 +3,8 @@ import Chest from '../entities/Chest';
 import Safe from '../entities/Safe';
 import Door from '../entities/Door';
 import InteractiveZone from '../entities/InteractiveZone';
-import { showTextModal, showItemModal } from '../utils/ModalUtils';
-import { assert } from '../utils/AssertUtils';
+import { showTextModal, showItemModal } from '../utils/modal-utils';
+import { assert } from '../utils/assert-utils';
 
 import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Animation } from '../constants';
 
@@ -29,10 +29,22 @@ export default class GameScene extends Phaser.Scene {
 	}
 
 	create() {
-		this.loadRoom('room-three');
+		this.loadRoom('room-two');
 		this.createAnimations();
 		this.createHud();
 		this.startTimer(1);
+
+		/*
+		this.darkOverlay = this.add.rectangle(
+			0, 0,
+			this.cameras.main.width,
+			this.cameras.main.height,
+			0x000000, // Black
+			0.7        // Alpha (0 = transparent, 1 = opaque)
+		  );
+		  this.darkOverlay.setOrigin(0);
+		  this.darkOverlay.setDepth(1000); // Make sure it's above everything
+		*/
 	}
 
 	createHud() {
@@ -86,7 +98,8 @@ export default class GameScene extends Phaser.Scene {
 
 		const castleTiles = this.createTileSet(this.tileMap, 'castle-tiles', 'castle-tiles');
 		const creepyTiles = this.createTileSet(this.tileMap, 'creepy-tiles', 'creepy-tiles');
-		const { objectsLayer, foregroundLayer } = this.getTileMapLayers(this.tileMap, [creepyTiles, castleTiles]);
+		const containers = this.createTileSet(this.tileMap, 'containers', 'containers');
+		const { objectsLayer, foregroundLayer } = this.getTileMapLayers(this.tileMap, [creepyTiles, castleTiles, containers]);
 
 		this.loadTileMapObjects(objectsLayer);
 
@@ -169,14 +182,19 @@ export default class GameScene extends Phaser.Scene {
 
 			if (listenTo) {
 				this.events.on(listenTo, () => {
-					zone.executeAction(this.selectedItem, this.dirtyObjectMap);
+					zone.executeAction(this.selectedItem, this.dirtyObjectMap, () => {
+						if (zone.isDirty()) {
+							this.dirtyObjectMap.set(zone.name, zone);
+						} else {
+							this.dirtyObjectMap.delete(zone.name);
+						}
+					});
 				});
 			} else {
 				zone.on('pointerdown', () => {
 					zone.executeAction(this.selectedItem, this.dirtyObjectMap, (itemUsed) => {
 						if (itemUsed) {
 							if (this.selectedItem.singleUse) {
-								console.log('destroying item');
 								const index = this.items.findIndex((item) => item?.name === this.selectedItem?.name);
 								this.items.splice(index, 1);
 								this.selectedItem = null;
@@ -198,7 +216,6 @@ export default class GameScene extends Phaser.Scene {
 			zone.on('pointerdown', () => {
 				zone.executeAction(this.selectedItem, this.dirtyObjectMap, (itemUsed) => {
 					if (itemUsed) {
-						console.log(this.selectedItem);
 						if (this.selectedItem.singleUse) {
 							const index = this.items.findIndex((item) => item?.name === this.selectedItem?.name);
 							this.items.splice(index, 1);

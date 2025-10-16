@@ -331,7 +331,7 @@
                 {
                  "height":55.8381961361962,
                  "id":58,
-                 "name":"",
+                 "name":"cell-door2",
                  "properties":[
                         {
                          "name":"action",
@@ -380,7 +380,7 @@
                 {
                  "height":55.8382,
                  "id":60,
-                 "name":"",
+                 "name":"cell-door",
                  "properties":[
                         {
                          "name":"action",
@@ -536,7 +536,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":63,
+ "nextobjectid":65,
  "orientation":"orthogonal",
  "properties":[
         {
