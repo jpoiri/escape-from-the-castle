@@ -1,11 +1,24 @@
 import Phaser from 'phaser';
 import { LoaderKey } from '../constants';
 
+/**
+ * This class holds the code for the loading scene
+ * @author Justin Poirier
+ * @copyright 2025
+ * @extends Phaser.Scene
+ */
 export default class LoadingScene extends Phaser.Scene {
+	
+	/**
+	 * Constructor
+	 */
 	constructor() {
 		super('loading');
 	}
 
+	/**
+	 * Preload Phaser hook runs only once
+	 */
 	preload() {
 		this.load.tilemapTiledJSON('room-one', 'assets/json/room-one-map.json');
 		this.load.tilemapTiledJSON('room-two', 'assets/json/room-two-map.json');

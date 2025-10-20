@@ -4,15 +4,32 @@ import { assert } from '../utils/assert-utils';
 import { getTilesWithinWorldXY, removeTiles, replaceTiles, moveTiles } from '../utils/tilemap-utils';
 import { showImageModal, showTextModal } from '../utils/modal-utils';
 
+/**
+ * This class represents an InteractionZone in the escape room
+ * @author Justin Poirier
+ * @copyright 2025
+ * @extends Phaser.GameObjects.Rectangle
+ */
 export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	action = null;
 	constraints = null;
 	spawn = null;
 	navigateTo = null;
 	constraintMessage = null;
+	timePenality = 0;
+	timePenalityMessage = null;
 	dirty = false;
 	name = null;
 
+	/**
+	 * Constructor
+	 * @param {Phaser.Scene} scene The Phaser scene 
+	 * @param {string} name The name associated with this zone 
+	 * @param {number} x The zone x coordinate
+	 * @param {number} y The zone y coordinate
+	 * @param {number} width The zone width 
+	 * @param {number} height The zone height
+	 */
 	constructor(scene, name, x, y, width, height) {
 		super(scene, x, y, width, height);
 		this.name = name;
@@ -21,6 +38,12 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 		scene.add.existing(this);
 	}
 
+	 /**
+	  * Execute the action associated with the zone
+	  * @param {Object} item The item used on the zone
+	  * @param {Map} dirtyObjectMap The map of dirty objects
+	  * @param {Function} onCompleteCallback The function to call when action is completed.
+	  */
 	executeAction(item, dirtyObjectMap, onCompleteCallback) {
 		let itemUsed = false;
 		let tiles = null;
@@ -98,7 +121,13 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 				this.spawnObject(this.spawn, type);
 			}
 			if (this.navigateTo) {
-				this.scene.reloadRoom(this.navigateTo);
+				this.scene.changeRoom(this.navigateTo);
+			}
+			if (this.timePenality) {
+				this.scene.addTimePenality(this.timePenality);
+				if (this.timePenalityMessage) {
+					showTextModal(this.scene, this.timePenalityMessage);
+				}
 			}
 			if (onCompleteCallback) {
 				onCompleteCallback(this.isItemUsed(item));
@@ -109,6 +138,11 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 		}
 	}
 
+	/**
+	 * Spawn a item or NPC
+	 * @param {Object} spawn The spawn object associated with the zone 
+	 * @param {string} actionType The action type
+	 */
 	spawnObject(spawn, actionType) {
 		assert(!spawn, 'The spawn is undefined');
 		switch (spawn.type) {
@@ -129,6 +163,11 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 		}
 	}
 
+	/**
+	 * Return true if the item was used, otherwise returns false.
+	 * @param {Object} item
+	 * @returns {boolean} 
+	 */
 	isItemUsed(item) {
 		if (this.constraints && item) {
 			const { itemRequired } = this.constraints;
@@ -139,6 +178,11 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 		return false;	
 	}
 
+	/**
+	 * Move zone for given direction and velocity
+	 * @param {string} direction The direction to move the zone
+	 * @param {number} velocity The velocity to move the zone
+	 */
 	move(direction, velocity) {
 		assert(!direction, 'The direction is undefined');
 		assert(!velocity, 'The velocity is undefined');
@@ -162,6 +206,12 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 		}
 	}
 
+	/**
+	 * Check whether the action can be executed
+	 * @param {Object} item The item use with the zone 
+	 * @param {Map} dirtyObjectMap The dirty object map
+	 * @returns {boolean}
+	 */
 	canExecute(item, dirtyObjectMap) {
 		if (this.constraints) {
 			const { itemRequired, promptRequired, dependsOn } = this.constraints;
@@ -188,59 +238,147 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 		return true;
 	}
 
+	/**
+	 * Returns the name
+	 * @returns {string}
+	 */
 	getName() {
 		return this.name;
 	}
 
+	/**
+	 * Sets the name
+	 * @param {string} name The name
+	 */
 	setName(name) {
 		this.name = name;
 	}
 
+	/**
+	 * Returns true if zone is dirty
+	 * @returns {boolean}
+	 */
 	isDirty() {
 		return this.dirty;
 	}
 
+	/**
+	 * Set whether the zone is dirty
+	 * @param {boolean} dirty Whether zone is dirty
+	 */
 	setDirty(dirty) {
 		this.dirty = dirty;
 	}
 
+	/**
+	 * Sets the action object
+	 * @param {Object} action The action object
+	 */
 	setAction(action) {
 		this.action = action;
 	}
 
+	/**
+	 * Returns the action object
+	 * @returns {Object}
+	 */
 	getAction() {
 		return this.action;
 	}
 
+	/**
+	 * Sets the constraints object
+	 * @param {Object} constraints The constraint object
+	 */
 	setConstraints(constraints) {
 		this.constraints = constraints;
 	}
 
+	/**
+	 * Returns the constraints object
+	 * @returns {Object}
+	 */
 	getConstraints() {
 		return this.constraints;
 	}
 
+	/**
+	 * Sets the spawn object
+	 * @param {Object} spawn The spawn object
+	 */
 	setSpawn(spawn) {
 		this.spawn = spawn;
 	}
 
+	/**
+	 * Returns the spawn object
+	 * @returns {Object}
+	 */
 	getSpawn() {
 		return this.spawn;
 	}
 
+	/**
+	 * Sets the room where to navigate next
+	 * @param {string} navigateTo The room where to navigate next
+	 */
 	setNavigateTo(navigateTo) {
 		this.navigateTo = navigateTo;
 	}
 
+	/**
+	 * Returns the room where to navigate next
+	 * @returns {string}
+	 */
 	getNavigateTo() {
 		return this.navigateTo;
 	}
 
+	/**
+	 * Sets the constraint message
+	 * @param {string} constraintMessage The constraint message 
+	 */
 	setConstraintMessage(constraintMessage) {
 		this.constraintMessage = constraintMessage;
 	}
 
+	/**
+	 * Returns the constraint message
+	 * @returns {string}
+	 */
 	getConstraintMessage() {
 		return this.constraintMessage;
 	}
-}
+
+	/**
+	 * Sets the time penality 
+	 * @param {number} timePenality The time penality
+	 */
+	setTimePenality(timePenality) {
+		this.timePenality = timePenality; 
+	}
+
+	/**
+	 * Returns the time penality
+	 * @returns {number}
+	 */
+	getTimePenality() {
+		return this.timePenality;
+	}
+
+	/**
+	 * Sets the time penality message
+	 * @param {string} timePenalityMessage The time penality messsage 
+	 */
+	setTimePenalityMessage(timePenalityMessage) {
+		this.timePenalityMessage = timePenalityMessage;
+	}
+
+	/**
+	 * Returns the time penality message
+	 * @returns {string}
+	 */
+	getTimePenalityMessage() {
+		return this.timePenalityMessage;
+	}
+  }
