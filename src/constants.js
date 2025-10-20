@@ -11,7 +11,9 @@ const CustomProperty = {
 	CONSTRAINT_MESSAGE: 'constraintMessage',
 	EVENTS: 'events',
 	SCREEN_TEXT: 'screenText',
-	MODAL_SIZE: 'modalSize'
+	MODAL_SIZE: 'modalSize',
+	TIME_PENALITY: 'timePenality',
+	TIME_PENALITY_MESSAGE: 'timePenalityMessage'
 };
 
 const ActionType = {
@@ -59,9 +61,8 @@ const EntityType = {
 	DOOR: 'Door',
 	SAFE: 'Safe',
 	CHEST: 'Chest',
-	TEXT_MODAL: 'TextModal',
-	INTERACTIVE_ZONE: 'InteractiveZone',
-	IMAGE_MODAL: 'ImageModal'
+	TEXT: 'Text',
+	INTERACTIVE_ZONE: 'InteractiveZone'
 };
 
 const LoaderKey = {
@@ -139,4 +140,18 @@ Object.freeze(Frame);
 Object.freeze(Direction);
 Object.freeze(ActionType);
 
-export { TilemapLayer, CustomProperty, LoaderKey, EntityType, Tile, Item, Animation, Frame, ActionType, Direction, SpawnType, ModalSize, Rotation };
+export {
+	TilemapLayer,
+	CustomProperty,
+	LoaderKey,
+	EntityType,
+	Tile,
+	Item,
+	Animation,
+	Frame,
+	ActionType,
+	Direction,
+	SpawnType,
+	ModalSize,
+	Rotation
+};

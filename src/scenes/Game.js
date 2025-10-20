@@ -9,7 +9,17 @@ import { assert } from '../utils/assert-utils';
 import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Animation } from '../constants';
 
 const TRANSITION_DELAY = 500;
+const NUMBER_OF_MINUTES = 60;
+const NUMBER_OF_SECONDS = 60;
+const NUMBER_OF_HOURS = 24;
+const NUMBER_OF_MILLISECONDS = 1000;
 
+/**
+ * This class holds the code the game scene.
+ * @extends Phaser.Scene
+ * @author Justin Poirier
+ * @copyright 2025
+ */
 export default class GameScene extends Phaser.Scene {
 	signs = [];
 	scrambledSigns = [];
@@ -24,33 +34,33 @@ export default class GameScene extends Phaser.Scene {
 	roomName = null;
 	dirtyObjectMap = null;
 
+	/**
+	 * Constructor
+	 */
 	constructor() {
 		super('game');
 	}
 
+	/**
+	 * Create hook that is run once when the scene starts
+	 */
 	create() {
-		this.loadRoom('room-two');
+		this.loadRoom('room-six');
 		this.createAnimations();
-		this.createHud();
+		this.addHud();
 		this.startTimer(1);
-
-		/*
-		this.darkOverlay = this.add.rectangle(
-			0, 0,
-			this.cameras.main.width,
-			this.cameras.main.height,
-			0x000000, // Black
-			0.7        // Alpha (0 = transparent, 1 = opaque)
-		  );
-		  this.darkOverlay.setOrigin(0);
-		  this.darkOverlay.setDepth(1000); // Make sure it's above everything
-		*/
 	}
 
-	createHud() {
+	/**
+	 * Add HUD to the game scene
+	 */
+	addHud() {
 		const text = this.add.text(920, 20, 'Items', { fontSize: '20px', fontFamily: 'Verdana' });
 	}
 
+	/**
+	 * Update the HUD
+	 */
 	updateHud() {
 		if (this.selectedRectangle && !this.selectedItem) {
 			this.selectedRectangle.destroy();
@@ -89,6 +99,10 @@ export default class GameScene extends Phaser.Scene {
 		}
 	}
 
+	/**
+	 * Load room on the game scene
+	 * @param {string} roomName The room name 
+	 */
 	loadRoom(roomName) {
 		assert(!roomName, 'The roomName is undefined');
 		this.roomName = roomName;
@@ -96,39 +110,59 @@ export default class GameScene extends Phaser.Scene {
 		this.cameras.main.fadeIn(TRANSITION_DELAY, 0, 0, 0);
 		this.tileMap = this.createTileMap(roomName);
 
-		const castleTiles = this.createTileSet(this.tileMap, 'castle-tiles', 'castle-tiles');
-		const creepyTiles = this.createTileSet(this.tileMap, 'creepy-tiles', 'creepy-tiles');
-		const containers = this.createTileSet(this.tileMap, 'containers', 'containers');
+		const castleTiles = this.addTileSet(this.tileMap, 'castle-tiles', 'castle-tiles');
+		const creepyTiles = this.addTileSet(this.tileMap, 'creepy-tiles', 'creepy-tiles');
+		const containers = this.addTileSet(this.tileMap, 'containers', 'containers');
 		const { objectsLayer, foregroundLayer } = this.getTileMapLayers(this.tileMap, [creepyTiles, castleTiles, containers]);
 
-		this.loadTileMapObjects(objectsLayer);
+		this.addTileMapObjects(objectsLayer);
 
 		const screenText = this.getCustomProperty(this.tileMap, CustomProperty.SCREEN_TEXT);
 		const modalSize = this.getCustomProperty(this.tileMap, CustomProperty.MODAL_SIZE);
 		showTextModal(this, screenText, modalSize);
 	}
 
-	reloadRoom(roomKey) {
-		assert(!roomKey, 'The roomKey is undefined');
+	/**
+	 * Change room loaded on the game scene
+	 * @param {String} roomName The game scene. 
+	 */
+	changeRoom(roomName) {
+		assert(!roomName, 'The roomName is undefined');
 		this.cameras.main.fadeOut(TRANSITION_DELAY, 0, 0, 0, (camera, progress) => {
 			if (progress === 1) {
-				this.loadRoom(roomKey);
+				this.loadRoom(roomName);
 			}
 		});
 	}
 
+	/**
+	 * Create a Phaser.Tilemaps.Tilemap object
+	 * @param {string} tileMapKey The key of the tile map.
+	 * @returns {Phaser.Tilemaps.Tilemap}
+	 */
 	createTileMap(tileMapKey) {
 		assert(!tileMapKey, 'The tileMapKey is undefined');
 		return this.make.tilemap({ key: tileMapKey });
 	}
 
-	createTileSet(tileMap, tileSetKey, tileSetTextureKey) {
+	/**
+	 * Add tile set image to the Phaser.Tilemaps.Tilemap object
+	 * @param {Phaser.Tilemaps.Tilemap} tileMap The tile map
+	 * @param {string} tileSetKey The tile set key
+	 * @param {string} imageTextureKey The image texture key
+	 */
+	addTileSet(tileMap, tileSetKey, imageTextureKey) {
 		assert(!tileMap, 'The tileMap is undefined');
 		assert(!tileSetKey, 'The tileSetKey is undefined');
-		assert(!tileSetTextureKey, 'The tileSetTextureKey is undefined');
-		return tileMap.addTilesetImage(tileSetKey, tileSetTextureKey);
+		assert(!imageTextureKey, 'The tileSetTextureKey is undefined');
+		return tileMap.addTilesetImage(tileSetKey, imageTextureKey);
 	}
 
+	/**
+	 * Returns the tile map layers associated with the tile map
+	 * @param {Phaser.Tilemaps.Tilemap} tileMap The tile map 
+	 * @param {Array} tileSets 
+	 */
 	getTileMapLayers(tileMap, tileSets) {
 		assert(!tileMap, 'The tileMap is undefined');
 		assert(!tileSets, 'The tileSets is undefined');
@@ -138,28 +172,53 @@ export default class GameScene extends Phaser.Scene {
 		return { backgroundLayer, foregroundLayer, objectsLayer };
 	}
 
-	loadTileMapObjects(objectsLayer) {
+	/**
+	 * Add Tile map objects to the game scene.
+	 * @param {Phaser.Tilemaps.ObjectLayer} objectsLayer The objects layer
+	 */
+	addTileMapObjects(objectsLayer) {
 		assert(!objectsLayer, 'The objectsLayer is undefined');
 		const tileMapObjects = objectsLayer.objects;
 		for (let i = 0, len = tileMapObjects.length; i < len; i++) {
 			switch (tileMapObjects[i].type) {
 				case EntityType.INTERACTIVE_ZONE:
-					this.createInteractiveZone(tileMapObjects[i]);
+					this.addInteractiveZone(tileMapObjects[i]);
 					break;
 				case EntityType.CHEST:
-					this.chests.push(this.createChest(tileMapObjects[i]));
+					this.chests.push(this.addChest(tileMapObjects[i]));
 					break;
 				case EntityType.SAFE:
-					this.safes.push(this.createSafe(tileMapObjects[i]));
+					this.safes.push(this.addSafe(tileMapObjects[i]));
 					break;
 				case EntityType.DOOR:
-					this.door = this.createDoor(tileMapObjects[i]);
+					this.door = this.addDoor(tileMapObjects[i]);
 					break;
+				case EntityType.TEXT:
+					this.addText(tileMapObjects[i]);
 			}
 		}
 	}
 
-	createInteractiveZone(tileMapObject) {
+	/**
+	 * Get custom property from a tile map object
+	 * @param {*} tileMapObject The tile map object
+	 * @param {*} propertyName The property name
+	 */
+	getCustomProperty(tileMapObject, propertyName) {
+		assert(!tileMapObject, 'The tileMapObject is undefined');
+		assert(!propertyName, 'The propertyName is undefined');
+		let property = null;
+		if (tileMapObject) {
+			property = tileMapObject.properties.find((property) => property.name === propertyName);
+		}
+		return property?.value;
+	}
+
+	/**
+	 * Add interactive zone object to the game scene,
+	 * @param {Object} tileMapObject The tile map object 
+	 */
+	addInteractiveZone(tileMapObject) {
 		assert(!tileMapObject, 'The tileMapObject is undefined');
 		const zone = new InteractiveZone(
 			this,
@@ -174,6 +233,8 @@ export default class GameScene extends Phaser.Scene {
 		zone.setConstraintMessage(this.getCustomProperty(tileMapObject, CustomProperty.CONSTRAINT_MESSAGE));
 		zone.setNavigateTo(this.getCustomProperty(tileMapObject, CustomProperty.NAVIGATE_TO));
 		zone.setSpawn(this.getCustomProperty(tileMapObject, CustomProperty.SPAWN));
+		zone.setTimePenality(this.getCustomProperty(tileMapObject, CustomProperty.TIME_PENALITY));
+		zone.setTimePenalityMessage(this.getCustomProperty(tileMapObject, CustomProperty.TIME_PENALITY_MESSAGE));
 
 		const events = this.getCustomProperty(tileMapObject, CustomProperty.EVENTS);
 
@@ -233,7 +294,28 @@ export default class GameScene extends Phaser.Scene {
 		}
 	}
 
-	createSafe(tileMapObject) {
+	/**
+	 * Add text to the game scene
+	 * @param {Object} tileMapObject The tile map object 
+	 */
+	addText(tileMapObject) {
+		assert(!tileMapObject, 'The tileMapObject is undefined');
+		console.log(tileMapObject);
+		const { x, y, text } = tileMapObject;
+		const { color, fontfamily, halign, pixelsize } = text;
+		this.add.text(x, y, text.text, {
+			fontFamily: fontfamily,
+			fontSize: `${pixelsize}px`,
+			fill: color,
+			align: halign
+		});
+	}
+
+	/**
+	 * Add safe to the game scene
+	 * @param {Object} tileMapObject The tile map object
+	 */
+	addSafe(tileMapObject) {
 		assert(!tileMapObject, 'The tileMapObject is undefined');
 		const safe = new Safe(
 			this,
@@ -260,7 +342,11 @@ export default class GameScene extends Phaser.Scene {
 		return safe;
 	}
 
-	createDoor(tileMapObject) {
+	/**
+	 * Add a door to the game scene
+	 * @param {Object} tileMapObject The tile map object
+	 */
+	addDoor(tileMapObject) {
 		assert(!tileMapObject, 'The tileMapObject is undefined');
 		const door = new Door(
 			this,
@@ -284,7 +370,11 @@ export default class GameScene extends Phaser.Scene {
 		return door;
 	}
 
-	createChest(tileMapObject) {
+	/**
+	 * Add chest tile to the game scene
+	 * @param {*} tileMapObject 
+	 */
+	addChest(tileMapObject) {
 		assert(!tileMapObject, 'The tileMapObject is undefined');
 		const chest = new Chest(
 			this,
@@ -312,31 +402,38 @@ export default class GameScene extends Phaser.Scene {
 		return chest;
 	}
 
+	/**
+	 * Create animations
+	 */
 	createAnimations() {
 		this.createAnimation(Animation.SAFE_OPEN, LoaderKey.SAFE, [13], 4);
 		this.createAnimation(Animation.DOOR_OPEN, LoaderKey.DOOR, [5, 0], 4);
 		this.createAnimation(Animation.CHEST_OPEN, LoaderKey.CHEST, [1], 8, -1);
 	}
 
-	createAnimation(key, texture, frames, frameRate, repeat) {
+	/**
+	 * Create animation
+	 * @param {string} key The key of the animation
+	 * @param {string} textureKey The loader key of the texture
+	 * @param {Array} frames The spritesheet frames
+	 * @param {number} frameRate The frame rate
+	 * @param {boolean} repeat Whether the animation should be repeated
+	 */
+	createAnimation(key, textureKey, frames, frameRate, repeat) {
 		this.anims.create({
 			key,
-			frames: this.anims.generateFrameNumbers(texture, { frames }),
+			frames: this.anims.generateFrameNumbers(textureKey, { frames }),
 			frameRate,
 			repeat
 		});
 	}
 
-	getCustomProperty(spawnObject, name) {
-		assert(!spawnObject, 'The spawnObject is undefined');
-		assert(!name, 'The name is undefined');
-		let property = null;
-		if (spawnObject) {
-			property = spawnObject.properties.find((property) => property.name === name);
-		}
-		return property?.value;
-	}
-
+	/**
+	 * Spawn item on the game scene
+	 * @param {number} x The x coordinate
+	 * @param {number} y The y coordinate
+	 * @param {Object} item 
+	 */
 	spawnItem(x, y, item) {
 		assert(!x, 'The x is undefined');
 		assert(!y, 'The y is undefined');
@@ -347,6 +444,10 @@ export default class GameScene extends Phaser.Scene {
 		itemImage.setInteractive();
 		itemImage.on('pointerdown', () => {
 			itemImage.destroy();
+			if (this.pointerItem) {
+				this.pointerItem.destroy();
+				this.pointerItem = null;
+			}
 			showItemModal(this, item.description, item.textureKey, item.textureFrame, () => {
 				this.items.push(item);
 				this.updateHud();
@@ -360,6 +461,12 @@ export default class GameScene extends Phaser.Scene {
 		});
 	}
 
+	/**
+	 * Spawn NPC on the game scene
+	 * @param {number} x The x position
+	 * @param {number} y The y position
+	 * @param {Object} npc The npc object
+	 */
 	spawnNPC(x, y, npc) {
 		assert(!x, 'The x is undefined');
 		assert(!y, 'The y is undefined');
@@ -379,16 +486,25 @@ export default class GameScene extends Phaser.Scene {
 		});
 	}
 
-	isItemSelected(name) {
-		assert(!name, 'The name is undefined');
-		return this.selectedItem?.name === name;
+	/**
+	 * Returns true if given item name is selected
+	 * @param {string} itemName The item name
+	 * @returns {boolean}
+	 */
+	isItemSelected(itemName) {
+		assert(!itemName, 'The name is undefined');
+		return this.selectedItem?.name === itemName;
 	}
 
+	/**
+	 * Starts the timer
+	 * @param {number} numberOfHours The number of hours
+	 */
 	startTimer(numberOfHours) {
 		assert(!numberOfHours, 'The numberOfHours is undefined');
 		if (!this.isRunning) {
 			const now = new Date().getTime();
-			this.countDownDate = new Date(now + numberOfHours * 60 * 60 * 1000).getTime();
+			this.countDownDate = new Date(now + numberOfHours * NUMBER_OF_MINUTES * NUMBER_OF_SECONDS * NUMBER_OF_MILLISECONDS).getTime();
 			this.isRunning = false;
 			this.isTimeElapsed = false;
 			this.interval = setInterval(() => {
@@ -404,13 +520,30 @@ export default class GameScene extends Phaser.Scene {
 		}
 	}
 
+	/**
+	 * Add time penality
+	 * @param {number} timePenality The time penality 
+	 */
+	addTimePenality(timePenality) {
+		this.countDownDate = new Date(this.countDownDate - timePenality * NUMBER_OF_SECONDS * NUMBER_OF_MILLISECONDS);
+	}
+
+	/**
+	 * Update the time on the game scene.
+	 */
 	updateTime() {
 		if (this.timeText) {
 			this.timeText.destroy();
 		}
-		const hoursRemaining = Math.floor((this.timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-		const minutesRemaining = Math.floor((this.timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-		const secondsRemaining = Math.floor((this.timeRemaining % (1000 * 60)) / 1000);
+		const hoursRemaining = Math.floor(
+			(this.timeRemaining % (NUMBER_OF_MILLISECONDS * NUMBER_OF_SECONDS * NUMBER_OF_MINUTES * NUMBER_OF_HOURS)) /
+				(NUMBER_OF_MILLISECONDS * NUMBER_OF_SECONDS * NUMBER_OF_MINUTES)
+		);
+		const minutesRemaining = Math.floor(
+			(this.timeRemaining % (NUMBER_OF_MILLISECONDS * NUMBER_OF_SECONDS * NUMBER_OF_MINUTES)) /
+				(NUMBER_OF_MILLISECONDS * NUMBER_OF_SECONDS)
+		);
+		const secondsRemaining = Math.floor((this.timeRemaining % (NUMBER_OF_MILLISECONDS * NUMBER_OF_SECONDS)) / NUMBER_OF_MILLISECONDS);
 		if (this.timeRemaining) {
 			this.timeText = this.add.text(915, 730, `${hoursRemaining}:${minutesRemaining}:${secondsRemaining}`, {
 				fontSize: '12px',
@@ -420,6 +553,9 @@ export default class GameScene extends Phaser.Scene {
 		}
 	}
 
+	/**
+	 * Update hook that runs every cycle.
+	 */
 	update() {
 		this.updateTime();
 		if (this.isTimeElapsed) {

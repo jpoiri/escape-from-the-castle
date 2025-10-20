@@ -1,6 +1,16 @@
 import { assert } from "./assert-utils";
 import { TilemapLayer, Direction } from '../constants';
 
+/**
+ * Get the tiles based on the world coordinates, width and height
+ * @param {Phaser.Tilemaps.Tilemap} tileMap 
+ * @param {number} x 
+ * @param {number} y 
+ * @param {number} width 
+ * @param {number} height 
+ * @param {string} layer 
+ * @returns {Array}
+ */
 export function getTilesWithinWorldXY(tileMap, x, y, width, height, layer = TilemapLayer.FOREGROUND) {
     assert(!tileMap, 'The tileMap is undefined');
     assert(!x, 'The x is undefined');
@@ -20,6 +30,11 @@ export function getTilesWithinWorldXY(tileMap, x, y, width, height, layer = Tile
     );
 }
 
+/**
+ * Remove tiles from Tilemap
+ * @param {Phaser.Tilemaps.Tilemap} tileMap 
+ * @param {Array} tiles 
+ */
 export function removeTiles(tileMap, tiles) {
     assert(!tileMap, 'The tileMap is undefined');
     assert(!tiles, 'The tiles is undefined');
@@ -28,6 +43,12 @@ export function removeTiles(tileMap, tiles) {
     }
 }
 
+/**
+ * Replace given tiles with new tiles 
+ * @param {Phaser.Tilemaps.Tilemap} tileMap 
+ * @param {Array} oldTiles 
+ * @param {Array} newTiles 
+ */
 export function replaceTiles(tileMap, oldTiles, newTiles) {
     assert(!tileMap, 'The tileMap is undefined');
     assert(!oldTiles, 'The oldTiles is undefined');
@@ -39,6 +60,13 @@ export function replaceTiles(tileMap, oldTiles, newTiles) {
     }
 }
 
+/**
+ * Move tiles on the Tilemap a for given direction and velocity
+ * @param {Phaser.Tilemaps.Tilemap} tileMap 
+ * @param {Array} tiles 
+ * @param {string} direction 
+ * @param {number} velocity 
+ */
 export function moveTiles(tileMap, tiles, direction, velocity) {
     assert(!tileMap, 'The tileMap is undefined');
     assert(!tiles, 'The tiles is undefined');
@@ -60,6 +88,12 @@ export function moveTiles(tileMap, tiles, direction, velocity) {
     }
 }
 
+/**
+ * Move tiles to the left on the Tilemap for a given velocity
+ * @param {Phaser.Tilemaps.Tilemap} tileMap 
+ * @param {Array} tiles 
+ * @param {Array} velocity 
+ */
 export function moveTilesLeft(tileMap, tiles, velocity) {
     assert(!tileMap, 'The tileMap is undefined');
     assert(!tiles, 'The tiles is undefined');
@@ -69,6 +103,12 @@ export function moveTilesLeft(tileMap, tiles, velocity) {
     }
 }
 
+/**
+ * Move tiles to the right on the Tilemap for a for given velocity
+ * @param {Phaser.Tilemaps.Tilemap} tileMap 
+ * @param {Array} tiles 
+ * @param {Array} velocity 
+ */
 export function moveTilesRight(tileMap, tiles, velocity) {
     assert(!tileMap, 'The tileMap is undefined');
     assert(!tiles, 'The tiles is undefined');
@@ -78,6 +118,12 @@ export function moveTilesRight(tileMap, tiles, velocity) {
     }
 }
 
+/**
+ * Move tiles up on the Tilemap for a given velocity
+ * @param {Phaser.Tilemaps.Tilemap} tileMap 
+ * @param {Array} tiles 
+ * @param {Array} velocity 
+ */
 export function moveTilesUp(tileMap, tiles, velocity) {
     assert(!tileMap, 'The tileMap is undefined');
     assert(!tiles, 'The tiles is undefined');
@@ -87,6 +133,12 @@ export function moveTilesUp(tileMap, tiles, velocity) {
     }
 }
 
+/**
+ * Move tiles down on the Tilemap for a given velocity
+ * @param {Phaser.Tilemaps.Tilemap} tileMap 
+ * @param {Array} tiles 
+ * @param {Array} velocity 
+ */
 export function moveTileDown(tileMap, tiles, velocity) {
     assert(!tileMap, 'The tileMap is undefined');
     assert(!tiles, 'The tiles is undefined');

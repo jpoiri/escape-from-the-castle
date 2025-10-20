@@ -1,5 +1,5 @@
 {
-    "activeFile": "json/room-three-map.json",
+    "activeFile": "json/room-six-map.json",
     "expandedProjectPaths": [
         ".",
         "json"
@@ -41,8 +41,8 @@
             "scale": 0.9849888392857143,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 448.22842898419356,
-                "y": 382.7454535153816
+                "x": 593.4077389383037,
+                "y": 405.0807319698601
             }
         },
         "json/room-four-map.json#castle-tiles": {
@@ -85,8 +85,8 @@
             "scale": 1.0040736607142855,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 447.6763185683322,
-                "y": 384.43394653476355
+                "x": 526.3558050352916,
+                "y": 398.37714666814884
             }
         },
         "json/room-six-map.json#castle-tiles": {
@@ -100,6 +100,9 @@
         },
         "json/room-six-map.json#creepy-tiles": {
             "scaleInDock": 1
+        },
+        "json/room-six-map.json#solid_spritesheet": {
+            "scaleInEditor": 1
         },
         "json/room-three-map.json": {
             "expandedObjectLayers": [
@@ -135,7 +138,7 @@
             "selectedLayer": 2,
             "viewCenter": {
                 "x": 450.25890884369153,
-                "y": 381.7302135856325
+                "y": 369.54733442864426
             }
         },
         "json/room-two-map.json#castle-tiles": {
@@ -148,21 +151,22 @@
             "scaleInDock": 2
         }
     },
-    "last.imagePath": "C:/development/projects/escape-from-dracula-castle/assets/img/container",
+    "last.imagePath": "C:/development/projects/escape-from-dracula-castle/assets/img/letter-tiles2/Spritesheet",
     "map.lastUsedFormat": "json",
     "openFiles": [
-        "json/room-one-map.json",
-        "json/room-three-map.json"
+        "json/room-four-map.json",
+        "json/room-two-map.json",
+        "json/room-six-map.json"
     ],
     "project": "castle.tiled-project",
-    "property.type": "Rotation",
+    "property.type": "string",
     "recentFiles": [
-        "json/room-one-map.json",
-        "json/room-two-map.json",
-        "json/room-three-map.json",
         "json/room-four-map.json",
+        "json/room-two-map.json",
         "json/room-six-map.json",
         "json/room-five-map.json",
+        "json/room-one-map.json",
+        "json/room-three-map.json",
         "json/creepy-tiles.tsj",
         "json/creepy-tiles.tsx"
     ],
