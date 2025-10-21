@@ -93,6 +93,11 @@
                             }
                         }, 
                         {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-door-audio"
+                        }, 
+                        {
                          "name":"constraintMessage",
                          "type":"string",
                          "value":"Locked!"
@@ -179,6 +184,11 @@
                              "newTiles":"1878",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
                         }, 
                         {
                          "name":"constraints",

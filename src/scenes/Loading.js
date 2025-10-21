@@ -36,7 +36,9 @@ export default class LoadingScene extends Phaser.Scene {
 		this.load.spritesheet(LoaderKey.CHEST, 'assets/img/chest.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.spritesheet(LoaderKey.DOOR, 'assets/img/door.png', { frameWidth: 24, frameHeight: 32 });
 		this.load.spritesheet(LoaderKey.SAFE, 'assets/img/safe.png', { frameWidth: 32, frameHeight: 40 });
-
+		this.load.audio('open-door-audio', '/assets/sounds/creaky-door-hinge.wav');
+		this.load.audio('open-chest-audio', '/assets/sounds/open-chest.wav');
+		this.load.audio('push-audio', '/assets/sounds/sfx-push-boulder.flac');
 		this.load.on('complete', () => {
 			this.scene.start('menu');
 		});

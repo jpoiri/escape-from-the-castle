@@ -54,3 +54,6 @@ Thank you https://opengameart.org/ for the free artwork used in this project.
 * https://opengameart.org/content/dungeon-crawl-32x32-tiles
 * https://opengameart.org/content/4-color-dawnbringer-icons-for-adventurerpg
 * https://opengameart.org/content/letter-tiles
+* https://opengameart.org/content/creaky-door-hinge-spooky
+* https://opengameart.org/content/open-chest-sfx
+* https://opengameart.org/content/push-stone-boulder-yo-frankie
