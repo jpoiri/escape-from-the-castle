@@ -85,7 +85,7 @@
                 "SHOW_IMAGE",
                 "TOGGLE_TILE_MOVEMENT",
                 "DESTROY",
-                ""
+                "SET_ALPHA"
             ],
             "valuesAsFlags": false
         },
@@ -255,6 +255,11 @@
                     }
                 },
                 {
+                    "name": "audioClipKey",
+                    "type": "string",
+                    "value": ""
+                },
+                {
                     "name": "constraintMessage",
                     "type": "string",
                     "value": ""
@@ -284,6 +289,16 @@
                     "type": "class",
                     "value": {
                     }
+                },
+                {
+                    "name": "timePenality",
+                    "type": "int",
+                    "value": 0
+                },
+                {
+                    "name": "timePenalityMessage",
+                    "type": "string",
+                    "value": ""
                 }
             ],
             "name": "InteractiveZone",
@@ -439,6 +454,26 @@
                 "NPC"
             ],
             "valuesAsFlags": false
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 23,
+            "members": [
+            ],
+            "name": "Text",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
         }
     ]
 }

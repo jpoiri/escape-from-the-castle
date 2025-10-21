@@ -97,6 +97,11 @@
                             }
                         }, 
                         {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"push-audio"
+                        }, 
+                        {
                          "name":"constraints",
                          "propertytype":"Constraints",
                          "type":"class",
@@ -143,6 +148,11 @@
                              "newTiles":"841,842,891,892",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
                         }, 
                         {
                          "name":"constraints",
@@ -202,6 +212,11 @@
                             }
                         }, 
                         {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"push-audio"
+                        }, 
+                        {
                          "name":"constraints",
                          "propertytype":"Constraints",
                          "type":"class",
@@ -245,6 +260,11 @@
                              "type":"TOGGLE_TILE_MOVEMENT",
                              "velocity":1
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"push-audio"
                         }, 
                         {
                          "name":"constraints",
@@ -297,6 +317,11 @@
                             }
                         }, 
                         {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"push-audio"
+                        }, 
+                        {
                          "name":"constraints",
                          "propertytype":"Constraints",
                          "type":"class",
@@ -331,7 +356,7 @@
                 {
                  "height":55.8381961361962,
                  "id":58,
-                 "name":"",
+                 "name":"cell-door2",
                  "properties":[
                         {
                          "name":"action",
@@ -342,6 +367,11 @@
                              "newTiles":"29,30,79,80",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-door-audio"
                         }, 
                         {
                          "name":"constraintMessage",
@@ -380,7 +410,7 @@
                 {
                  "height":55.8382,
                  "id":60,
-                 "name":"",
+                 "name":"cell-door",
                  "properties":[
                         {
                          "name":"action",
@@ -391,6 +421,11 @@
                              "newTiles":"29,30,79,80",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-door-audio"
                         }, 
                         {
                          "name":"constraintMessage",
@@ -443,9 +478,14 @@
                          "type":"class",
                          "value":
                             {
-                             "newTiles":"29,30,79,80",
+                             "newTiles":"19,20,69,70",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-door-audio"
                         }, 
                         {
                          "name":"constraintMessage",
@@ -488,6 +528,11 @@
                              "newTiles":"841,842,891,892",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
                         }, 
                         {
                          "name":"constraints",
@@ -536,7 +581,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":63,
+ "nextobjectid":65,
  "orientation":"orthogonal",
  "properties":[
         {

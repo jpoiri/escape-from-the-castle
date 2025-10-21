@@ -93,12 +93,17 @@
                             }
                         }, 
                         {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
+                        }, 
+                        {
                          "name":"spawn",
                          "propertytype":"Spawn",
                          "type":"class",
                          "value":
                             {
-                             "description":"You got the axe",
+                             "description":"You got the axe!",
                              "name":"axe",
                              "textureFrame":"86",
                              "textureKey":"items",
@@ -126,6 +131,11 @@
                              "newTiles":"49,50,99,100,149,150",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
                         }, 
                         {
                          "name":"constraints",
@@ -175,6 +185,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -196,6 +215,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -219,6 +247,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -240,6 +277,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -263,6 +309,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -284,6 +339,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -307,6 +371,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -328,6 +401,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -351,6 +433,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -372,6 +463,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -395,6 +495,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -416,6 +525,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -439,6 +557,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -460,6 +587,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -483,6 +619,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -504,6 +649,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -527,6 +681,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -548,6 +711,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -571,6 +743,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -592,6 +773,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -615,6 +805,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -636,6 +835,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -659,6 +867,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -680,6 +897,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -703,6 +929,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -724,6 +959,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -748,6 +992,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -769,6 +1022,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -792,6 +1054,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -813,6 +1084,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -836,6 +1116,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -857,6 +1146,15 @@
                             {
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -880,6 +1178,15 @@
                              "newTiles":"741,742,791,792",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -901,6 +1208,15 @@
                             {
                              "newTiles":"741,742,791,792",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -924,6 +1240,15 @@
                              "newTiles":"741,742,791,792",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -945,6 +1270,15 @@
                             {
                              "newTiles":"741,742,791,792",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -968,6 +1302,15 @@
                              "newTiles":"745,746,795,796",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -989,6 +1332,15 @@
                             {
                              "newTiles":"741,742,791,792",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -1012,6 +1364,15 @@
                              "newTiles":"741,742,791,792",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -1033,6 +1394,15 @@
                             {
                              "newTiles":"741,742,791,792",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -1056,6 +1426,15 @@
                              "newTiles":"741,742,791,792",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -1077,6 +1456,15 @@
                             {
                              "newTiles":"741,742,791,792",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -1100,6 +1488,15 @@
                              "newTiles":"741,742,791,792",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -1121,6 +1518,15 @@
                             {
                              "newTiles":"743,744,793,794",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -1145,6 +1551,15 @@
                              "repeat":false,
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -1166,6 +1581,15 @@
                             {
                              "newTiles":"743,744,793,794",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -1189,6 +1613,15 @@
                              "newTiles":"743,744,793,794",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -1210,6 +1643,15 @@
                             {
                              "newTiles":"743,744,793,794",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -1233,6 +1675,15 @@
                              "newTiles":"743,744,793,794",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
+                            }
                         }],
                  "rotation":0,
                  "type":"InteractiveZone",
@@ -1254,6 +1705,15 @@
                             {
                              "newTiles":"743,744,793,794",
                              "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"axe"
                             }
                         }],
                  "rotation":0,
@@ -1318,9 +1778,14 @@
                          "type":"class",
                          "value":
                             {
-                             "newTiles":"29,30,79,80",
+                             "newTiles":"19,20,69,70",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-door-audio"
                         }, 
                         {
                          "name":"constraintMessage",

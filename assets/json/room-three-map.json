@@ -88,9 +88,14 @@
                          "type":"class",
                          "value":
                             {
-                             "newTiles":"29,30,79,80",
+                             "newTiles":"19,20,69,70",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-door-audio"
                         }, 
                         {
                          "name":"constraintMessage",
@@ -131,6 +136,11 @@
                             {
                              "type":"DESTROY_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
                         }, 
                         {
                          "name":"constraints",
@@ -175,6 +185,11 @@
                              "type":"MOVE_TILE",
                              "velocity":1
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"push-audio"
                         }, 
                         {
                          "name":"constraints",
@@ -223,6 +238,11 @@
                             }
                         }, 
                         {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"push-audio"
+                        }, 
+                        {
                          "name":"constraints",
                          "propertytype":"Constraints",
                          "type":"class",
@@ -262,8 +282,14 @@
                          "type":"class",
                          "value":
                             {
+                             "newTiles":"1880",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
                         }, 
                         {
                          "name":"constraints",
@@ -311,7 +337,7 @@
                          "value":
                             {
                              "repeat":true,
-                             "text":"S teel that gleams beneath the sun,  \nW arrior\u2019s trust when day is done,  \nO rdered strikes that guard the line,  \nR ighteous cause and honor\u2019s sign,  \nD estiny sealed with every parry.",
+                             "text":"Steel that gleams beneath the sun,  \nWarrior\u2019s trust when day is done,  \nOrdered strikes that guard the line,  \nRighteous cause and honor\u2019s sign,  \nDestiny sealed with every parry.",
                              "type":"SHOW_TEXT"
                             }
                         }, 
