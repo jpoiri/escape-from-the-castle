@@ -17,33 +17,36 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	navigateTo = null;
 	constraintMessage = null;
 	timePenality = 0;
-	timePenalityMessage = null;
+	timePenalityMessage = null; 
+	audioClipKey
 	dirty = false;
 	name = null;
 
 	/**
 	 * Constructor
-	 * @param {Phaser.Scene} scene The Phaser scene 
-	 * @param {string} name The name associated with this zone 
+	 * @param {Phaser.Scene} scene The Phaser scene
+	 * @param {string} name The name associated with this zone
 	 * @param {number} x The zone x coordinate
 	 * @param {number} y The zone y coordinate
-	 * @param {number} width The zone width 
+	 * @param {number} width The zone width
 	 * @param {number} height The zone height
 	 */
 	constructor(scene, name, x, y, width, height) {
 		super(scene, x, y, width, height);
 		this.name = name;
 		this.setOrigin(0, 0);
-		this.setInteractive();
+		this.setInteractive({
+			useHandCursor: true
+		});
 		scene.add.existing(this);
 	}
 
-	 /**
-	  * Execute the action associated with the zone
-	  * @param {Object} item The item used on the zone
-	  * @param {Map} dirtyObjectMap The map of dirty objects
-	  * @param {Function} onCompleteCallback The function to call when action is completed.
-	  */
+	/**
+	 * Execute the action associated with the zone
+	 * @param {Object} item The item used on the zone
+	 * @param {Map} dirtyObjectMap The map of dirty objects
+	 * @param {Function} onCompleteCallback The function to call when action is completed.
+	 */
 	executeAction(item, dirtyObjectMap, onCompleteCallback) {
 		let itemUsed = false;
 		let tiles = null;
@@ -129,6 +132,9 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 					showTextModal(this.scene, this.timePenalityMessage);
 				}
 			}
+			if (this.audioClipKey) {
+				this.scene.sound.play(this.audioClipKey);
+			}
 			if (onCompleteCallback) {
 				onCompleteCallback(this.isItemUsed(item));
 			}
@@ -140,7 +146,7 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 
 	/**
 	 * Spawn a item or NPC
-	 * @param {Object} spawn The spawn object associated with the zone 
+	 * @param {Object} spawn The spawn object associated with the zone
 	 * @param {string} actionType The action type
 	 */
 	spawnObject(spawn, actionType) {
@@ -166,7 +172,7 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	/**
 	 * Return true if the item was used, otherwise returns false.
 	 * @param {Object} item
-	 * @returns {boolean} 
+	 * @returns {boolean}
 	 */
 	isItemUsed(item) {
 		if (this.constraints && item) {
@@ -175,7 +181,7 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 				return true;
 			}
 		}
-		return false;	
+		return false;
 	}
 
 	/**
@@ -207,8 +213,24 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	}
 
 	/**
+	 * Set cursor for zone
+	 * @param {boolean} isItemSelected
+	 */
+	setCursor(isItemSelected) {
+		if (isItemSelected && this.input) {
+			this.input.cursor = 'grabbing';
+		} else if (this.input) {
+			if (this.action?.type === ActionType.SHOW_TEXT || this.action?.type === ActionType.SHOW_IMAGE) {
+				this.input.cursor = 'zoom-in';
+			} else {
+				this.input.cursor = 'pointer';
+			}
+		}
+	}
+
+	/**
 	 * Check whether the action can be executed
-	 * @param {Object} item The item use with the zone 
+	 * @param {Object} item The item use with the zone
 	 * @param {Map} dirtyObjectMap The dirty object map
 	 * @returns {boolean}
 	 */
@@ -336,7 +358,7 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 
 	/**
 	 * Sets the constraint message
-	 * @param {string} constraintMessage The constraint message 
+	 * @param {string} constraintMessage The constraint message
 	 */
 	setConstraintMessage(constraintMessage) {
 		this.constraintMessage = constraintMessage;
@@ -351,11 +373,11 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	}
 
 	/**
-	 * Sets the time penality 
+	 * Sets the time penality
 	 * @param {number} timePenality The time penality
 	 */
 	setTimePenality(timePenality) {
-		this.timePenality = timePenality; 
+		this.timePenality = timePenality;
 	}
 
 	/**
@@ -368,7 +390,7 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 
 	/**
 	 * Sets the time penality message
-	 * @param {string} timePenalityMessage The time penality messsage 
+	 * @param {string} timePenalityMessage The time penality messsage
 	 */
 	setTimePenalityMessage(timePenalityMessage) {
 		this.timePenalityMessage = timePenalityMessage;
@@ -381,4 +403,20 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	getTimePenalityMessage() {
 		return this.timePenalityMessage;
 	}
-  }
+
+	/**
+	 * Sets the audio clip key
+	 * @param {string} audioClipKey The audio clip key
+	 */
+	setAudioClipKey(audioClipKey) {
+		this.audioClipKey = audioClipKey
+	}
+
+	/**
+	 * Returns the audio clip key
+	 * @returns {string}
+	 */
+	getAudioClipKey() {
+		return this.audioClipKey
+	}
+}

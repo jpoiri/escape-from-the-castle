@@ -93,6 +93,11 @@
                             }
                         }, 
                         {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
+                        }, 
+                        {
                          "name":"spawn",
                          "propertytype":"Spawn",
                          "type":"class",
@@ -126,6 +131,11 @@
                              "newTiles":"49,50,99,100,149,150",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
                         }, 
                         {
                          "name":"constraints",
@@ -1771,6 +1781,11 @@
                              "newTiles":"19,20,69,70",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-door-audio"
                         }, 
                         {
                          "name":"constraintMessage",

@@ -25,7 +25,9 @@ export function showTextModal(scene, text, size = ModalSize.REGULAR, closeCallba
 					fontFamily: 'verdana',
 					fill: '#FFFFFF'
 				})
-				.setInteractive();
+				.setInteractive({
+					useHandCursor: true
+				});
 			break;
 		case ModalSize.LARGE:
 			closeText = scene.add
@@ -34,7 +36,9 @@ export function showTextModal(scene, text, size = ModalSize.REGULAR, closeCallba
 					fontFamily: 'verdana',
 					fill: '#FFFFFF'
 				})
-				.setInteractive();
+				.setInteractive({
+					useHandCursor: true
+				});
 			box = scene.add.rectangle(0, 0, 450, 350, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
 			break;
 	}
@@ -68,7 +72,7 @@ export function showTextModal(scene, text, size = ModalSize.REGULAR, closeCallba
 /**
  * Displays a modal window that with an image
  * @param {Phaser.Scene} scene The Phaser scene
- * @param {string} imageKey The Phaser loader key for the image 
+ * @param {string} imageKey The Phaser loader key for the image
  * @param {function} closeCallback The callback function called when modal is closed.
  */
 export function showImageModal(scene, imageKey, closeCallback) {
@@ -86,7 +90,9 @@ export function showImageModal(scene, imageKey, closeCallback) {
 			fontFamily: 'verdana',
 			fill: '#FFFFFF'
 		})
-		.setInteractive();
+		.setInteractive({
+			useHandCursor: true
+		});
 
 	closeText.on('pointerdown', () => {
 		blocker.destroy();
@@ -126,7 +132,9 @@ export function showItemModal(scene, itemDescription, itemTexture, itemFrame, cl
 			fontFamily: 'verdana',
 			fill: '#FFFFFF'
 		})
-		.setInteractive();
+		.setInteractive({
+			useHandCursor: true
+		});
 
 	const itemImage = scene.add.image(0, -10, itemTexture, itemFrame).setScale(2);
 	const itemDescriptionText = scene.add

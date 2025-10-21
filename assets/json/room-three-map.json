@@ -88,9 +88,14 @@
                          "type":"class",
                          "value":
                             {
-                             "newTiles":"29,30,79,80",
+                             "newTiles":"19,20,69,70",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-door-audio"
                         }, 
                         {
                          "name":"constraintMessage",
@@ -131,6 +136,11 @@
                             {
                              "type":"DESTROY_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
                         }, 
                         {
                          "name":"constraints",
@@ -175,6 +185,11 @@
                              "type":"MOVE_TILE",
                              "velocity":1
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"push-audio"
                         }, 
                         {
                          "name":"constraints",
@@ -223,6 +238,11 @@
                             }
                         }, 
                         {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"push-audio"
+                        }, 
+                        {
                          "name":"constraints",
                          "propertytype":"Constraints",
                          "type":"class",
@@ -265,6 +285,11 @@
                              "newTiles":"1880",
                              "type":"REPLACE_TILE"
                             }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
                         }, 
                         {
                          "name":"constraints",

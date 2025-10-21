@@ -6,7 +6,7 @@ import InteractiveZone from '../entities/InteractiveZone';
 import { showTextModal, showItemModal } from '../utils/modal-utils';
 import { assert } from '../utils/assert-utils';
 
-import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Animation } from '../constants';
+import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Animation, ActionType } from '../constants';
 
 const TRANSITION_DELAY = 500;
 const NUMBER_OF_MINUTES = 60;
@@ -21,11 +21,10 @@ const NUMBER_OF_MILLISECONDS = 1000;
  * @copyright 2025
  */
 export default class GameScene extends Phaser.Scene {
-	signs = [];
-	scrambledSigns = [];
 	door = null;
 	chests = [];
 	tileMap = null;
+	zones = [];
 	safes = [];
 	items = [];
 	itemImages = [];
@@ -45,7 +44,7 @@ export default class GameScene extends Phaser.Scene {
 	 * Create hook that is run once when the scene starts
 	 */
 	create() {
-		this.loadRoom('room-six');
+		this.loadRoom('room-three');
 		this.createAnimations();
 		this.addHud();
 		this.startTimer(1);
@@ -74,7 +73,9 @@ export default class GameScene extends Phaser.Scene {
 			const itemImage = this.add.image(950, i * 50 + 80, this.items[i].textureKey, this.items[i].textureFrame);
 			itemImage.setAlpha(0);
 			itemImage.setScale(2);
-			itemImage.setInteractive();
+			itemImage.setInteractive({
+				cursor: 'grab'
+			});
 			itemImage.on('pointerdown', () => {
 				if (this.selectedRectangle) {
 					this.selectedRectangle.destroy();
@@ -83,6 +84,7 @@ export default class GameScene extends Phaser.Scene {
 					this.pointerItem.destroy();
 					this.pointerItem = null;
 				}
+				this.setCursor(true);
 				this.selectedItem = this.items[i];
 				this.selectedRectangle = this.add.rectangle(itemImage.x, itemImage.y, 50, 50);
 				this.selectedRectangle.setStrokeStyle(3, 0xffffff);
@@ -100,8 +102,23 @@ export default class GameScene extends Phaser.Scene {
 	}
 
 	/**
+	 * Set cursor
+	 * @param {boolean} isItemSelected Whether the item is selected.
+	 */
+	setCursor(isItemSelected) {
+		if (isItemSelected) {
+			this.input.setDefaultCursor('grabbing');
+		} else {
+			this.input.setDefaultCursor('default');
+		}
+		this.zones.forEach((zone) => {
+			zone.setCursor(isItemSelected);
+		});
+	}
+
+	/**
 	 * Load room on the game scene
-	 * @param {string} roomName The room name 
+	 * @param {string} roomName The room name
 	 */
 	loadRoom(roomName) {
 		assert(!roomName, 'The roomName is undefined');
@@ -124,7 +141,7 @@ export default class GameScene extends Phaser.Scene {
 
 	/**
 	 * Change room loaded on the game scene
-	 * @param {String} roomName The game scene. 
+	 * @param {String} roomName The game scene.
 	 */
 	changeRoom(roomName) {
 		assert(!roomName, 'The roomName is undefined');
@@ -160,8 +177,8 @@ export default class GameScene extends Phaser.Scene {
 
 	/**
 	 * Returns the tile map layers associated with the tile map
-	 * @param {Phaser.Tilemaps.Tilemap} tileMap The tile map 
-	 * @param {Array} tileSets 
+	 * @param {Phaser.Tilemaps.Tilemap} tileMap The tile map
+	 * @param {Array} tileSets
 	 */
 	getTileMapLayers(tileMap, tileSets) {
 		assert(!tileMap, 'The tileMap is undefined');
@@ -182,7 +199,7 @@ export default class GameScene extends Phaser.Scene {
 		for (let i = 0, len = tileMapObjects.length; i < len; i++) {
 			switch (tileMapObjects[i].type) {
 				case EntityType.INTERACTIVE_ZONE:
-					this.addInteractiveZone(tileMapObjects[i]);
+					this.zones.push(this.addInteractiveZone(tileMapObjects[i]));
 					break;
 				case EntityType.CHEST:
 					this.chests.push(this.addChest(tileMapObjects[i]));
@@ -216,7 +233,7 @@ export default class GameScene extends Phaser.Scene {
 
 	/**
 	 * Add interactive zone object to the game scene,
-	 * @param {Object} tileMapObject The tile map object 
+	 * @param {Object} tileMapObject The tile map object
 	 */
 	addInteractiveZone(tileMapObject) {
 		assert(!tileMapObject, 'The tileMapObject is undefined');
@@ -235,8 +252,11 @@ export default class GameScene extends Phaser.Scene {
 		zone.setSpawn(this.getCustomProperty(tileMapObject, CustomProperty.SPAWN));
 		zone.setTimePenality(this.getCustomProperty(tileMapObject, CustomProperty.TIME_PENALITY));
 		zone.setTimePenalityMessage(this.getCustomProperty(tileMapObject, CustomProperty.TIME_PENALITY_MESSAGE));
-
+		zone.setAudioClipKey(this.getCustomProperty(tileMapObject, CustomProperty.AUDIO_CLIP_KEY));
+	
 		const events = this.getCustomProperty(tileMapObject, CustomProperty.EVENTS);
+
+		zone.setCursor(false);
 
 		if (events) {
 			const { listenTo, emit } = this.getCustomProperty(tileMapObject, CustomProperty.EVENTS);
@@ -259,6 +279,7 @@ export default class GameScene extends Phaser.Scene {
 								const index = this.items.findIndex((item) => item?.name === this.selectedItem?.name);
 								this.items.splice(index, 1);
 								this.selectedItem = null;
+								this.setCursor(false);
 								this.updateHud();
 							}
 						}
@@ -281,6 +302,7 @@ export default class GameScene extends Phaser.Scene {
 							const index = this.items.findIndex((item) => item?.name === this.selectedItem?.name);
 							this.items.splice(index, 1);
 							this.selectedItem = null;
+							this.setCursor(false);
 							this.updateHud();
 						}
 					}
@@ -292,11 +314,12 @@ export default class GameScene extends Phaser.Scene {
 				});
 			});
 		}
+		return zone;
 	}
 
 	/**
 	 * Add text to the game scene
-	 * @param {Object} tileMapObject The tile map object 
+	 * @param {Object} tileMapObject The tile map object
 	 */
 	addText(tileMapObject) {
 		assert(!tileMapObject, 'The tileMapObject is undefined');
@@ -372,7 +395,7 @@ export default class GameScene extends Phaser.Scene {
 
 	/**
 	 * Add chest tile to the game scene
-	 * @param {*} tileMapObject 
+	 * @param {*} tileMapObject
 	 */
 	addChest(tileMapObject) {
 		assert(!tileMapObject, 'The tileMapObject is undefined');
@@ -432,7 +455,7 @@ export default class GameScene extends Phaser.Scene {
 	 * Spawn item on the game scene
 	 * @param {number} x The x coordinate
 	 * @param {number} y The y coordinate
-	 * @param {Object} item 
+	 * @param {Object} item
 	 */
 	spawnItem(x, y, item) {
 		assert(!x, 'The x is undefined');
@@ -441,7 +464,9 @@ export default class GameScene extends Phaser.Scene {
 		const itemImage = this.add.image(x, y, item.textureKey, item.textureFrame);
 		itemImage.setScale(2);
 		itemImage.setAlpha(0);
-		itemImage.setInteractive();
+		itemImage.setInteractive({
+			cursor: 'grab'
+		});
 		itemImage.on('pointerdown', () => {
 			itemImage.destroy();
 			if (this.pointerItem) {
@@ -474,7 +499,9 @@ export default class GameScene extends Phaser.Scene {
 		const npcSprite = this.add.sprite(x, y, npc.textureKey, npc.textureFrame);
 		npcSprite.setScale(2);
 		npcSprite.setAlpha(0);
-		npcSprite.setInteractive();
+		npcSprite.setInteractive({
+			useHandCursor: true
+		});
 		npcSprite.on('pointerdown', () => {
 			showTextModal(this, npc.description);
 		});
@@ -522,7 +549,7 @@ export default class GameScene extends Phaser.Scene {
 
 	/**
 	 * Add time penality
-	 * @param {number} timePenality The time penality 
+	 * @param {number} timePenality The time penality
 	 */
 	addTimePenality(timePenality) {
 		this.countDownDate = new Date(this.countDownDate - timePenality * NUMBER_OF_SECONDS * NUMBER_OF_MILLISECONDS);

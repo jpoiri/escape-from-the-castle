@@ -13,7 +13,8 @@ const CustomProperty = {
 	SCREEN_TEXT: 'screenText',
 	MODAL_SIZE: 'modalSize',
 	TIME_PENALITY: 'timePenality',
-	TIME_PENALITY_MESSAGE: 'timePenalityMessage'
+	TIME_PENALITY_MESSAGE: 'timePenalityMessage',
+	AUDIO_CLIP_KEY: 'audioClipKey'
 };
 
 const ActionType = {

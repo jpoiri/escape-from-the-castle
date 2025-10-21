@@ -255,6 +255,11 @@
                     }
                 },
                 {
+                    "name": "audioClipKey",
+                    "type": "string",
+                    "value": ""
+                },
+                {
                     "name": "constraintMessage",
                     "type": "string",
                     "value": ""
