@@ -1,8 +1,8 @@
 {
-    "activeFile": "json/room-six-map.json",
+    "activeFile": "json/room-seven-map.json",
     "expandedProjectPaths": [
-        "json",
-        "."
+        ".",
+        "json"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -76,6 +76,26 @@
             "scaleInDock": 2
         },
         "json/room-one-map.json#treasure1": {
+            "scaleInDock": 1
+        },
+        "json/room-seven-map.json": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 1.0040736607142855,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 526.3558050352916,
+                "y": 398.37714666814884
+            }
+        },
+        "json/room-seven-map.json#castle-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-seven-map.json#containers": {
+            "scaleInDock": 1
+        },
+        "json/room-seven-map.json#creepy-tiles": {
             "scaleInDock": 1
         },
         "json/room-six-map.json": {
@@ -154,17 +174,16 @@
     "last.imagePath": "C:/development/projects/escape-from-dracula-castle/assets/img/letter-tiles2/Spritesheet",
     "map.lastUsedFormat": "json",
     "openFiles": [
-        "json/room-four-map.json",
-        "json/room-two-map.json",
-        "json/room-six-map.json"
+        "json/room-seven-map.json"
     ],
     "project": "castle.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "json/room-two-map.json",
-        "json/room-three-map.json",
+        "json/room-seven-map.json",
         "json/room-four-map.json",
         "json/room-six-map.json",
+        "json/room-two-map.json",
+        "json/room-three-map.json",
         "json/room-five-map.json",
         "json/room-one-map.json",
         "json/creepy-tiles.tsj",
