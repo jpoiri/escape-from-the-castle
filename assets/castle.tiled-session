@@ -1,8 +1,8 @@
 {
-    "activeFile": "json/room-six-map.json",
+    "activeFile": "json/room-four-map.json",
     "expandedProjectPaths": [
-        "json",
-        "."
+        ".",
+        "json"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -155,16 +155,15 @@
     "map.lastUsedFormat": "json",
     "openFiles": [
         "json/room-four-map.json",
-        "json/room-two-map.json",
         "json/room-six-map.json"
     ],
     "project": "castle.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "json/room-two-map.json",
-        "json/room-three-map.json",
         "json/room-four-map.json",
         "json/room-six-map.json",
+        "json/room-two-map.json",
+        "json/room-three-map.json",
         "json/room-five-map.json",
         "json/room-one-map.json",
         "json/creepy-tiles.tsj",

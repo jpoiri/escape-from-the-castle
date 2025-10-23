@@ -1,12 +1,9 @@
 import Phaser from 'phaser';
-import Chest from '../entities/Chest';
-import Safe from '../entities/Safe';
-import Door from '../entities/Door';
 import InteractiveZone from '../entities/InteractiveZone';
 import { showTextModal, showItemModal } from '../utils/modal-utils';
 import { assert } from '../utils/assert-utils';
 
-import { CustomProperty, TilemapLayer, EntityType, LoaderKey, Animation, ActionType } from '../constants';
+import { CustomProperty, TilemapLayer, EntityType } from '../constants';
 
 const TRANSITION_DELAY = 500;
 const NUMBER_OF_MINUTES = 60;
@@ -21,12 +18,11 @@ const NUMBER_OF_MILLISECONDS = 1000;
  * @copyright 2025
  */
 export default class GameScene extends Phaser.Scene {
-	door = null;
-	chests = [];
 	tileMap = null;
 	zones = [];
-	safes = [];
 	items = [];
+	npcs = [];
+	texts = [];
 	itemImages = [];
 	selectedItem = null;
 	selectedRectangle = null;
@@ -44,8 +40,7 @@ export default class GameScene extends Phaser.Scene {
 	 * Create hook that is run once when the scene starts
 	 */
 	create() {
-		this.loadRoom('room-three');
-		this.createAnimations();
+		this.loadRoom('room-one');
 		this.addHud();
 		this.startTimer(1);
 	}
@@ -147,8 +142,24 @@ export default class GameScene extends Phaser.Scene {
 		assert(!roomName, 'The roomName is undefined');
 		this.cameras.main.fadeOut(TRANSITION_DELAY, 0, 0, 0, (camera, progress) => {
 			if (progress === 1) {
+				this.resetRoom();
 				this.loadRoom(roomName);
 			}
+		});
+	}
+
+	/**
+	 * Reset room by destroying room objects.
+	 */
+	resetRoom() {
+		this.zones.forEach((zone) => {
+			zone.destroy();
+		});
+		this.npcs.forEach((npc) => {
+			npc.destroy();
+		});
+		this.texts.forEach((text) => {
+			text.destroy();
 		});
 	}
 
@@ -201,15 +212,6 @@ export default class GameScene extends Phaser.Scene {
 				case EntityType.INTERACTIVE_ZONE:
 					this.zones.push(this.addInteractiveZone(tileMapObjects[i]));
 					break;
-				case EntityType.CHEST:
-					this.chests.push(this.addChest(tileMapObjects[i]));
-					break;
-				case EntityType.SAFE:
-					this.safes.push(this.addSafe(tileMapObjects[i]));
-					break;
-				case EntityType.DOOR:
-					this.door = this.addDoor(tileMapObjects[i]);
-					break;
 				case EntityType.TEXT:
 					this.addText(tileMapObjects[i]);
 			}
@@ -253,10 +255,9 @@ export default class GameScene extends Phaser.Scene {
 		zone.setTimePenality(this.getCustomProperty(tileMapObject, CustomProperty.TIME_PENALITY));
 		zone.setTimePenalityMessage(this.getCustomProperty(tileMapObject, CustomProperty.TIME_PENALITY_MESSAGE));
 		zone.setAudioClipKey(this.getCustomProperty(tileMapObject, CustomProperty.AUDIO_CLIP_KEY));
-	
-		const events = this.getCustomProperty(tileMapObject, CustomProperty.EVENTS);
-
 		zone.setCursor(false);
+
+		const events = this.getCustomProperty(tileMapObject, CustomProperty.EVENTS);
 
 		if (events) {
 			const { listenTo, emit } = this.getCustomProperty(tileMapObject, CustomProperty.EVENTS);
@@ -320,135 +321,20 @@ export default class GameScene extends Phaser.Scene {
 	/**
 	 * Add text to the game scene
 	 * @param {Object} tileMapObject The tile map object
+	 * @returns {boolean}
 	 */
 	addText(tileMapObject) {
 		assert(!tileMapObject, 'The tileMapObject is undefined');
 		console.log(tileMapObject);
 		const { x, y, text } = tileMapObject;
 		const { color, fontfamily, halign, pixelsize } = text;
-		this.add.text(x, y, text.text, {
+		const textObj = this.add.text(x, y, text.text, {
 			fontFamily: fontfamily,
 			fontSize: `${pixelsize}px`,
 			fill: color,
 			align: halign
 		});
-	}
-
-	/**
-	 * Add safe to the game scene
-	 * @param {Object} tileMapObject The tile map object
-	 */
-	addSafe(tileMapObject) {
-		assert(!tileMapObject, 'The tileMapObject is undefined');
-		const safe = new Safe(
-			this,
-			tileMapObject.x,
-			tileMapObject.y,
-			LoaderKey.SAFE,
-			12,
-			tileMapObject.name,
-			this.getCustomProperty(tileMapObject, CustomProperty.COMBINATION),
-			this.getCustomProperty(tileMapObject, CustomProperty.PROMPT_MESSAGE)
-		);
-		safe.setSpawnItem(this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM));
-		safe.on('pointerdown', () => {
-			if (!safe.isOpened()) {
-				const answer = window.prompt(safe.getPromptMessage());
-				if (answer && answer.toLocaleUpperCase() === safe.getCombination().toLocaleUpperCase()) {
-					safe.play(Animation.SAFE_OPEN);
-					safe.setOpened(true);
-					this.spawnItem(safe.x, safe.y + safe.height, safe.getSpawnItem());
-					this.dirtyObjectMap.set(safe.name, safe);
-				}
-			}
-		});
-		return safe;
-	}
-
-	/**
-	 * Add a door to the game scene
-	 * @param {Object} tileMapObject The tile map object
-	 */
-	addDoor(tileMapObject) {
-		assert(!tileMapObject, 'The tileMapObject is undefined');
-		const door = new Door(
-			this,
-			tileMapObject.x,
-			tileMapObject.y,
-			LoaderKey.DOOR,
-			10,
-			tileMapObject.name,
-			this.getCustomProperty(tileMapObject, CustomProperty.LOCKED),
-			this.getCustomProperty(tileMapObject, CustomProperty.LOCKED_MESSAGE)
-		);
-		door.on('pointerdown', () => {
-			if (door.isLocked()) {
-				showTextModal(this, door.getLockedMessage());
-			} else {
-				door.play(Animation.DOOR_OPEN);
-				door.setOpened(true);
-				this.dirtyObjectMap.set(door.name, door);
-			}
-		});
-		return door;
-	}
-
-	/**
-	 * Add chest tile to the game scene
-	 * @param {*} tileMapObject
-	 */
-	addChest(tileMapObject) {
-		assert(!tileMapObject, 'The tileMapObject is undefined');
-		const chest = new Chest(
-			this,
-			tileMapObject.x,
-			tileMapObject.y,
-			LoaderKey.CHEST,
-			null,
-			tileMapObject.name,
-			this.getCustomProperty(tileMapObject, CustomProperty.LOCKED),
-			this.getCustomProperty(tileMapObject, CustomProperty.LOCKED_MESSAGE)
-		);
-		chest.setSpawnItem(this.getCustomProperty(tileMapObject, CustomProperty.SPAWN_ITEM));
-		chest.on('pointerdown', () => {
-			if (chest.isLocked()) {
-				showTextModal(this, chest.lockedMessage);
-			} else {
-				if (!chest.isOpened()) {
-					chest.play(Animation.CHEST_OPEN);
-					chest.setOpened(true);
-					this.spawnItem(chest.x, chest.y + chest.height + 5, chest.getSpawnItem());
-					this.dirtyObjectMap.set(chest.name, chest);
-				}
-			}
-		});
-		return chest;
-	}
-
-	/**
-	 * Create animations
-	 */
-	createAnimations() {
-		this.createAnimation(Animation.SAFE_OPEN, LoaderKey.SAFE, [13], 4);
-		this.createAnimation(Animation.DOOR_OPEN, LoaderKey.DOOR, [5, 0], 4);
-		this.createAnimation(Animation.CHEST_OPEN, LoaderKey.CHEST, [1], 8, -1);
-	}
-
-	/**
-	 * Create animation
-	 * @param {string} key The key of the animation
-	 * @param {string} textureKey The loader key of the texture
-	 * @param {Array} frames The spritesheet frames
-	 * @param {number} frameRate The frame rate
-	 * @param {boolean} repeat Whether the animation should be repeated
-	 */
-	createAnimation(key, textureKey, frames, frameRate, repeat) {
-		this.anims.create({
-			key,
-			frames: this.anims.generateFrameNumbers(textureKey, { frames }),
-			frameRate,
-			repeat
-		});
+		return textObj;
 	}
 
 	/**
@@ -505,6 +391,7 @@ export default class GameScene extends Phaser.Scene {
 		npcSprite.on('pointerdown', () => {
 			showTextModal(this, npc.description);
 		});
+		this.npcs.push(npcSprite);
 		this.tweens.add({
 			targets: npcSprite,
 			alpha: 1,
