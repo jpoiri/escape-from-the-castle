@@ -1726,7 +1726,7 @@
                 {
                  "height":25.4026288713937,
                  "id":123,
-                 "name":"sign2",
+                 "name":"hint2",
                  "properties":[
                         {
                          "name":"action",
@@ -1734,7 +1734,7 @@
                          "type":"class",
                          "value":
                             {
-                             "text":"Blue and red make purple",
+                             "text":"From blue and red is born the color purple.",
                              "type":"SHOW_TEXT"
                             }
                         }],
@@ -1748,7 +1748,7 @@
                 {
                  "height":25.4026,
                  "id":124,
-                 "name":"sign1",
+                 "name":"hint1",
                  "properties":[
                         {
                          "name":"action",
@@ -1756,7 +1756,7 @@
                          "type":"class",
                          "value":
                             {
-                             "text":"The rest is subtracted",
+                             "text":"What remains is taken from the whole.",
                              "type":"SHOW_TEXT"
                             }
                         }],
@@ -1831,7 +1831,7 @@
         {
          "name":"screenText",
          "type":"string",
-         "value":"I made my way into the cellar, but there\u2019s no time to celebrate \u2014 I need to escape!"
+         "value":"I made my way into the cellar, but there\u2019s no time to celebrate. I need to escape!"
         }],
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

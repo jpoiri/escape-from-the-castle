@@ -40,11 +40,11 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 33, 34, 0, 0, 33, 34, 0, 545, 546, 17, 18, 545, 546, 1444, 33, 34, 0, 0, 33, 34, 0, 0, 0, 0,
-            0, 0, 0, 0, 83, 84, 0, 0, 83, 84, 0, 595, 596, 67, 68, 595, 596, 0, 83, 84, 0, 0, 83, 84, 0, 0, 0, 0,
-            0, 0, 0, 0, 133, 134, 0, 0, 133, 134, 0, 1864, 0, 0, 0, 0, 0, 0, 133, 134, 0, 0, 133, 134, 0, 0, 0, 0,
+            0, 0, 0, 0, 1149, 1150, 0, 1149, 1150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1149, 1150, 0, 1149, 1150, 0, 0, 0, 0,
+            0, 0, 0, 0, 1199, 1200, 0, 1199, 1200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1199, 1200, 0, 1199, 1200, 0, 0, 0, 0,
+            0, 0, 0, 0, 1249, 1250, 0, 1249, 1250, 0, 0, 545, 546, 17, 18, 545, 546, 1444, 0, 1249, 1250, 0, 1249, 1250, 0, 0, 0, 0,
+            0, 0, 0, 0, 1299, 1300, 0, 1299, 1300, 0, 0, 595, 596, 67, 68, 595, 596, 0, 0, 1299, 1300, 0, 1299, 1300, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1821, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -56,9 +56,9 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 640, 640, 640, 640, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 640, 640, 640, 640, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 640, 640, 640, 640, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1419, 0, 0, 0, 0, 1419, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1443, 0, 0, 0, 0, 1443, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 1419, 0, 0, 1419, 0, 0, 1419, 0, 0, 0, 0, 1419, 0, 0, 1419, 0, 0, 1419, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 1443, 0, 0, 1443, 0, 0, 1443, 0, 0, 0, 0, 1443, 0, 0, 1443, 0, 0, 1443, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 1444, 0, 0, 1444, 0, 0, 1444, 0, 0, 0, 0, 1444, 0, 0, 1444, 0, 0, 1444, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -148,7 +148,7 @@
                          "type":"class",
                          "value":
                             {
-                             "dependsOn":"right-knight,left-knight"
+                             "dependsOn":"otto,dorian,arthur,tristan,aldric,anna"
                             }
                         }, 
                         {
@@ -171,7 +171,7 @@
                 {
                  "height":53.8077162766982,
                  "id":131,
-                 "name":"right-knight",
+                 "name":"tristan",
                  "properties":[
                         {
                          "name":"action",
@@ -182,7 +182,7 @@
                              "direction":"LEFT",
                              "repeat":true,
                              "rotation":1,
-                             "type":"MOVE_TILE",
+                             "type":"DESTROY_TILE",
                              "velocity":1
                             }
                         }, 
@@ -199,8 +199,8 @@
                             {
                              "promptRequired":
                                 {
-                                 "answer":"watchman",
-                                 "question":"Silent by day, I shout at night; I warn of fire or signal a fight.\n"
+                                 "answer":"tristan",
+                                 "question":"What is my name?"
                                 }
                             }
                         }, 
@@ -223,7 +223,7 @@
                 {
                  "height":53.8077,
                  "id":134,
-                 "name":"left-knight",
+                 "name":"arthur",
                  "properties":[
                         {
                          "name":"action",
@@ -233,7 +233,7 @@
                             {
                              "direction":"RIGHT",
                              "rotation":1,
-                             "type":"MOVE_TILE",
+                             "type":"DESTROY_TILE",
                              "velocity":1
                             }
                         }, 
@@ -250,8 +250,8 @@
                             {
                              "promptRequired":
                                 {
-                                 "answer":"piano",
-                                 "question":"What has many keys but guards no doors?\n"
+                                 "answer":"arthur",
+                                 "question":"What is my name?"
                                 }
                             }
                         }, 
@@ -282,7 +282,7 @@
                          "type":"class",
                          "value":
                             {
-                             "newTiles":"1880",
+                             "newTiles":"1853",
                              "type":"REPLACE_TILE"
                             }
                         }, 
@@ -328,7 +328,7 @@
                 {
                  "height":27.411480210753,
                  "id":137,
-                 "name":"sign",
+                 "name":"hint7",
                  "properties":[
                         {
                          "name":"action",
@@ -400,6 +400,350 @@
                  "width":775.643306328253,
                  "x":64.1582346609256,
                  "y":61.0139368874284
+                }, 
+                {
+                 "height":53.8077,
+                 "id":138,
+                 "name":"aldric",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "direction":"LEFT",
+                             "repeat":true,
+                             "rotation":1,
+                             "type":"DESTROY_TILE",
+                             "velocity":1
+                            }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"push-audio"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "promptRequired":
+                                {
+                                 "answer":"aldric",
+                                 "question":"What is my name?"
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"events",
+                         "propertytype":"Events",
+                         "type":"class",
+                         "value":
+                            {
+                             "emit":"knight-move"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":33.5029,
+                 "x":606.310472837233,
+                 "y":584.392507146904
+                }, 
+                {
+                 "height":53.8077,
+                 "id":139,
+                 "name":"anna",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "direction":"LEFT",
+                             "repeat":true,
+                             "rotation":1,
+                             "type":"DESTROY_TILE",
+                             "velocity":1
+                            }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"push-audio"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "promptRequired":
+                                {
+                                 "answer":"anna",
+                                 "question":"What is my name?"
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"events",
+                         "propertytype":"Events",
+                         "type":"class",
+                         "value":
+                            {
+                             "emit":"knight-move"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":33.5029,
+                 "x":702.621106795649,
+                 "y":583.224867919665
+                }, 
+                {
+                 "height":53.8077,
+                 "id":140,
+                 "name":"dorian",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "direction":"RIGHT",
+                             "rotation":1,
+                             "type":"DESTROY_TILE",
+                             "velocity":1
+                            }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"push-audio"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "promptRequired":
+                                {
+                                 "answer":"dorian",
+                                 "question":"What is my name?"
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"events",
+                         "propertytype":"Events",
+                         "type":"class",
+                         "value":
+                            {
+                             "emit":"knight-move"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":33.5029,
+                 "x":254.963523655884,
+                 "y":584.346787357657
+                }, 
+                {
+                 "height":53.8077,
+                 "id":141,
+                 "name":"otto",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "direction":"RIGHT",
+                             "rotation":1,
+                             "type":"DESTROY_TILE",
+                             "velocity":1
+                            }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"push-audio"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "promptRequired":
+                                {
+                                 "answer":"otto",
+                                 "question":"What is my name?"
+                                }
+                            }
+                        }, 
+                        {
+                         "name":"events",
+                         "propertytype":"Events",
+                         "type":"class",
+                         "value":
+                            {
+                             "emit":"knight-move"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":33.5029,
+                 "x":156.332851172738,
+                 "y":583.13342834117
+                }, 
+                {
+                 "height":26.3962381734747,
+                 "id":143,
+                 "name":"hint1",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "repeat":true,
+                             "text":"Six knights guard the bridge:\n\nSir Otto\nSir Dorian\nSir Aldric\nSir Tristan\nSir Arthur\nDame Anna",
+                             "type":"SHOW_TEXT"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":30.4571978924707,
+                 "x":352.333975412158,
+                 "y":645.692595320378
+                }, 
+                {
+                 "height":26.3962,
+                 "id":144,
+                 "name":"hint2",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "repeat":true,
+                             "text":"The palindrome knights are always the furthest away\n",
+                             "type":"SHOW_TEXT"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":30.4572,
+                 "x":514.303494498895,
+                 "y":648.738334196363
+                }, 
+                {
+                 "height":26.3962,
+                 "id":145,
+                 "name":" hint3",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "repeat":true,
+                             "text":"Dorian stands between the legendary knight and Otto",
+                             "type":"SHOW_TEXT"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":30.4572,
+                 "x":609.696163469492,
+                 "y":647.799293915359
+                }, 
+                {
+                 "height":26.3962,
+                 "id":146,
+                 "name":" hint4",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "repeat":true,
+                             "text":"Anna is bound in marriage to another knight, one whose name, too, begins with A.",
+                             "type":"SHOW_TEXT"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":30.4572,
+                 "x":705.412440167696,
+                 "y":646.448775531131
+                }, 
+                {
+                 "height":26.3962,
+                 "id":147,
+                 "name":"hint5",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "repeat":true,
+                             "text":"The Dame is always stands to the right \n",
+                             "type":"SHOW_TEXT"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":30.4572,
+                 "x":257.257774709648,
+                 "y":646.707854336865
+                }, 
+                {
+                 "height":26.3962,
+                 "id":148,
+                 "name":"hint5",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "repeat":true,
+                             "text":"Beside Anna sits stands her husband.",
+                             "type":"SHOW_TEXT"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":30.4572,
+                 "x":160.840461242989,
+                 "y":646.702018973429
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -408,7 +752,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":138,
+ "nextobjectid":149,
  "orientation":"orthogonal",
  "properties":[
         {
