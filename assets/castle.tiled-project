@@ -49,8 +49,8 @@
                 {
                     "name": "type",
                     "propertyType": "ActionType",
-                    "type": "int",
-                    "value": 8
+                    "type": "string",
+                    "value": "TURN_OFF_LIGHT"
                 },
                 {
                     "name": "velocity",
@@ -85,7 +85,8 @@
                 "SHOW_IMAGE",
                 "TOGGLE_TILE_MOVEMENT",
                 "DESTROY",
-                "SET_ALPHA"
+                "TURN_ON_LIGHT",
+                "TURN_OFF_LIGHT"
             ],
             "valuesAsFlags": false
         },

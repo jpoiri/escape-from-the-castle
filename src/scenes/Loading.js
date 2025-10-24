@@ -26,7 +26,6 @@ export default class LoadingScene extends Phaser.Scene {
 		this.load.tilemapTiledJSON('room-four', 'assets/json/room-four-map.json');
 		this.load.tilemapTiledJSON('room-five', 'assets/json/room-five-map.json');
 		this.load.tilemapTiledJSON('room-six', 'assets/json/room-six-map.json');
-		this.load.tilemapTiledJSON('room-seven', 'assets/json/room-seven-map.json');
 		this.load.image('castle-tiles', 'assets/img/castle-tiles/Tileset.png');
 		this.load.image('creepy-tiles', 'assets/img/tiles.png');
 		this.load.image('containers', 'assets/img/container/container.png');

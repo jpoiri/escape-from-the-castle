@@ -40,9 +40,34 @@ export default class GameScene extends Phaser.Scene {
 	 * Create hook that is run once when the scene starts
 	 */
 	create() {
-		this.loadRoom('room-one');
+		this.addRoomOverlay();
+		this.loadRoom('room-six');
 		this.addHud();
 		this.startTimer(1);
+	}
+
+	/**
+	 * Add overlay over room to control room light
+	 */
+	addRoomOverlay() {
+		this.roomOverlay = this.add.rectangle(0, 0, this.cameras.main.width, this.cameras.main.height, 0x000000, 0.5);
+		this.roomOverlay.setVisible(false);
+		this.roomOverlay.setOrigin(0);
+		this.roomOverlay.setDepth(1000);
+	}
+
+	/**
+	 * Turn off light
+	 */
+	turnOffLight() {
+		this.roomOverlay.setVisible(true);
+	}
+
+	/**
+	 * Turn on light
+	 */
+	turnOnLight() {
+		this.roomOverlay.setVisible(false);
 	}
 
 	/**
@@ -152,6 +177,7 @@ export default class GameScene extends Phaser.Scene {
 	 * Reset room by destroying room objects.
 	 */
 	resetRoom() {
+		this.turnOnLight();
 		this.zones.forEach((zone) => {
 			zone.destroy();
 		});
@@ -251,7 +277,7 @@ export default class GameScene extends Phaser.Scene {
 		zone.setConstraints(this.getCustomProperty(tileMapObject, CustomProperty.CONSTRAINTS));
 		zone.setConstraintMessage(this.getCustomProperty(tileMapObject, CustomProperty.CONSTRAINT_MESSAGE));
 		zone.setNavigateTo(this.getCustomProperty(tileMapObject, CustomProperty.NAVIGATE_TO));
-		zone.setNavigateToScene(this.getCustomProperty(tileMapObject,CustomProperty.NAVIGATE_TO_SCENE));
+		zone.setNavigateToScene(this.getCustomProperty(tileMapObject, CustomProperty.NAVIGATE_TO_SCENE));
 		zone.setSpawn(this.getCustomProperty(tileMapObject, CustomProperty.SPAWN));
 		zone.setTimePenality(this.getCustomProperty(tileMapObject, CustomProperty.TIME_PENALITY));
 		zone.setTimePenalityMessage(this.getCustomProperty(tileMapObject, CustomProperty.TIME_PENALITY_MESSAGE));

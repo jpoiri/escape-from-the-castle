@@ -18,8 +18,8 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	navigateToScene = null;
 	constraintMessage = null;
 	timePenality = 0;
-	timePenalityMessage = null; 
-	audioClipKey
+	timePenalityMessage = null;
+	audioClipKey;
 	dirty = false;
 	name = null;
 
@@ -56,7 +56,7 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 				showTextModal(this.scene, this.constraintMessage);
 			}
 		} else {
-			let { type, velocity, newTiles, direction, text, textureKey, repeat } = this.action;
+			let { type, velocity, newTiles, direction, text, textureKey, repeat, alpha } = this.action;
 
 			newTiles = newTiles?.split(',').map((s) => {
 				return parseInt(s, 10);
@@ -120,6 +120,14 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 					this.dirty = true;
 					break;
 				}
+				case ActionType.TURN_ON_LIGHT: {
+					this.scene.turnOnLight();
+					break;
+				}
+				case ActionType.TURN_OFF_LIGHT: {
+					this.scene.turnOffLight();
+					break;
+				}
 			}
 			if (this.spawn) {
 				this.spawnObject(this.spawn, type);
@@ -127,7 +135,7 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 			if (this.navigateTo) {
 				this.scene.changeRoom(this.navigateTo);
 			}
-			if (this.navigateToScene) {;
+			if (this.navigateToScene) {
 				this.scene.scene.start(this.navigateToScene);
 			}
 			if (this.timePenality) {
@@ -362,18 +370,18 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 
 	/**
 	 * Sets the navigateToScene
-	 * @param {string} navigateToScene 
+	 * @param {string} navigateToScene
 	 */
 	setNavigateToScene(navigateToScene) {
 		this.navigateToScene = navigateToScene;
 	}
-	
+
 	/**
 	 * Returns the navigateToScene
 	 * @returns {string}
 	 */
 	getNavigateToScene() {
-		return this.navigateToScene
+		return this.navigateToScene;
 	}
 
 	/**
@@ -429,7 +437,7 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	 * @param {string} audioClipKey The audio clip key
 	 */
 	setAudioClipKey(audioClipKey) {
-		this.audioClipKey = audioClipKey
+		this.audioClipKey = audioClipKey;
 	}
 
 	/**
@@ -437,6 +445,6 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	 * @returns {string}
 	 */
 	getAudioClipKey() {
-		return this.audioClipKey
+		return this.audioClipKey;
 	}
 }
