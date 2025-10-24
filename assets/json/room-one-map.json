@@ -199,7 +199,7 @@
                              "promptRequired":
                                 {
                                  "answer":"crown",
-                                 "question":"What is the password?"
+                                 "question":"What is the combination?"
                                 }
                             }
                         }, 
@@ -212,8 +212,8 @@
                              "description":"You got the cell key!",
                              "name":"cell-key",
                              "singleUse":true,
-                             "textureFrame":"50",
-                             "textureKey":"items",
+                             "textureFrame":"2",
+                             "textureKey":"treasure1",
                              "type":"ITEM"
                             }
                         }],
@@ -287,6 +287,19 @@
          "name":"containers",
          "spacing":0,
          "tilecount":1024,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":4,
+         "firstgid":2709,
+         "image":"..\/img\/Treasure Icons\/treasure1.png",
+         "imageheight":128,
+         "imagewidth":128,
+         "margin":0,
+         "name":"treasure1",
+         "spacing":0,
+         "tilecount":16,
          "tileheight":32,
          "tilewidth":32
         }],

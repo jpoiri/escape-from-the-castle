@@ -152,7 +152,7 @@
                          "type":"class",
                          "value":
                             {
-                             "itemRequired":"power-glove",
+                             "itemRequired":"power-ring",
                              "promptAnswer":"",
                              "promptQuestion":""
                             }
@@ -224,11 +224,11 @@
                          "type":"class",
                          "value":
                             {
-                             "description":"You got a key",
+                             "description":"You got a key!",
                              "name":"grate-key",
                              "singleUse":true,
-                             "textureFrame":"50",
-                             "textureKey":"items",
+                             "textureFrame":"6",
+                             "textureKey":"treasure2",
                              "type":"ITEM"
                             }
                         }],
@@ -268,7 +268,7 @@
                          "type":"class",
                          "value":
                             {
-                             "itemRequired":"power-glove",
+                             "itemRequired":"power-ring",
                              "promptAnswer":"",
                              "promptQuestion":""
                             }
@@ -319,7 +319,7 @@
                          "type":"class",
                          "value":
                             {
-                             "itemRequired":"power-glove",
+                             "itemRequired":"power-ring",
                              "promptAnswer":"",
                              "promptQuestion":""
                             }
@@ -375,7 +375,7 @@
                          "type":"class",
                          "value":
                             {
-                             "itemRequired":"power-glove",
+                             "itemRequired":"power-ring",
                              "promptAnswer":"",
                              "promptQuestion":""
                             }
@@ -502,11 +502,11 @@
                          "type":"class",
                          "value":
                             {
-                             "description":"You got door key",
+                             "description":"You got room key!",
                              "name":"room-key",
                              "singleUse":true,
-                             "textureFrame":"50",
-                             "textureKey":"items",
+                             "textureFrame":"2",
+                             "textureKey":"treasure1",
                              "type":"ITEM"
                             }
                         }],
@@ -609,11 +609,11 @@
                          "type":"class",
                          "value":
                             {
-                             "description":"You got the cell key",
+                             "description":"You got the cell key!",
                              "name":"cell-key",
                              "singleUse":true,
-                             "textureFrame":"50",
-                             "textureKey":"items",
+                             "textureFrame":"10",
+                             "textureKey":"treasure2",
                              "type":"ITEM"
                             }
                         }],
@@ -727,8 +727,9 @@
                             {
                              "description":"You got the flame glove!",
                              "name":"flame-glove",
-                             "textureFrame":"140",
-                             "textureKey":"items",
+                             "singleUse":false,
+                             "textureFrame":"8",
+                             "textureKey":"treasure1",
                              "type":"ITEM"
                             }
                         }],
@@ -774,10 +775,10 @@
                          "type":"class",
                          "value":
                             {
-                             "description":"You got the power glove!",
-                             "name":"power-glove",
-                             "textureFrame":"16",
-                             "textureKey":"items",
+                             "description":"You got the power ring!",
+                             "name":"power-ring",
+                             "textureFrame":"6",
+                             "textureKey":"treasure1",
                              "type":"ITEM"
                             }
                         }],
@@ -851,6 +852,32 @@
          "tilecount":195,
          "tileheight":16,
          "tilewidth":16
+        }, 
+        {
+         "columns":4,
+         "firstgid":2520,
+         "image":"..\/img\/Treasure Icons\/treasure4.png",
+         "imageheight":128,
+         "imagewidth":128,
+         "margin":0,
+         "name":"treasure4",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":4,
+         "firstgid":2536,
+         "image":"..\/img\/Treasure Icons\/treasure1.png",
+         "imageheight":128,
+         "imagewidth":128,
+         "margin":0,
+         "name":"treasure1",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":32,
+         "tilewidth":32
         }],
  "tilewidth":32,
  "type":"map",

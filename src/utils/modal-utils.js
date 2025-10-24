@@ -136,7 +136,7 @@ export function showItemModal(scene, itemDescription, itemTexture, itemFrame, cl
 			useHandCursor: true
 		});
 
-	const itemImage = scene.add.image(0, -10, itemTexture, itemFrame).setScale(2);
+	const itemImage = scene.add.image(0, -10, itemTexture, itemFrame);
 	const itemDescriptionText = scene.add
 		.text(0, 30, itemDescription, {
 			fontSize: '16px',

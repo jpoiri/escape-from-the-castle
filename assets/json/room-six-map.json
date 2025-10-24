@@ -88,6 +88,7 @@
                          "type":"class",
                          "value":
                             {
+                             "repeat":true,
                              "text":"To escape the castle and claim victory, you need only speak the magic words that open the door:\n\nfkdqslrp",
                              "type":"SHOW_TEXT"
                             }
@@ -110,6 +111,7 @@
                          "type":"class",
                          "value":
                             {
+                             "repeat":true,
                              "text":"Caesar would have approved of the encryption method, a simple shift that turns the meaningless into the meaningful.",
                              "type":"SHOW_TEXT"
                             }

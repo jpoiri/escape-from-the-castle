@@ -31,8 +31,8 @@ export default class LoadingScene extends Phaser.Scene {
 		this.load.image('containers', 'assets/img/container/container.png');
 		this.load.image(LoaderKey.MENU_IMAGE, 'assets/img/castle.png');
 		this.load.spritesheet('dungeon-crawl', 'assets/img/dungeon-crawl.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.spritesheet(LoaderKey.ITEMS, 'assets/img/items.png', { frameWidth: 16, frameHeight: 16 });
 		this.load.spritesheet('treasure1', 'assets/img/Treasure Icons/treasure1.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.spritesheet('treasure2', 'assets/img/Treasure Icons/treasure4.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.audio('open-door-audio', 'assets/sounds/creaky-door-hinge.wav');
 		this.load.audio('open-chest-audio', 'assets/sounds/open-chest.wav');
 		this.load.audio('push-audio', 'assets/sounds/sfx-push-boulder.flac');

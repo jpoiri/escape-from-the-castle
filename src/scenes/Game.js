@@ -41,7 +41,7 @@ export default class GameScene extends Phaser.Scene {
 	 */
 	create() {
 		this.addRoomOverlay();
-		this.loadRoom('room-six');
+		this.loadRoom('room-one');
 		this.addHud();
 		this.startTimer(1);
 	}
@@ -92,7 +92,7 @@ export default class GameScene extends Phaser.Scene {
 		for (let i = 0; i < this.items.length; i++) {
 			const itemImage = this.add.image(950, i * 50 + 80, this.items[i].textureKey, this.items[i].textureFrame);
 			itemImage.setAlpha(0);
-			itemImage.setScale(2);
+			//itemImage.setScale(2);
 			itemImage.setInteractive({
 				cursor: 'grab'
 			});
@@ -375,7 +375,7 @@ export default class GameScene extends Phaser.Scene {
 		assert(!y, 'The y is undefined');
 		assert(!item, 'The item is undefined');
 		const itemImage = this.add.image(x, y, item.textureKey, item.textureFrame);
-		itemImage.setScale(2);
+		//itemImage.setScale(2);
 		itemImage.setAlpha(0);
 		itemImage.setInteractive({
 			cursor: 'grab'
@@ -506,7 +506,7 @@ export default class GameScene extends Phaser.Scene {
 			const { x, y } = this.input.activePointer;
 			const { textureKey, textureFrame } = this.selectedItem;
 			this.pointerItem = this.add.image(x, y, textureKey, textureFrame);
-			this.pointerItem.setScale(2);
+			//this.pointerItem.setScale(2);
 		} else if (this.selectedItem && this.pointerItem) {
 			const { x, y } = this.input.activePointer;
 			this.pointerItem.x = x;

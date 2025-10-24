@@ -105,8 +105,8 @@
                             {
                              "description":"You got the axe!",
                              "name":"axe",
-                             "textureFrame":"86",
-                             "textureKey":"items",
+                             "textureFrame":"5",
+                             "textureKey":"treasure1",
                              "type":"ITEM"
                             }
                         }],
@@ -159,8 +159,8 @@
                              "description":"You got the room key",
                              "name":"room-key",
                              "singleUse":true,
-                             "textureFrame":"50",
-                             "textureKey":"items",
+                             "textureFrame":"2",
+                             "textureKey":"treasure1",
                              "type":"ITEM"
                             }
                         }],
