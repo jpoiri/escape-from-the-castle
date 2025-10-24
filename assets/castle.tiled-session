@@ -65,7 +65,7 @@
             "selectedLayer": 2,
             "viewCenter": {
                 "x": 449.2436689139425,
-                "y": 384.77593337487957
+                "y": 512.6961645232565
             }
         },
         "json/room-one-map.json#castle-tiles": {
@@ -164,7 +164,7 @@
             "selectedLayer": 2,
             "viewCenter": {
                 "x": 446.1979491246954,
-                "y": 386.8064132343776
+                "y": 583.7629596056881
             }
         },
         "json/room-two-map.json#castle-tiles": {
@@ -178,9 +178,15 @@
         },
         "json/room-two-map.json#items": {
             "scaleInDock": 2
+        },
+        "json/room-two-map.json#treasure1": {
+            "scaleInDock": 1
+        },
+        "json/room-two-map.json#treasure4": {
+            "scaleInDock": 1
         }
     },
-    "last.imagePath": "C:/development/projects/escape-from-the-castle/assets/img",
+    "last.imagePath": "C:/development/projects/escape-from-the-castle/assets/img/Treasure Icons",
     "map.lastUsedFormat": "json",
     "openFiles": [
     ],
@@ -200,7 +206,7 @@
     "tileset.embedInMap": true,
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 16,
-        "width": 16
+        "height": 32,
+        "width": 32
     }
 }

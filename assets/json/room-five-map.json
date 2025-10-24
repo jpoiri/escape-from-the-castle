@@ -3044,8 +3044,8 @@
                              "description":"You got the room key!",
                              "name":"room-key",
                              "singleUse":true,
-                             "textureFrame":"50",
-                             "textureKey":"items",
+                             "textureFrame":"2",
+                             "textureKey":"treasure1",
                              "type":"ITEM"
                             }
                         }],
