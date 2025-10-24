@@ -251,6 +251,7 @@ export default class GameScene extends Phaser.Scene {
 		zone.setConstraints(this.getCustomProperty(tileMapObject, CustomProperty.CONSTRAINTS));
 		zone.setConstraintMessage(this.getCustomProperty(tileMapObject, CustomProperty.CONSTRAINT_MESSAGE));
 		zone.setNavigateTo(this.getCustomProperty(tileMapObject, CustomProperty.NAVIGATE_TO));
+		zone.setNavigateToScene(this.getCustomProperty(tileMapObject,CustomProperty.NAVIGATE_TO_SCENE));
 		zone.setSpawn(this.getCustomProperty(tileMapObject, CustomProperty.SPAWN));
 		zone.setTimePenality(this.getCustomProperty(tileMapObject, CustomProperty.TIME_PENALITY));
 		zone.setTimePenalityMessage(this.getCustomProperty(tileMapObject, CustomProperty.TIME_PENALITY_MESSAGE));

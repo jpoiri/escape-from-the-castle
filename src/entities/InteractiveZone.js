@@ -15,6 +15,7 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	constraints = null;
 	spawn = null;
 	navigateTo = null;
+	navigateToScene = null;
 	constraintMessage = null;
 	timePenality = 0;
 	timePenalityMessage = null; 
@@ -125,6 +126,9 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 			}
 			if (this.navigateTo) {
 				this.scene.changeRoom(this.navigateTo);
+			}
+			if (this.navigateToScene) {;
+				this.scene.scene.start(this.navigateToScene);
 			}
 			if (this.timePenality) {
 				this.scene.addTimePenality(this.timePenality);
@@ -354,6 +358,22 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	 */
 	getNavigateTo() {
 		return this.navigateTo;
+	}
+
+	/**
+	 * Sets the navigateToScene
+	 * @param {string} navigateToScene 
+	 */
+	setNavigateToScene(navigateToScene) {
+		this.navigateToScene = navigateToScene;
+	}
+	
+	/**
+	 * Returns the navigateToScene
+	 * @returns {string}
+	 */
+	getNavigateToScene() {
+		return this.navigateToScene
 	}
 
 	/**
