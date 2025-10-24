@@ -9,7 +9,7 @@ This is escape room I built for our Halloween party at work using Phaser.js
 
 Here's the link to the live version:
 
-https://jpoiri.github.io/escape-from-dracula-castle/
+https://jpoiri.github.io/escape-from-the-castle/
 
 # Prerequisites
 
@@ -22,7 +22,7 @@ https://jpoiri.github.io/escape-from-dracula-castle/
 1. Download repository by running the following command:
 
 ```
-git clone https://github.com/jpoiri/escape-from-dracula-castle.git
+git clone https://github.com/jpoiri/escape-from-the-castle.git
 ```
 
 2. Download the project dependencies by running following command on project root:
