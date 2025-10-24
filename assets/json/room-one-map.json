@@ -127,7 +127,7 @@
                 {
                  "height":22.3352784544785,
                  "id":84,
-                 "name":"right-sign",
+                 "name":"hint1",
                  "properties":[
                         {
                          "name":"action",
@@ -150,7 +150,7 @@
                 {
                  "height":22.3353,
                  "id":85,
-                 "name":"left-sign",
+                 "name":"hint2",
                  "properties":[
                         {
                          "name":"action",

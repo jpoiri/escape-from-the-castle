@@ -40,13 +40,13 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 545, 546, 17, 18, 545, 546, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 1205, 1206, 0, 0, 1203, 1204, 0, 0, 595, 596, 67, 68, 595, 596, 0, 0, 1203, 1204, 0, 0, 1205, 1206, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 545, 546, 23, 24, 545, 546, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 1205, 1206, 0, 0, 1203, 1204, 0, 0, 595, 596, 73, 74, 595, 596, 0, 0, 1203, 1204, 0, 0, 1205, 1206, 0, 0, 0,
             0, 0, 0, 1255, 1256, 0, 0, 1253, 1254, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1253, 1254, 0, 0, 1255, 1256, 0, 0, 0,
             0, 0, 0, 0, 0, 1157, 1158, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1157, 1158, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1437, 0, 0, 0, 0, 1437, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -78,6 +78,51 @@
          "name":"objects",
          "objects":[
                 {
+                 "height":706.60699110532,
+                 "id":69,
+                 "name":"mask",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "alpha":"0.5",
+                             "type":"TURN_OFF_LIGHT"
+                            }
+                        }, 
+                        {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "dependsOn":"flame1,flame2"
+                            }
+                        }, 
+                        {
+                         "name":"events",
+                         "propertytype":"Events",
+                         "type":"class",
+                         "value":
+                            {
+                             "listenTo":"light-out"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":845.694861480936,
+                 "x":23.3505183842275,
+                 "y":33.5029176817177
+                }, 
+                {
                  "height":41.6248371197099,
                  "id":50,
                  "name":"axe3",
@@ -107,6 +152,7 @@
                          "type":"class",
                          "value":
                             {
+                             "itemRequired":"power-glove",
                              "promptAnswer":"",
                              "promptQuestion":""
                             }
@@ -178,10 +224,10 @@
                          "type":"class",
                          "value":
                             {
-                             "description":"You got the axe",
-                             "name":"axe",
-                             "singleUse":false,
-                             "textureFrame":"86",
+                             "description":"You got a key",
+                             "name":"grate-key",
+                             "singleUse":true,
+                             "textureFrame":"50",
                              "textureKey":"items",
                              "type":"ITEM"
                             }
@@ -222,6 +268,7 @@
                          "type":"class",
                          "value":
                             {
+                             "itemRequired":"power-glove",
                              "promptAnswer":"",
                              "promptQuestion":""
                             }
@@ -272,6 +319,7 @@
                          "type":"class",
                          "value":
                             {
+                             "itemRequired":"power-glove",
                              "promptAnswer":"",
                              "promptQuestion":""
                             }
@@ -327,6 +375,7 @@
                          "type":"class",
                          "value":
                             {
+                             "itemRequired":"power-glove",
                              "promptAnswer":"",
                              "promptQuestion":""
                             }
@@ -365,6 +414,7 @@
                          "value":
                             {
                              "newTiles":"29,30,79,80",
+                             "repeat":false,
                              "type":"REPLACE_TILE"
                             }
                         }, 
@@ -376,7 +426,7 @@
                         {
                          "name":"constraintMessage",
                          "type":"string",
-                         "value":"Prisoner: Please help me!"
+                         "value":"Prisoner: I heard that if you use a special ring in the dark, it has special abilities."
                         }, 
                         {
                          "name":"constraints",
@@ -393,7 +443,7 @@
                          "type":"class",
                          "value":
                             {
-                             "description":"He was famous rex of Sweeden",
+                             "description":"I heard the code for the other cell door is:\n\ngonuendd\n",
                              "name":"monster",
                              "textureFrame":"177",
                              "textureKey":"dungeon-crawl",
@@ -441,8 +491,8 @@
                              "itemRequired":"",
                              "promptRequired":
                                 {
-                                 "answer":"Carolus",
-                                 "question":"What is secret password?"
+                                 "answer":"dungeon",
+                                 "question":"What is the combination?"
                                 }
                             }
                         }, 
@@ -478,7 +528,7 @@
                          "type":"class",
                          "value":
                             {
-                             "newTiles":"19,20,69,70",
+                             "newTiles":"25,26,75,76",
                              "type":"REPLACE_TILE"
                             }
                         }, 
@@ -541,7 +591,7 @@
                          "value":
                             {
                              "dependsOn":"",
-                             "itemRequired":"axe"
+                             "itemRequired":"grate-key"
                             }
                         }, 
                         {
@@ -573,6 +623,170 @@
                  "width":35.5334,
                  "x":684.956375179876,
                  "y":588.808698130417
+                }, 
+                {
+                 "height":37.5638774007138,
+                 "id":65,
+                 "name":"flame2",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "newTiles":"541,542,591,592",
+                             "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"flame-glove"
+                            }
+                        }, 
+                        {
+                         "name":"events",
+                         "propertytype":"Events",
+                         "type":"class",
+                         "value":
+                            {
+                             "emit":"light-out"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":36.5486374709649,
+                 "x":492.238966630786,
+                 "y":71.1582346609257
+                }, 
+                {
+                 "height":37.5639,
+                 "id":68,
+                 "name":"flame1",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "newTiles":"541,542,591,592",
+                             "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "itemRequired":"flame-glove"
+                            }
+                        }, 
+                        {
+                         "name":"events",
+                         "propertytype":"Events",
+                         "type":"class",
+                         "value":
+                            {
+                             "emit":"light-out"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":36.5486,
+                 "x":363.284705155515,
+                 "y":70.4372443799218
+                }, 
+                {
+                 "height":29.4419579627217,
+                 "id":74,
+                 "name":"chest1",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "newTiles":"1470",
+                             "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"spawn",
+                         "propertytype":"Spawn",
+                         "type":"class",
+                         "value":
+                            {
+                             "description":"You got the flame glove!",
+                             "name":"flame-glove",
+                             "textureFrame":"140",
+                             "textureKey":"items",
+                             "type":"ITEM"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":35.5333975412158,
+                 "x":349.242535833664,
+                 "y":255.840462296754
+                }, 
+                {
+                 "height":29.442,
+                 "id":76,
+                 "name":"chest2",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "newTiles":"1470",
+                             "type":"REPLACE_TILE"
+                            }
+                        }, 
+                        {
+                         "name":"constraintMessage",
+                         "type":"string",
+                         "value":"Locked!"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "dependsOn":"flame1,flame2"
+                            }
+                        }, 
+                        {
+                         "name":"spawn",
+                         "propertytype":"Spawn",
+                         "type":"class",
+                         "value":
+                            {
+                             "description":"You got the power glove!",
+                             "name":"power-glove",
+                             "textureFrame":"16",
+                             "textureKey":"items",
+                             "type":"ITEM"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":35.5334,
+                 "x":510.856834077389,
+                 "y":257.058502577758
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -581,7 +795,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":65,
+ "nextobjectid":77,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -593,7 +807,7 @@
         {
          "name":"screenText",
          "type":"string",
-         "value":"You manage to escape your cell\u2014but freedom is still far away. The castle dungeon stretches before you, silent and cold."
+         "value":"You manage to escape your cell, but freedom is still far away. The castle dungeon stretches before you, silent and cold."
         }],
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
@@ -613,30 +827,30 @@
          "tilewidth":32
         }, 
         {
-         "columns":64,
+         "columns":16,
          "firstgid":1301,
-         "image":"..\/img\/dungeon-crawl.png",
-         "imageheight":1536,
-         "imagewidth":2048,
+         "image":"..\/img\/container\/container.png",
+         "imageheight":2048,
+         "imagewidth":512,
          "margin":0,
-         "name":"dungeon-crawl",
+         "name":"containers",
          "spacing":0,
-         "tilecount":3072,
+         "tilecount":1024,
          "tileheight":32,
          "tilewidth":32
         }, 
         {
-         "columns":6,
-         "firstgid":4373,
+         "columns":13,
+         "firstgid":2325,
          "image":"..\/img\/items.png",
          "imageheight":240,
          "imagewidth":208,
          "margin":0,
          "name":"items",
          "spacing":0,
-         "tilecount":42,
-         "tileheight":32,
-         "tilewidth":32
+         "tilecount":195,
+         "tileheight":16,
+         "tilewidth":16
         }],
  "tilewidth":32,
  "type":"map",
