@@ -284,6 +284,11 @@
                     "value": ""
                 },
                 {
+                    "name": "navigateToScene",
+                    "type": "string",
+                    "value": ""
+                },
+                {
                     "name": "spawn",
                     "propertyType": "Spawn",
                     "type": "class",

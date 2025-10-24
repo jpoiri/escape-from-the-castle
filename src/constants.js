@@ -8,6 +8,7 @@ const CustomProperty = {
 	ACTION: 'action',
 	CONSTRAINTS: 'constraints',
 	NAVIGATE_TO: 'navigateTo',
+	NAVIGATE_TO_SCENE: 'navigateToScene',
 	CONSTRAINT_MESSAGE: 'constraintMessage',
 	EVENTS: 'events',
 	SCREEN_TEXT: 'screenText',
