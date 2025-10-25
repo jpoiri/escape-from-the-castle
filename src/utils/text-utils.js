@@ -26,7 +26,5 @@ export function addText(scene, x, y, text, size = TextSize.REGULAR, textOps = {}
 			textOps = { ...textOps, fontSize: '24px', fontFamily: 'Germania One' };
 			break;
 	}
-	console.log(textOps);
-
 	return scene.add.text(x, y, text, textOps);
 }
