@@ -2,8 +2,9 @@ import Phaser from 'phaser';
 import InteractiveZone from '../entities/InteractiveZone';
 import { showTextModal, showItemModal } from '../utils/modal-utils';
 import { assert } from '../utils/assert-utils';
+import { addText } from '../utils/text-utils';
 
-import { CustomProperty, TilemapLayer, EntityType } from '../constants';
+import { CustomProperty, TilemapLayer, EntityType, TextSize } from '../constants';
 
 const TRANSITION_DELAY = 500;
 const NUMBER_OF_MINUTES = 60;
@@ -74,7 +75,7 @@ export default class GameScene extends Phaser.Scene {
 	 * Add HUD to the game scene
 	 */
 	addHud() {
-		const text = this.add.text(920, 20, 'Items', { fontSize: '20px', fontFamily: 'Verdana' });
+		addText(this, 925, 20, 'Items', TextSize.REGULAR);
 	}
 
 	/**
@@ -92,7 +93,6 @@ export default class GameScene extends Phaser.Scene {
 		for (let i = 0; i < this.items.length; i++) {
 			const itemImage = this.add.image(950, i * 50 + 80, this.items[i].textureKey, this.items[i].textureFrame);
 			itemImage.setAlpha(0);
-			//itemImage.setScale(2);
 			itemImage.setInteractive({
 				cursor: 'grab'
 			});
@@ -355,13 +355,12 @@ export default class GameScene extends Phaser.Scene {
 		console.log(tileMapObject);
 		const { x, y, text } = tileMapObject;
 		const { color, fontfamily, halign, pixelsize } = text;
-		const textObj = this.add.text(x, y, text.text, {
+		return this.add.text(x, y, text.text, {
 			fontFamily: fontfamily,
 			fontSize: `${pixelsize}px`,
 			fill: color,
 			align: halign
 		});
-		return textObj;
 	}
 
 	/**
@@ -375,7 +374,6 @@ export default class GameScene extends Phaser.Scene {
 		assert(!y, 'The y is undefined');
 		assert(!item, 'The item is undefined');
 		const itemImage = this.add.image(x, y, item.textureKey, item.textureFrame);
-		//itemImage.setScale(2);
 		itemImage.setAlpha(0);
 		itemImage.setInteractive({
 			cursor: 'grab'
@@ -486,11 +484,7 @@ export default class GameScene extends Phaser.Scene {
 		);
 		const secondsRemaining = Math.floor((this.timeRemaining % (NUMBER_OF_MILLISECONDS * NUMBER_OF_SECONDS)) / NUMBER_OF_MILLISECONDS);
 		if (this.timeRemaining) {
-			this.timeText = this.add.text(915, 730, `${hoursRemaining}:${minutesRemaining}:${secondsRemaining}`, {
-				fontSize: '12px',
-				fontFamily: 'Verdana',
-				fill: '#FFFFFF'
-			});
+			this.timeText = addText(this, 915, 730, `${hoursRemaining}:${minutesRemaining}:${secondsRemaining}`, TextSize.SMALL);
 		}
 	}
 
@@ -506,7 +500,6 @@ export default class GameScene extends Phaser.Scene {
 			const { x, y } = this.input.activePointer;
 			const { textureKey, textureFrame } = this.selectedItem;
 			this.pointerItem = this.add.image(x, y, textureKey, textureFrame);
-			//this.pointerItem.setScale(2);
 		} else if (this.selectedItem && this.pointerItem) {
 			const { x, y } = this.input.activePointer;
 			this.pointerItem.x = x;

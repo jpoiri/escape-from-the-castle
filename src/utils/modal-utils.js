@@ -1,5 +1,6 @@
 import { assert } from './assert-utils';
-import { ModalSize } from '../constants';
+import { addText } from './text-utils';
+import { ModalSize, TextSize } from '../constants';
 
 /**
  * Displays a modal window with text
@@ -18,40 +19,24 @@ export function showTextModal(scene, text, size = ModalSize.REGULAR, closeCallba
 
 	switch (size) {
 		case ModalSize.REGULAR:
-			box = scene.add.rectangle(0, 0, 450, 150, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
-			closeText = scene.add
-				.text(155, -69, 'Close X', {
-					fontSize: '16px',
-					fontFamily: 'verdana',
-					fill: '#FFFFFF'
-				})
-				.setInteractive({
-					useHandCursor: true
-				});
+			box = scene.add.rectangle(0, 0, 500, 250, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
+			closeText = addText(scene, 165, -115, 'Close X').setInteractive({
+				useHandCursor: true
+			});
 			break;
 		case ModalSize.LARGE:
-			closeText = scene.add
-				.text(155, -169, 'Close X', {
-					fontSize: '16px',
-					fontFamily: 'verdana',
-					fill: '#FFFFFF'
-				})
-				.setInteractive({
-					useHandCursor: true
-				});
+			closeText = addText(scene, 165, -115, 'Close X').setInteractive({
+				useHandCursor: true
+			});
 			box = scene.add.rectangle(0, 0, 450, 350, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
 			break;
 	}
-	const textObj = scene.add
-		.text(0, 0, text, {
-			wordWrap: {
-				width: 400
-			},
-			fontSize: '16px',
-			fontFamily: 'verdana',
-			fill: '#FFFFFF'
-		})
-		.setOrigin(0.5);
+
+	const textObj = addText(scene, 0, 0, text, TextSize.REGULAR, {
+		wordWrap: {
+			width: 400
+		}
+	}).setOrigin(0.5);
 
 	closeText.on('pointerdown', () => {
 		blocker.destroy();
@@ -80,20 +65,13 @@ export function showImageModal(scene, imageKey, closeCallback) {
 	assert(!imageKey, 'The imageKey is undefined');
 	const blocker = scene.add.rectangle(0, 0, scene.scale.width, scene.scale.height, 0x000000, 0.5).setOrigin(0).setInteractive();
 	const modal = scene.add.container(450, 350).setAlpha(0);
-	const box = scene.add.rectangle(0, 0, 450, 350, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
+	const box = scene.add.rectangle(0, 0, 500, 250, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
 	const image = scene.add.image(0, 0, imageKey).setOrigin(0.5);
 	image.setDisplaySize(box.width - 60, box.height - 60);
 
-	const closeText = scene.add
-		.text(155, -169, 'Close X', {
-			fontSize: '16px',
-			fontFamily: 'verdana',
-			fill: '#FFFFFF'
-		})
-		.setInteractive({
-			useHandCursor: true
-		});
-
+	const closeText = addText(scene, 155, -169, 'Close X').setInteractive({
+		useHandCursor: true
+	});
 	closeText.on('pointerdown', () => {
 		blocker.destroy();
 		modal.destroy();
@@ -125,25 +103,13 @@ export function showItemModal(scene, itemDescription, itemTexture, itemFrame, cl
 	assert(!itemDescription, 'The itemDescription is undefined');
 	const blocker = scene.add.rectangle(0, 0, scene.scale.width, scene.scale.height, 0x000000, 0.5).setOrigin(0).setInteractive();
 	const modal = scene.add.container(450, 350).setAlpha(0);
-	const box = scene.add.rectangle(0, 0, 450, 150, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
-	const closeText = scene.add
-		.text(155, -69, 'Close X', {
-			fontSize: '16px',
-			fontFamily: 'verdana',
-			fill: '#FFFFFF'
-		})
-		.setInteractive({
-			useHandCursor: true
-		});
+	const box = scene.add.rectangle(0, 0, 500, 200, 0x000000).setStrokeStyle(6, 0xa6a6a6).setOrigin(0.5);
 
+	const closeText = addText(scene, 165, -90, 'Close X').setInteractive({
+		useHandCursor: true
+	});
 	const itemImage = scene.add.image(0, -10, itemTexture, itemFrame);
-	const itemDescriptionText = scene.add
-		.text(0, 30, itemDescription, {
-			fontSize: '16px',
-			fontFamily: 'verdana',
-			fill: '#FFFFFF'
-		})
-		.setOrigin(0.5);
+	const itemDescriptionText = addText(scene, 0, 30, itemDescription).setOrigin(0.5);
 
 	closeText.on('pointerdown', () => {
 		blocker.destroy();
