@@ -36,8 +36,17 @@ export default class LoadingScene extends Phaser.Scene {
 		this.load.audio('open-door-audio', 'assets/sounds/creaky-door-hinge.wav');
 		this.load.audio('open-chest-audio', 'assets/sounds/open-chest.wav');
 		this.load.audio('push-audio', 'assets/sounds/sfx-push-boulder.flac');
+		this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 		this.load.on('complete', () => {
-			this.scene.start('menu');
+			WebFont.load({
+				google: {
+					families: ['Germania One']
+				},
+				active: () => {
+					this.scene.start('menu');
+				}
+			});
+			
 		});
 	}
 }
