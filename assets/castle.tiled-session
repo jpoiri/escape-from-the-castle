@@ -44,11 +44,11 @@
             "expandedObjectLayers": [
                 8
             ],
-            "scale": 0.9849888392857143,
+            "scale": 0.75,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 593.4077389383037,
-                "y": 405.0807319698601
+                "x": 492.66666666666663,
+                "y": 390.6666666666667
             }
         },
         "json/room-four-map.json#castle-tiles": {
