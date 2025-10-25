@@ -54,6 +54,12 @@ const ModalSize = {
 	LARGE: 'LARGE'
 };
 
+const TextSize = {
+	REGULAR: 'REGULAR',
+	LARGE: 'LARGE',
+	SMALL: 'SMALL'
+};
+
 const TilemapLayer = {
 	BACKGROUND: 'background',
 	FOREGROUND: 'foreground',
@@ -156,5 +162,5 @@ export {
 	Direction,
 	SpawnType,
 	ModalSize,
-	Rotation
+	TextSize
 };

@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import { LoaderKey } from '../constants';
+import { LoaderKey, TextSize } from '../constants';
+import { addText } from '../utils/text-utils';
 
 /**
  * This class holds the code for the menu scene
@@ -8,7 +9,6 @@ import { LoaderKey } from '../constants';
  * @extends Phaser.Scene
  */
 export default class MenuScene extends Phaser.Scene {
-
 	/**
 	 * Constructor
 	 */
@@ -20,18 +20,10 @@ export default class MenuScene extends Phaser.Scene {
 	 * Create Phaser.js hook runs only once
 	 */
 	create() {
-        const image = this.add.image(0, 0, LoaderKey.MENU_IMAGE).setOrigin(0).setScale(0.8);
-        
-        const text = this.add.text(350, 384, 'Escape from the castle', {
-			fontSize: '32px',
-			fontFamily: 'Verdana'
-		});
+		const image = this.add.image(0, 0, LoaderKey.MENU_IMAGE).setOrigin(0).setScale(0.8);
 
-		const clickToContinue = this.add.text(512, 460, 'Click to start the game', {
-			fontSize: '16px',
-			fontFamily: 'Verdana'
-		});
-		clickToContinue.setOrigin(0.5, 0.5);
+		addText(this, 310, 350, 'Escape from the castle', TextSize.LARGE);
+		addText(this, 512, 450, 'Click to start the game').setOrigin(0.5, 0.5);
 	}
 
 	/**
