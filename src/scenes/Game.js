@@ -42,7 +42,7 @@ export default class GameScene extends Phaser.Scene {
 	 */
 	create() {
 		this.addRoomOverlay();
-		this.loadRoom('room-five');
+		this.loadRoom('room-one');
 		this.addHud();
 		this.startTimer(1);
 	}
