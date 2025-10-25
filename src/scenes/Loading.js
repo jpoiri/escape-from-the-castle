@@ -33,9 +33,11 @@ export default class LoadingScene extends Phaser.Scene {
 		this.load.spritesheet('dungeon-crawl', 'assets/img/dungeon-crawl.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.spritesheet('treasure1', 'assets/img/Treasure Icons/treasure1.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.spritesheet('treasure2', 'assets/img/Treasure Icons/treasure4.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.audio('open-door-audio', 'assets/sounds/creaky-door-hinge.wav');
+		this.load.audio('open-door-audio', 'assets/sounds/qubodup-DoorSet/flac/qubodup-DoorOpen01.flac');
 		this.load.audio('open-chest-audio', 'assets/sounds/open-chest.wav');
 		this.load.audio('push-audio', 'assets/sounds/sfx-push-boulder.flac');
+		this.load.audio('got-item-audio', 'assets/sounds/Item1A.wav');
+		this.load.audio('explosion-audio', 'assets/sounds/rumble.flac');
 		this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 		this.load.on('complete', () => {
 			WebFont.load({
@@ -46,7 +48,6 @@ export default class LoadingScene extends Phaser.Scene {
 					this.scene.start('menu');
 				}
 			});
-			
 		});
 	}
 }

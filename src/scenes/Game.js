@@ -42,7 +42,7 @@ export default class GameScene extends Phaser.Scene {
 	 */
 	create() {
 		this.addRoomOverlay();
-		this.loadRoom('room-five');
+		this.loadRoom('room-one');
 		this.addHud();
 		this.startTimer(1);
 	}
@@ -352,7 +352,6 @@ export default class GameScene extends Phaser.Scene {
 	 */
 	addText(tileMapObject) {
 		assert(!tileMapObject, 'The tileMapObject is undefined');
-		console.log(tileMapObject);
 		const { x, y, text } = tileMapObject;
 		const { color, fontfamily, halign, pixelsize } = text;
 		return this.add.text(x, y, text.text, {
@@ -379,7 +378,10 @@ export default class GameScene extends Phaser.Scene {
 			cursor: 'grab'
 		});
 		itemImage.on('pointerdown', () => {
-			itemImage.destroy();
+			this.sound.play('got-item-audio', {
+				volume: 0.3
+			});
+			itemImage.destroy(); 
 			if (this.pointerItem) {
 				this.pointerItem.destroy();
 				this.pointerItem = null;
