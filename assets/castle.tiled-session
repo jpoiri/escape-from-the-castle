@@ -1,8 +1,8 @@
 {
     "activeFile": "",
     "expandedProjectPaths": [
-        "json",
-        "."
+        ".",
+        "json"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -44,11 +44,11 @@
             "expandedObjectLayers": [
                 8
             ],
-            "scale": 0.75,
+            "scale": 0.9849888392857143,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 492.66666666666663,
-                "y": 390.6666666666667
+                "x": 593.4077389383037,
+                "y": 405.0807319698601
             }
         },
         "json/room-four-map.json#castle-tiles": {
@@ -62,7 +62,7 @@
                 8
             ],
             "scale": 0.9849888392857143,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
                 "x": 449.2436689139425,
                 "y": 512.6961645232565
@@ -164,13 +164,16 @@
             "selectedLayer": 2,
             "viewCenter": {
                 "x": 446.1979491246954,
-                "y": 583.7629596056881
+                "y": 344.1663361849187
             }
         },
         "json/room-two-map.json#castle-tiles": {
             "scaleInDock": 1
         },
         "json/room-two-map.json#containers": {
+            "scaleInDock": 1
+        },
+        "json/room-two-map.json#creepy-tiles": {
             "scaleInDock": 1
         },
         "json/room-two-map.json#dungeon-crawl": {
@@ -186,19 +189,19 @@
             "scaleInDock": 1
         }
     },
-    "last.imagePath": "C:/development/projects/escape-from-the-castle/assets/img/Treasure Icons",
+    "last.imagePath": "C:/development/projects/escape-from-the-castle/assets/img",
     "map.lastUsedFormat": "json",
     "openFiles": [
     ],
     "project": "castle.tiled-project",
     "property.type": "int",
     "recentFiles": [
-        "json/room-two-map.json",
         "json/room-three-map.json",
         "json/room-five-map.json",
-        "json/room-seven-map.json",
         "json/room-four-map.json",
+        "json/room-two-map.json",
         "json/room-six-map.json",
+        "json/room-seven-map.json",
         "json/room-one-map.json",
         "json/creepy-tiles.tsj",
         "json/creepy-tiles.tsx"

@@ -44,7 +44,7 @@
             0, 0, 0, 1205, 1206, 0, 0, 1203, 1204, 0, 0, 595, 596, 73, 74, 595, 596, 0, 0, 1203, 1204, 0, 0, 1205, 1206, 0, 0, 0,
             0, 0, 0, 1255, 1256, 0, 0, 1253, 1254, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1253, 1254, 0, 0, 1255, 1256, 0, 0, 0,
             0, 0, 0, 0, 0, 1157, 1158, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1157, 1158, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2500, 0, 0, 0, 0, 2500, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1437, 0, 0, 0, 0, 1437, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -152,6 +152,7 @@
                          "type":"class",
                          "value":
                             {
+                             "dependsOn":"flame1,flame2",
                              "itemRequired":"power-ring",
                              "promptAnswer":"",
                              "promptQuestion":""
@@ -268,6 +269,7 @@
                          "type":"class",
                          "value":
                             {
+                             "dependsOn":"flame1,flame2",
                              "itemRequired":"power-ring",
                              "promptAnswer":"",
                              "promptQuestion":""
@@ -319,6 +321,7 @@
                          "type":"class",
                          "value":
                             {
+                             "dependsOn":"flame1,flame2",
                              "itemRequired":"power-ring",
                              "promptAnswer":"",
                              "promptQuestion":""
@@ -375,6 +378,7 @@
                          "type":"class",
                          "value":
                             {
+                             "dependsOn":"flame1,flame2",
                              "itemRequired":"power-ring",
                              "promptAnswer":"",
                              "promptQuestion":""
@@ -720,6 +724,29 @@
                             }
                         }, 
                         {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
+                        }, 
+                        {
+                         "name":"constraintMessage",
+                         "type":"string",
+                         "value":"Locked!"
+                        }, 
+                        {
+                         "name":"constraints",
+                         "propertytype":"Constraints",
+                         "type":"class",
+                         "value":
+                            {
+                             "promptRequired":
+                                {
+                                 "answer":"candle",
+                                 "question":"What is the combination?"
+                                }
+                            }
+                        }, 
+                        {
                          "name":"spawn",
                          "propertytype":"Spawn",
                          "type":"class",
@@ -756,6 +783,11 @@
                             }
                         }, 
                         {
+                         "name":"audioClipKey",
+                         "type":"string",
+                         "value":"open-chest-audio"
+                        }, 
+                        {
                          "name":"constraintMessage",
                          "type":"string",
                          "value":"Locked!"
@@ -766,7 +798,12 @@
                          "type":"class",
                          "value":
                             {
-                             "dependsOn":"flame1,flame2"
+                             "dependsOn":"",
+                             "promptRequired":
+                                {
+                                 "answer":"piano",
+                                 "question":"What is the combination?"
+                                }
                             }
                         }, 
                         {
@@ -788,6 +825,52 @@
                  "width":35.5334,
                  "x":510.856834077389,
                  "y":257.058502577758
+                }, 
+                {
+                 "height":19.2895586652314,
+                 "id":77,
+                 "name":"hint1",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "repeat":true,
+                             "text":"To those who seek to control the light, you must first answer this riddle:\n\nTall when new, short when old, I burn bright where whispers unfold.\n",
+                             "type":"SHOW_TEXT"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":26.3962381734746,
+                 "x":353.333975412158,
+                 "y":201.017506090306
+                }, 
+                {
+                 "height":19.2896,
+                 "id":79,
+                 "name":"hint2",
+                 "properties":[
+                        {
+                         "name":"action",
+                         "propertytype":"Action",
+                         "type":"class",
+                         "value":
+                            {
+                             "repeat":true,
+                             "text":"To those who seek strength, you must first answer this riddle:\n\nWhat has many keys but guards no doors?\n",
+                             "type":"SHOW_TEXT"
+                            }
+                        }],
+                 "rotation":0,
+                 "type":"InteractiveZone",
+                 "visible":true,
+                 "width":26.3962,
+                 "x":515.303514639397,
+                 "y":201.525105387797
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -796,7 +879,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":77,
+ "nextobjectid":80,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -849,13 +932,13 @@
          "margin":0,
          "name":"items",
          "spacing":0,
-         "tilecount":195,
+         "tilecount":0,
          "tileheight":16,
          "tilewidth":16
         }, 
         {
          "columns":4,
-         "firstgid":2520,
+         "firstgid":2325,
          "image":"..\/img\/Treasure Icons\/treasure4.png",
          "imageheight":128,
          "imagewidth":128,
@@ -868,7 +951,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":2536,
+         "firstgid":2341,
          "image":"..\/img\/Treasure Icons\/treasure1.png",
          "imageheight":128,
          "imagewidth":128,
@@ -876,6 +959,19 @@
          "name":"treasure1",
          "spacing":0,
          "tilecount":16,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":24,
+         "firstgid":2357,
+         "image":"..\/img\/tiles.png",
+         "imageheight":512,
+         "imagewidth":768,
+         "margin":0,
+         "name":"creepy-tiles",
+         "spacing":0,
+         "tilecount":384,
          "tileheight":32,
          "tilewidth":32
         }],
