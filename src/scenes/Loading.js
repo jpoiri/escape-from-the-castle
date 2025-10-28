@@ -37,7 +37,7 @@ export default class LoadingScene extends Phaser.Scene {
 		this.load.audio('open-chest-audio', 'assets/sounds/open-chest.wav');
 		this.load.audio('push-audio', 'assets/sounds/sfx-push-boulder.flac');
 		this.load.audio('got-item-audio', 'assets/sounds/Item1A.wav');
-		this.load.audio('explosion-audio', 'assets/sounds/rumble.flac');
+		this.load.audio('explosion-audio', 'assets/sounds/erase.wav');
 		this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 		this.load.on('complete', () => {
 			WebFont.load({
