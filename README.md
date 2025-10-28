@@ -52,8 +52,8 @@ Thank you https://opengameart.org/ for the free artwork and sounds used in this 
 * https://opengameart.org/content/push-stone-boulder-yo-frankie
 * https://opengameart.org/content/rockbreaking
 * https://opengameart.org/content/ui-and-item-sounds-sample-1
-* https://opengameart.org/content/rumbleexplosion
 * https://opengameart.org/content/door-open-door-close-set
+* https://opengameart.org/content/erase-escape
 
 ## AI Usage
 
