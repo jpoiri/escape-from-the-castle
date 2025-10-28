@@ -7,6 +7,8 @@
 
 This is escape room I built for a virtual Halloween party at work using Phaser.js and Tiled
 
+![Escape from castle preview image](image-url "assets/img/preview.png");
+
 Here's the link to the live version:
 
 https://jpoiri.github.io/escape-from-the-castle/
