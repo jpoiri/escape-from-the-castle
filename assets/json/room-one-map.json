@@ -245,7 +245,7 @@
         {
          "name":"screenText",
          "type":"string",
-         "value":"You awaken trapped in a prison cell within what appears to be an abandoned castle. You wonder how you got here. Solve the castle\u2019s riddles before time runs out or be trapped forever within its stone walls."
+         "value":"You awaken trapped in a cell within what appears to be an abandoned castle. You wonder how you got here. Solve the castle\u2019s riddles before time runs out or be trapped forever within its stone walls."
         }],
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

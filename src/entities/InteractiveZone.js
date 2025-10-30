@@ -17,6 +17,7 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	navigateTo = null;
 	navigateToScene = null;
 	constraintMessage = null;
+	constraintTimePenality = null;
 	timePenality = 0;
 	timePenalityMessage = null;
 	audioClipKey;
@@ -49,14 +50,10 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	 * @param {Function} onCompleteCallback The function to call when action is completed.
 	 */
 	executeAction(item, dirtyObjectMap, onCompleteCallback) {
-		let itemUsed = false;
 		let tiles = null;
-		if (!this.canExecute(item, dirtyObjectMap)) {
-			if (this.constraintMessage) {
-				showTextModal(this.scene, this.constraintMessage);
-			}
-		} else {
-			let { type, velocity, newTiles, direction, text, textureKey, repeat, alpha } = this.action;
+
+		if (this.validate(item, dirtyObjectMap)) {
+			let { type, velocity, newTiles, direction, text, textureKey, repeat } = this.action;
 
 			newTiles = newTiles?.split(',').map((s) => {
 				return parseInt(s, 10);
@@ -241,20 +238,24 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	}
 
 	/**
-	 * Check whether the action can be executed
+	 * Validate whether the action can be executed
 	 * @param {Object} item The item use with the zone
 	 * @param {Map} dirtyObjectMap The dirty object map
 	 * @returns {boolean}
 	 */
-	canExecute(item, dirtyObjectMap) {
+	validate(item, dirtyObjectMap) {
 		if (this.constraints) {
 			const { itemRequired, promptRequired, dependsOn } = this.constraints;
 			if (itemRequired && item?.name !== itemRequired) {
+				this.handleInvalid();
 				return false;
 			} else if (promptRequired) {
 				const answer = window.prompt(promptRequired.question);
 				if (answer && answer.toLocaleLowerCase() === promptRequired.answer.toLocaleLowerCase()) {
 					return true;
+				}
+				if (answer) {
+					this.handleInvalid();
 				}
 				return false;
 			} else if (dependsOn) {
@@ -265,11 +266,21 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 					}
 				});
 				if (!valid) {
+					this.handleInvalid();
 					return false;
 				}
 			}
 		}
 		return true;
+	}
+
+	handleInvalid() {
+		if (this.constraintTimePenality) {
+			this.scene.addTimePenality(this.constraintTimePenality);
+		}
+		if (this.constraintMessage) {
+			showTextModal(this.scene, this.constraintMessage);
+		}
 	}
 
 	/**
@@ -398,6 +409,22 @@ export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
 	 */
 	getConstraintMessage() {
 		return this.constraintMessage;
+	}
+
+	/**
+	 * Sets the constraint time penality
+	 * @param {number} constraintTimePenality
+	 */
+	setConstraintTimePenality(constraintTimePenality) {
+		this.constraintTimePenality = constraintTimePenality;
+	}
+
+	/**
+	 * Returns the constraint time penality
+	 * @returns {number}
+	 */
+	getConstraintTimePenality() {
+		return this.constraintTimePenality;
 	}
 
 	/**

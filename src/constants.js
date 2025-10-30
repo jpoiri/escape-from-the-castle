@@ -10,6 +10,7 @@ const CustomProperty = {
 	NAVIGATE_TO: 'navigateTo',
 	NAVIGATE_TO_SCENE: 'navigateToScene',
 	CONSTRAINT_MESSAGE: 'constraintMessage',
+	CONSTRAINT_TIME_PENALITY: 'constraintTimePenality',
 	EVENTS: 'events',
 	SCREEN_TEXT: 'screenText',
 	MODAL_SIZE: 'modalSize',
