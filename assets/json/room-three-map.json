@@ -192,6 +192,16 @@
                          "value":"explosion-audio"
                         }, 
                         {
+                         "name":"constraintMessage",
+                         "type":"string",
+                         "value":"Guessing or brute-forcing your way out of this puzzle has serious consequences. You\u2019ve lost 2 minutes of time!\n"
+                        }, 
+                        {
+                         "name":"constraintTimePenality",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
                          "name":"constraints",
                          "propertytype":"Constraints",
                          "type":"class",
@@ -241,6 +251,16 @@
                          "name":"audioClipKey",
                          "type":"string",
                          "value":"explosion-audio"
+                        }, 
+                        {
+                         "name":"constraintMessage",
+                         "type":"string",
+                         "value":"Guessing or brute-forcing your way out of this puzzle has serious consequences. You\u2019ve lost 2 minutes of time!\n"
+                        }, 
+                        {
+                         "name":"constraintTimePenality",
+                         "type":"int",
+                         "value":2
                         }, 
                         {
                          "name":"constraints",
@@ -425,6 +445,16 @@
                          "value":"explosion-audio"
                         }, 
                         {
+                         "name":"constraintMessage",
+                         "type":"string",
+                         "value":"Guessing or brute-forcing your way out of this puzzle has serious consequences. You\u2019ve lost 2 minutes of time!\n"
+                        }, 
+                        {
+                         "name":"constraintTimePenality",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
                          "name":"constraints",
                          "propertytype":"Constraints",
                          "type":"class",
@@ -475,6 +505,16 @@
                          "name":"audioClipKey",
                          "type":"string",
                          "value":"explosion-audio"
+                        }, 
+                        {
+                         "name":"constraintMessage",
+                         "type":"string",
+                         "value":"Guessing or brute-forcing your way out of this puzzle has serious consequences. You\u2019ve lost 2 minutes of time!\n"
+                        }, 
+                        {
+                         "name":"constraintTimePenality",
+                         "type":"int",
+                         "value":2
                         }, 
                         {
                          "name":"constraints",
@@ -528,6 +568,16 @@
                          "value":"explosion-audio"
                         }, 
                         {
+                         "name":"constraintMessage",
+                         "type":"string",
+                         "value":"Guessing or brute-forcing your way out of this puzzle has serious consequences. You\u2019ve lost 2 minutes of time!\n"
+                        }, 
+                        {
+                         "name":"constraintTimePenality",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
                          "name":"constraints",
                          "propertytype":"Constraints",
                          "type":"class",
@@ -577,6 +627,16 @@
                          "name":"audioClipKey",
                          "type":"string",
                          "value":"explosion-audio"
+                        }, 
+                        {
+                         "name":"constraintMessage",
+                         "type":"string",
+                         "value":"Guessing or brute-forcing your way out of this puzzle has serious consequences. You\u2019ve lost 2 minutes of time!\n"
+                        }, 
+                        {
+                         "name":"constraintTimePenality",
+                         "type":"int",
+                         "value":2
                         }, 
                         {
                          "name":"constraints",

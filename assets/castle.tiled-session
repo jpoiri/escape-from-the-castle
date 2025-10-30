@@ -1,13 +1,13 @@
 {
-    "activeFile": "",
+    "activeFile": "json/room-one-map.json",
     "expandedProjectPaths": [
-        ".",
-        "json"
+        "json",
+        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
-            "scaleInDock": 2
+            "scaleInDock": 1
         },
         "json/creepy-tiles.tsj": {
             "scaleInDock": 1,
@@ -47,8 +47,8 @@
             "scale": 0.9849888392857143,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 593.4077389383037,
-                "y": 405.0807319698601
+                "x": 837.0653220780691,
+                "y": 510.66568466375844
             }
         },
         "json/room-four-map.json#castle-tiles": {
@@ -163,8 +163,8 @@
             "scale": 0.9849888392857143,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 446.1979491246954,
-                "y": 344.1663361849187
+                "x": 823.8672029913319,
+                "y": 524.8790436802446
             }
         },
         "json/room-two-map.json#castle-tiles": {
@@ -192,17 +192,21 @@
     "last.imagePath": "C:/development/projects/escape-from-the-castle/assets/img",
     "map.lastUsedFormat": "json",
     "openFiles": [
+        "json/room-two-map.json",
+        "json/room-one-map.json",
+        "json/room-three-map.json",
+        "json/room-four-map.json"
     ],
     "project": "castle.tiled-project",
     "property.type": "int",
     "recentFiles": [
-        "json/room-three-map.json",
-        "json/room-five-map.json",
-        "json/room-four-map.json",
         "json/room-two-map.json",
+        "json/room-four-map.json",
+        "json/room-three-map.json",
+        "json/room-one-map.json",
+        "json/room-five-map.json",
         "json/room-six-map.json",
         "json/room-seven-map.json",
-        "json/room-one-map.json",
         "json/creepy-tiles.tsj",
         "json/creepy-tiles.tsx"
     ],
