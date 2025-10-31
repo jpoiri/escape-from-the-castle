@@ -24,8 +24,8 @@
             "scale": 1.0040736607142855,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 447.6763185683322,
-                "y": 384.43394653476355
+                "x": 447.67631856833225,
+                "y": 383.9359751014284
             }
         },
         "json/room-five-map.json#castle-tiles": {
@@ -47,8 +47,8 @@
             "scale": 0.9849888392857143,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 837.0653220780691,
-                "y": 510.66568466375844
+                "x": 457.36558835193466,
+                "y": 39.0867372953374
             }
         },
         "json/room-four-map.json#castle-tiles": {
@@ -64,8 +64,8 @@
             "scale": 0.9849888392857143,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 449.2436689139425,
-                "y": 512.6961645232565
+                "x": 449.24366891394254,
+                "y": 418.7864710214718
             }
         },
         "json/room-one-map.json#castle-tiles": {
@@ -137,8 +137,8 @@
             "scale": 0.9849888392857143,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 452.28938870318956,
-                "y": 445.6903291598209
+                "x": 452.2893887031896,
+                "y": 351.7806356580363
             }
         },
         "json/room-three-map.json#castle-tiles": {
@@ -164,7 +164,7 @@
             "selectedLayer": 2,
             "viewCenter": {
                 "x": 823.8672029913319,
-                "y": 524.8790436802446
+                "y": 524.3714237153702
             }
         },
         "json/room-two-map.json#castle-tiles": {
