@@ -150,7 +150,7 @@ export default class GameScene extends Scene {
 		const castleTiles = this.addTileSet(this.tileMap, 'castle-tiles', 'castle-tiles');
 		const creepyTiles = this.addTileSet(this.tileMap, 'creepy-tiles', 'creepy-tiles');
 		const containers = this.addTileSet(this.tileMap, 'containers', 'containers');
-		const { objectsLayer, foregroundLayer } = this.getTileMapLayers(this.tileMap, [creepyTiles, castleTiles, containers]);
+		const { objectsLayer } = this.getTileMapLayers(this.tileMap, [creepyTiles, castleTiles, containers]);
 
 		this.addTileMapObjects(objectsLayer);
 
