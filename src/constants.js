@@ -44,12 +44,6 @@ const Direction = {
 	DOWN: 'DOWN'
 };
 
-const Rotation = {
-	ROTATE_90: '90',
-	ROTATE_180: '180',
-	ROTATE_270: '270'
-};
-
 const ModalSize = {
 	REGULAR: 'REGULAR',
 	LARGE: 'LARGE'

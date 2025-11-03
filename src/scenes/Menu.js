@@ -20,7 +20,7 @@ export default class MenuScene extends Scene {
 	 * Create Phaser.js hook runs only once
 	 */
 	create() {
-		const image = this.add.image(0, 0, LoaderKey.MENU_IMAGE).setOrigin(0).setScale(0.8);
+		this.add.image(0, 0, LoaderKey.MENU_IMAGE).setOrigin(0).setScale(0.8);
 
 		addText(this, 310, 350, 'Escape from the castle', TextSize.LARGE);
 		addText(this, 512, 450, 'Click to start the game').setOrigin(0.5, 0.5);

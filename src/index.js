@@ -23,4 +23,4 @@ const config = {
 	scene: [LoadingScene, SplashScene, GameScene, GameOverScene, WinScene]
 };
 
-const game = new Game(config);
+new Game(config);

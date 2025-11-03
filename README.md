@@ -3,7 +3,7 @@
 
 # Escape from the castle
 
-![Escape from castle preview image](assets/img/preview.png)
+![Escape from castle preview image](public/assets/img/preview.png)
 
 This is an escape room I built for a virtual Halloween party I organized work. It  is built using Phaser.js and Tiled
 

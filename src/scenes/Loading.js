@@ -40,7 +40,7 @@ export default class LoadingScene extends Scene {
 		this.load.audio('explosion-audio', 'assets/sounds/erase.wav');
 		this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 		this.load.on('complete', () => {
-			WebFont.load({
+			window.WebFont.load({
 				google: {
 					families: ['Germania One']
 				},
