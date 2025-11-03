@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import { Scene } from 'phaser';
 import InteractiveZone from '../entities/InteractiveZone';
 import { showTextModal, showItemModal } from '../utils/modal-utils';
 import { assert } from '../utils/assert-utils';
@@ -18,7 +18,7 @@ const NUMBER_OF_MILLISECONDS = 1000;
  * @author Justin Poirier
  * @copyright 2025
  */
-export default class GameScene extends Phaser.Scene {
+export default class GameScene extends Scene {
 	tileMap = null;
 	zones = [];
 	items = [];

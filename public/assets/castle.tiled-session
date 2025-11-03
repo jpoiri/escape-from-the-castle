@@ -1,5 +1,5 @@
 {
-    "activeFile": "json/room-one-map.json",
+    "activeFile": "json/room-six-map.json",
     "expandedProjectPaths": [
         "json",
         "."
@@ -111,8 +111,8 @@
             "scale": 1.0040736607142855,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 526.3558050352916,
-                "y": 398.37714666814884
+                "x": 322.1875173678653,
+                "y": 501.9552048018675
             }
         },
         "json/room-six-map.json#castle-tiles": {
@@ -195,15 +195,17 @@
         "json/room-two-map.json",
         "json/room-one-map.json",
         "json/room-three-map.json",
-        "json/room-four-map.json"
+        "json/room-four-map.json",
+        "json/room-five-map.json",
+        "json/room-six-map.json"
     ],
     "project": "castle.tiled-project",
     "property.type": "int",
     "recentFiles": [
         "json/room-two-map.json",
-        "json/room-four-map.json",
-        "json/room-three-map.json",
         "json/room-one-map.json",
+        "json/room-three-map.json",
+        "json/room-four-map.json",
         "json/room-five-map.json",
         "json/room-six-map.json",
         "json/room-seven-map.json",

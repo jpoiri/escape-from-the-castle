@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import { Scene } from 'phaser';
 import { LoaderKey } from '../constants';
 
 /**
@@ -7,7 +7,7 @@ import { LoaderKey } from '../constants';
  * @copyright 2025
  * @extends Phaser.Scene
  */
-export default class LoadingScene extends Phaser.Scene {
+export default class LoadingScene extends Scene {
 	
 	/**
 	 * Constructor
