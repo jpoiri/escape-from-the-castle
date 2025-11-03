@@ -14,7 +14,6 @@ https://jpoiri.github.io/escape-from-the-castle/
 ## Prerequisites
 
 * [Node.js](https://nodejs.org/en) is installed
-* [Yarn](https://yarnpkg.com/) is installed
 * [GIT](https://git-scm.com/) is installed
 
 ## Installation
@@ -28,7 +27,7 @@ git clone https://github.com/jpoiri/escape-from-the-castle.git
 2. Download the project dependencies by running following command on project root:
 
 ```
-yarn
+npm install
 ```
 
 ## Running game
@@ -36,7 +35,7 @@ yarn
 Run the following command on the project root:
 
 ```
-yarn serve
+npm run dev
 ```
 
 ## Attributions
