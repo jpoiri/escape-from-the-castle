@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import { Game, Scale, AUTO } from 'phaser';
 import GameScene from './scenes/Game';
 import GameOverScene  from './scenes/GameOver';
 import WinScene from './scenes/Win';
@@ -6,10 +6,10 @@ import SplashScene from './scenes/Menu';
 import LoadingScene from './scenes/Loading';
 
 const config = {
-	type: Phaser.AUTO,
+	type: AUTO,
 	scale: {
-		mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
+		mode: Scale.FIT,
+        autoCenter: Scale.CENTER_BOTH,
 		width: 1024,
 		height: 768
 	},
@@ -23,4 +23,4 @@ const config = {
 	scene: [LoadingScene, SplashScene, GameScene, GameOverScene, WinScene]
 };
 
-const game = new Phaser.Game(config);
+const game = new Game(config);

@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import { Scene } from 'phaser';
 import { LoaderKey, TextSize } from '../constants';
 import { addText } from '../utils/text-utils';
 
@@ -8,7 +8,7 @@ import { addText } from '../utils/text-utils';
  * @copyright 20025
  * @extends Phaser.Scene
  */
-export default class GameOverScene extends Phaser.Scene {
+export default class GameOverScene extends Scene {
 	/**
 	 * Constuctor
 	 */

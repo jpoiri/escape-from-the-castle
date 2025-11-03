@@ -1,5 +1,5 @@
-import Phaser from 'phaser';
-import { ActionType, Direction, SpawnType, Rotation } from '../constants';
+import { GameObjects } from 'phaser';
+import { ActionType, Direction, SpawnType } from '../constants';
 import { assert } from '../utils/assert-utils';
 import { getTilesWithinWorldXY, removeTiles, replaceTiles, moveTiles } from '../utils/tilemap-utils';
 import { showImageModal, showTextModal } from '../utils/modal-utils';
@@ -10,7 +10,7 @@ import { showImageModal, showTextModal } from '../utils/modal-utils';
  * @copyright 2025
  * @extends Phaser.GameObjects.Rectangle
  */
-export default class InteractiveZone extends Phaser.GameObjects.Rectangle {
+export default class InteractiveZone extends GameObjects.Rectangle {
 	action = null;
 	constraints = null;
 	spawn = null;
