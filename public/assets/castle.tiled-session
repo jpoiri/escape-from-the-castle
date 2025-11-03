@@ -1,0 +1,221 @@
+{
+    "activeFile": "json/room-six-map.json",
+    "expandedProjectPaths": [
+        "json",
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "json/creepy-tiles.tsj": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "json/creepy-tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "json/room-five-map.json": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 1.0040736607142855,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 447.67631856833225,
+                "y": 383.9359751014284
+            }
+        },
+        "json/room-five-map.json#castle-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-five-map.json#containers": {
+            "scaleInDock": 1
+        },
+        "json/room-five-map.json#creepy-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-five-map.json#treasure1": {
+            "scaleInDock": 1
+        },
+        "json/room-four-map.json": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 0.9849888392857143,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 457.36558835193466,
+                "y": 39.0867372953374
+            }
+        },
+        "json/room-four-map.json#castle-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-four-map.json#creepy-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-one-map.json": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 0.9849888392857143,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 449.24366891394254,
+                "y": 418.7864710214718
+            }
+        },
+        "json/room-one-map.json#castle-tiles": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "json/room-one-map.json#containers": {
+            "scaleInDock": 1
+        },
+        "json/room-one-map.json#creepy-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-one-map.json#items": {
+            "scaleInDock": 2
+        },
+        "json/room-one-map.json#treasure1": {
+            "scaleInDock": 1
+        },
+        "json/room-seven-map.json": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 1.0040736607142855,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 526.3558050352916,
+                "y": 398.37714666814884
+            }
+        },
+        "json/room-seven-map.json#castle-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-seven-map.json#containers": {
+            "scaleInDock": 1
+        },
+        "json/room-seven-map.json#creepy-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-six-map.json": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 1.0040736607142855,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 322.1875173678653,
+                "y": 501.9552048018675
+            }
+        },
+        "json/room-six-map.json#castle-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-six-map.json#container": {
+            "scaleInEditor": 1
+        },
+        "json/room-six-map.json#containers": {
+            "scaleInDock": 1
+        },
+        "json/room-six-map.json#creepy-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-six-map.json#solid_spritesheet": {
+            "scaleInEditor": 1
+        },
+        "json/room-three-map.json": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 0.9849888392857143,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 452.2893887031896,
+                "y": 351.7806356580363
+            }
+        },
+        "json/room-three-map.json#castle-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-three-map.json#containers": {
+            "scaleInDock": 1
+        },
+        "json/room-three-map.json#creepy-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-three-map.json#dungeon-crawl": {
+            "scaleInDock": 1
+        },
+        "json/room-three-map.json#items": {
+            "scaleInDock": 2
+        },
+        "json/room-two-map.json": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 0.9849888392857143,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 823.8672029913319,
+                "y": 524.3714237153702
+            }
+        },
+        "json/room-two-map.json#castle-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-two-map.json#containers": {
+            "scaleInDock": 1
+        },
+        "json/room-two-map.json#creepy-tiles": {
+            "scaleInDock": 1
+        },
+        "json/room-two-map.json#dungeon-crawl": {
+            "scaleInDock": 1
+        },
+        "json/room-two-map.json#items": {
+            "scaleInDock": 2
+        },
+        "json/room-two-map.json#treasure1": {
+            "scaleInDock": 1
+        },
+        "json/room-two-map.json#treasure4": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "C:/development/projects/escape-from-the-castle/assets/img",
+    "map.lastUsedFormat": "json",
+    "openFiles": [
+        "json/room-two-map.json",
+        "json/room-one-map.json",
+        "json/room-three-map.json",
+        "json/room-four-map.json",
+        "json/room-five-map.json",
+        "json/room-six-map.json"
+    ],
+    "project": "castle.tiled-project",
+    "property.type": "int",
+    "recentFiles": [
+        "json/room-two-map.json",
+        "json/room-one-map.json",
+        "json/room-three-map.json",
+        "json/room-four-map.json",
+        "json/room-five-map.json",
+        "json/room-six-map.json",
+        "json/room-seven-map.json",
+        "json/creepy-tiles.tsj",
+        "json/creepy-tiles.tsx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    }
+}
