@@ -274,6 +274,9 @@ export default class InteractiveZone extends GameObjects.Rectangle {
 		return true;
 	}
 
+	/**
+	 * Helper function to handle invalid constraint
+	 */
 	handleInvalid() {
 		if (this.constraintTimePenality) {
 			this.scene.addTimePenality(this.constraintTimePenality);
