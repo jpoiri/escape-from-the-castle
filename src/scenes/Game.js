@@ -1,16 +1,18 @@
 import { Scene } from 'phaser';
 import InteractiveZone from '../entities/InteractiveZone';
+import Light from '../entities/Light';
 import { showTextModal, showItemModal } from '../utils/modal-utils';
 import { assert } from '../utils/assert-utils';
 import { addText } from '../utils/text-utils';
-
-import { CustomProperty, TilemapLayer, EntityType, TextSize } from '../constants';
+import { addAlphaTween } from '../utils/tween-utils';
+import { CustomProperty, TilemapLayer, EntityType, TextSize, LoaderKey } from '../constants';
 
 const TRANSITION_DELAY = 500;
 const NUMBER_OF_MINUTES = 60;
 const NUMBER_OF_SECONDS = 60;
 const NUMBER_OF_HOURS = 24;
 const NUMBER_OF_MILLISECONDS = 1000;
+const GAME_OVER_SCENE = 'gameover';
 
 /**
  * This class holds the code the game scene.
@@ -29,6 +31,7 @@ export default class GameScene extends Scene {
 	selectedRectangle = null;
 	roomName = null;
 	dirtyObjectMap = null;
+	roomLight = null;
 
 	/**
 	 * Constructor
@@ -41,8 +44,8 @@ export default class GameScene extends Scene {
 	 * Create hook that is run once when the scene starts
 	 */
 	create() {
-		this.addRoomOverlay();
-		this.loadRoom('room-one');
+		this.addRoomLight();
+		this.loadRoom(LoaderKey.ROOM_ONE_TILEMAP);
 		this.addHud();
 		this.startTimer(1);
 	}
@@ -50,25 +53,22 @@ export default class GameScene extends Scene {
 	/**
 	 * Add overlay over room to control room light
 	 */
-	addRoomOverlay() {
-		this.roomOverlay = this.add.rectangle(0, 0, this.cameras.main.width, this.cameras.main.height, 0x000000, 0.5);
-		this.roomOverlay.setVisible(false);
-		this.roomOverlay.setOrigin(0);
-		this.roomOverlay.setDepth(1000);
+	addRoomLight() {
+		this.roomLight = new Light(this);
 	}
 
 	/**
 	 * Turn off light
 	 */
 	turnOffLight() {
-		this.roomOverlay.setVisible(true);
+		this.roomLight.turnOff();
 	}
 
 	/**
 	 * Turn on light
 	 */
 	turnOnLight() {
-		this.roomOverlay.setVisible(false);
+		this.roomLight.turnOn();
 	}
 
 	/**
@@ -82,14 +82,7 @@ export default class GameScene extends Scene {
 	 * Update the HUD
 	 */
 	updateHud() {
-		if (this.selectedRectangle && !this.selectedItem) {
-			this.selectedRectangle.destroy();
-		}
-		if (this.itemImages) {
-			for (let i = 0; i < this.itemImages.length; i++) {
-				this.itemImages[i].destroy();
-			}
-		}
+		this.cleanHud();
 		for (let i = 0; i < this.items.length; i++) {
 			const itemImage = this.add.image(950, i * 50 + 80, this.items[i].textureKey, this.items[i].textureFrame);
 			itemImage.setAlpha(0);
@@ -109,15 +102,22 @@ export default class GameScene extends Scene {
 				this.selectedRectangle = this.add.rectangle(itemImage.x, itemImage.y, 50, 50);
 				this.selectedRectangle.setStrokeStyle(3, 0xffffff);
 			});
-			this.tweens.add({
-				targets: itemImage,
-				alpha: 1,
-				ease: 'Linear',
-				duration: 200,
-				repeat: 0,
-				yoyo: false
-			});
+			addAlphaTween(this, itemImage);
 			this.itemImages.push(itemImage);
+		}
+	}
+
+	/**
+	 *  Helper function to cleans hud
+	 */
+	cleanHud() {
+		if (this.selectedRectangle && !this.selectedItem) {
+			this.selectedRectangle.destroy();
+		}
+		if (this.itemImages) {
+			for (let i = 0; i < this.itemImages.length; i++) {
+				this.itemImages[i].destroy();
+			}
 		}
 	}
 
@@ -146,10 +146,9 @@ export default class GameScene extends Scene {
 		this.dirtyObjectMap = new Map();
 		this.cameras.main.fadeIn(TRANSITION_DELAY, 0, 0, 0);
 		this.tileMap = this.createTileMap(roomName);
-
-		const castleTiles = this.addTileSet(this.tileMap, 'castle-tiles', 'castle-tiles');
-		const creepyTiles = this.addTileSet(this.tileMap, 'creepy-tiles', 'creepy-tiles');
-		const containers = this.addTileSet(this.tileMap, 'containers', 'containers');
+		const castleTiles = this.addTileSet(this.tileMap, LoaderKey.CASTLE_TILESET, LoaderKey.CASTLE_TILESET);
+		const creepyTiles = this.addTileSet(this.tileMap, LoaderKey.CREEPY_TILESET, LoaderKey.CREEPY_TILESET);
+		const containers = this.addTileSet(this.tileMap, LoaderKey.CONTAINERS_TILESET, LoaderKey.CONTAINERS_TILESET);
 		const { objectsLayer } = this.getTileMapLayers(this.tileMap, [creepyTiles, castleTiles, containers]);
 
 		this.addTileMapObjects(objectsLayer);
@@ -379,10 +378,10 @@ export default class GameScene extends Scene {
 			cursor: 'grab'
 		});
 		itemImage.on('pointerdown', () => {
-			this.sound.play('got-item-audio', {
+			this.sound.play(LoaderKey.GOT_ITEM_AUDIO, {
 				volume: 0.3
 			});
-			itemImage.destroy(); 
+			itemImage.destroy();
 			if (this.pointerItem) {
 				this.pointerItem.destroy();
 				this.pointerItem = null;
@@ -392,12 +391,7 @@ export default class GameScene extends Scene {
 				this.updateHud();
 			});
 		});
-		this.tweens.add({
-			targets: itemImage,
-			alpha: 1,
-			ease: 'Linear',
-			duration: 200
-		});
+		addAlphaTween(this, itemImage);
 	}
 
 	/**
@@ -420,12 +414,7 @@ export default class GameScene extends Scene {
 			showTextModal(this, npc.description);
 		});
 		this.npcs.push(npcSprite);
-		this.tweens.add({
-			targets: npcSprite,
-			alpha: 1,
-			ease: 'Linear',
-			duration: 200
-		});
+		addAlphaTween(this, npcSprite);
 	}
 
 	/**
@@ -497,7 +486,7 @@ export default class GameScene extends Scene {
 	update() {
 		this.updateTime();
 		if (this.isTimeElapsed) {
-			this.scene.start('gameover');
+			this.scene.start(GAME_OVER_SCENE);
 		}
 		if (this.selectedItem && !this.pointerItem) {
 			const { x, y } = this.input.activePointer;

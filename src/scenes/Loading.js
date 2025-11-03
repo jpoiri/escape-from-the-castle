@@ -7,8 +7,11 @@ import { LoaderKey } from '../constants';
  * @copyright 2025
  * @extends Phaser.Scene
  */
+
+const FRAME_SIZE = 32;
+const MENU_SCENE = 'menu';
+
 export default class LoadingScene extends Scene {
-	
 	/**
 	 * Constructor
 	 */
@@ -20,32 +23,38 @@ export default class LoadingScene extends Scene {
 	 * Preload Phaser hook runs only once
 	 */
 	preload() {
-		this.load.tilemapTiledJSON('room-one', 'assets/json/room-one-map.json');
-		this.load.tilemapTiledJSON('room-two', 'assets/json/room-two-map.json');
-		this.load.tilemapTiledJSON('room-three', 'assets/json/room-three-map.json');
-		this.load.tilemapTiledJSON('room-four', 'assets/json/room-four-map.json');
-		this.load.tilemapTiledJSON('room-five', 'assets/json/room-five-map.json');
-		this.load.tilemapTiledJSON('room-six', 'assets/json/room-six-map.json');
-		this.load.image('castle-tiles', 'assets/img/castle-tiles/Tileset.png');
-		this.load.image('creepy-tiles', 'assets/img/tiles.png');
-		this.load.image('containers', 'assets/img/container/container.png');
+		this.load.tilemapTiledJSON(LoaderKey.ROOM_ONE_TILEMAP, 'assets/json/room-one-map.json');
+		this.load.tilemapTiledJSON(LoaderKey.ROOM_TWO_TILEMAP, 'assets/json/room-two-map.json');
+		this.load.tilemapTiledJSON(LoaderKey.ROOM_THREE_TILEMAP, 'assets/json/room-three-map.json');
+		this.load.tilemapTiledJSON(LoaderKey.ROOM_FOUR_TILEMAP, 'assets/json/room-four-map.json');
+		this.load.tilemapTiledJSON(LoaderKey.ROOM_FIVE_TILEMAP, 'assets/json/room-five-map.json');
+		this.load.tilemapTiledJSON(LoaderKey.ROOM_SIX_TILEMAP, 'assets/json/room-six-map.json');
+		this.load.image(LoaderKey.CASTLE_TILESET, 'assets/img/castle-tiles/Tileset.png');
+		this.load.image(LoaderKey.CREEPY_TILESET, 'assets/img/tiles.png');
+		this.load.image(LoaderKey.CONTAINERS_TILESET, 'assets/img/container/container.png');
 		this.load.image(LoaderKey.MENU_IMAGE, 'assets/img/castle.png');
-		this.load.spritesheet('dungeon-crawl', 'assets/img/dungeon-crawl.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.spritesheet('treasure1', 'assets/img/Treasure Icons/treasure1.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.spritesheet('treasure2', 'assets/img/Treasure Icons/treasure4.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.audio('open-door-audio', 'assets/sounds/qubodup-DoorSet/flac/qubodup-DoorOpen01.flac');
-		this.load.audio('open-chest-audio', 'assets/sounds/open-chest.wav');
-		this.load.audio('push-audio', 'assets/sounds/sfx-push-boulder.flac');
-		this.load.audio('got-item-audio', 'assets/sounds/Item1A.wav');
-		this.load.audio('explosion-audio', 'assets/sounds/erase.wav');
-		this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+		this.load.spritesheet(LoaderKey.NPC_SPRITESHEET, 'assets/img/dungeon-crawl.png', { frameWidth: FRAME_SIZE, frameHeight: FRAME_SIZE });
+		this.load.spritesheet(LoaderKey.ITEMS_SPRITESHEET_1, 'assets/img/Treasure Icons/treasure1.png', {
+			frameWidth: FRAME_SIZE,
+			frameHeight: FRAME_SIZE
+		});
+		this.load.spritesheet(LoaderKey.ITEMS_SPRITESHEET_2, 'assets/img/Treasure Icons/treasure4.png', {
+			frameWidth: FRAME_SIZE,
+			frameHeight: FRAME_SIZE
+		});
+		this.load.audio(LoaderKey.OPEN_DOOR_AUDIO, 'assets/sounds/qubodup-DoorSet/flac/qubodup-DoorOpen01.flac');
+		this.load.audio(LoaderKey.OPEN_CHEST_AUDIO, 'assets/sounds/open-chest.wav');
+		this.load.audio(LoaderKey.PUSH_AUDIO, 'assets/sounds/sfx-push-boulder.flac');
+		this.load.audio(LoaderKey.GOT_ITEM_AUDIO, 'assets/sounds/Item1A.wav');
+		this.load.audio(LoaderKey.EXPLOSION_AUDIO, 'assets/sounds/erase.wav');
+		this.load.script(LoaderKey.WEB_FONT, 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 		this.load.on('complete', () => {
 			window.WebFont.load({
 				google: {
 					families: ['Germania One']
 				},
 				active: () => {
-					this.scene.start('menu');
+					this.scene.start(MENU_SCENE);
 				}
 			});
 		});

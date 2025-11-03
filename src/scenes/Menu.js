@@ -8,6 +8,8 @@ import { addText } from '../utils/text-utils';
  * @copyright 2025
  * @extends Phaser.Scene
  */
+const GAME_SCENE = 'game';
+
 export default class MenuScene extends Scene {
 	/**
 	 * Constructor
@@ -31,7 +33,7 @@ export default class MenuScene extends Scene {
 	 */
 	update() {
 		if (this.input.manager.activePointer.isDown) {
-			this.scene.start('game');
+			this.scene.start(GAME_SCENE);
 		}
 	}
 }

@@ -70,89 +70,42 @@ const EntityType = {
 };
 
 const LoaderKey = {
-	TILEMAP: 'tilemap',
-	TILESET: 'tiles',
-	ITEMS: 'items',
-	UI: 'ui',
-	CHEST: 'chest',
-	DOOR: 'door',
-	SAFE: 'safe',
+	ROOM_ONE_TILEMAP: 'room-one',
+	ROOM_TWO_TILEMAP: 'room-two',
+	ROOM_THREE_TILEMAP: 'room-three',
+	ROOM_FOUR_TILEMAP: 'room-four',
+	ROOM_FIVE_TILEMAP: 'room-five',
+	ROOM_SIX_TILEMAP: 'room-six',
+	CASTLE_TILESET: 'castle-tiles',
+	CREEPY_TILESET: 'creepy-tiles',
+	CONTAINERS_TILESET: 'containers',
+	NPC_SPRITESHEET: 'dungeon-crawl',
+	ITEMS_SPRITESHEET_1: 'treasure1',
+	ITEMS_SPRITESHEET_2: 'treasure2',
+	OPEN_DOOR_AUDIO: 'open-door-audio',
+	OPEN_CHEST_AUDIO: 'open-chest-audio',
+	PUSH_AUDIO: 'push-audio',
+	GOT_ITEM_AUDIO: 'got-item-audio',
+	EXPLOSION_AUDIO: 'explosion-audio',
+	WEB_FONT: 'webfont',
 	MENU_IMAGE: 'menu-image'
-};
-
-const Tile = {
-	SIGN: 144,
-	CLOSE_WINDOW: 258,
-	OPEN_WINDOW: 235,
-	COFFIN: [71, 95],
-	DESTROYED_KNIGHT: 96,
-	TOP_CHAIR: 312,
-	MIDDLE_CHAIR: 336,
-	BOTTOM_CHAIR: 360,
-	HOLE_IN_WALL: 249,
-	TOP_LEFT_GARGOYLE: 232,
-	TOP_RIGHT_GARGOYLE: 233,
-	BOTTOM_LEFT_GARGOYLE: 256,
-	BOTTOM_RIGHT_GARGOYLE: 257,
-	TOP_LEFT_WATER: 10,
-	TOP_CENTER_WATER: 11,
-	TOP_RIGHT_WATER: 12,
-	MIDDLE_LEFT_WATER: 34,
-	MIDDLE_CENTER_WATER: 35,
-	MIDDLE_RIGHT_WATER: 36,
-	BOTTOM_LEFT_WATER: 58,
-	BOTTOM_CENTER_WATER: 59,
-	BOTTOM_RIGHT_WATER: 60,
-	DIGGED_HOLE: 316,
-	STAIR: 124
-};
-
-const Item = {
-	BOOK: 'book',
-	HAMMER: 'hammer',
-	PICKAXE: 'pickaxe',
-	KEY: 'key',
-	MASTER_KEY: 'master-key',
-	ICE_ROD: 'ice-rod',
-	POTION: 'potion',
-	SHOVEL: 'shovel',
-	RING: 'ring'
-};
-
-const Animation = {
-	DOOR_OPEN: 'door-open',
-	SAFE_OPEN: 'safe-open',
-	CHEST_OPEN: 'chest-open'
-};
-
-const Frame = {
-	MASTER_KEY: 51,
-	PICKAXE: 83,
-	POTION: 61,
-	KEY: 50,
-	RING: 13
 };
 
 Object.freeze(TilemapLayer);
 Object.freeze(CustomProperty);
 Object.freeze(LoaderKey);
 Object.freeze(EntityType);
-Object.freeze(Tile);
-Object.freeze(Item);
-Object.freeze(Animation);
-Object.freeze(Frame);
-Object.freeze(Direction);
 Object.freeze(ActionType);
+Object.freeze(Direction);
+Object.freeze(SpawnType);
+Object.freeze(ModalSize);
+Object.freeze(TextSize);
 
 export {
 	TilemapLayer,
 	CustomProperty,
 	LoaderKey,
 	EntityType,
-	Tile,
-	Item,
-	Animation,
-	Frame,
 	ActionType,
 	Direction,
 	SpawnType,
